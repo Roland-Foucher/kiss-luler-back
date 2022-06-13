@@ -1,9 +1,11 @@
 # KissLulerBack
 
-## Analsye des besoins
+## Analyse des besoins
 
 **QUOI ?**
   * obligatoire : 
+  
+    *User* 
     * créer un compte
     * se connecter
     * modifier son compte
@@ -11,9 +13,17 @@
     * consulter un projet
     * Consulter ses projets
     * Investir dans un projet
-    * Indiquer un montatn minimal de don
+    * Indiquer un montant minimal de dons
     * Définir des contreparties
-    * Recevoir des contreparties
+    * Recevoir des contreparties <br/><br/>
+
+    *Admin*
+    * modérer les projets
+    * Bloquer un user
+    * Supprimer un projet
+    * Mettre un projet en attente
+
+    <br/>
 
   * facultative :
     * Trier les projets par catégories
@@ -30,10 +40,10 @@
 
 **COMMENT ?**
   * context final : application web.
-  * techno : spring java mysql react typescript.
+  * techno : spring java mysql React/Typescript.
   * délai : 4 semaines effectives.
 
 **USAGE ?**
   * usage déstiner au grand public, sensible à la musique.
-  * usage destiné au professionnel administrateur du site.
+  * usage destiné aux professionnels administrateurs du site.
 
