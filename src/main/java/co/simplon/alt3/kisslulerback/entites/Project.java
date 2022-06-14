@@ -3,7 +3,6 @@ package co.simplon.alt3.kisslulerback.entites;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.print.DocFlavor.STRING;
 import co.simplon.alt3.kisslulerback.enums.Category;
 import co.simplon.alt3.kisslulerback.enums.Status;
 
@@ -25,12 +23,12 @@ public class Project {
     private int id;
 
     @Column(nullable = false)
-    private STRING name;
+    private String name;
 
-    private STRING photo;
+    private String photo;
 
     @Column(columnDefinition = "TINYTEXT")
-    private STRING description;
+    private String description;
 
     @Column(nullable = false)
     private LocalDate dateInit;
@@ -58,7 +56,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(int id, STRING name, STRING photo, STRING description, LocalDate dateInit, LocalDate dateEnd) {
+    public Project(int id, String name, String photo, String description, LocalDate dateInit, LocalDate dateEnd) {
         this.id = id;
         this.name = name;
         this.photo = photo;
@@ -75,27 +73,27 @@ public class Project {
         this.id = id;
     }
 
-    public STRING getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(STRING name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public STRING getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(STRING photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
-    public STRING getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(STRING description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -146,4 +144,4 @@ public class Project {
     public List<Consideration> getConsiderations() {
         return considerations;
     }
-}
+};
