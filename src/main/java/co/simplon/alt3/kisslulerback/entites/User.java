@@ -11,7 +11,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+<<<<<<< HEAD
 import javax.persistence.ManyToOne;
+=======
+>>>>>>> d61d5ea288774ab6769fa1b1c1d31fef0d5a160e
 import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
