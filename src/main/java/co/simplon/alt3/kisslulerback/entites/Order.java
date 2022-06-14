@@ -26,6 +26,9 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
     private User user;
+
+    @ManyToOne @JoinColumn(name="projectId", nullable=false)
+    private Project project;
     
     public Order(int orderId, Double amount, LocalDate date, User user) {
         this.orderId = orderId;
