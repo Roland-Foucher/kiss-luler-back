@@ -29,6 +29,11 @@ public class Order {
 
     @ManyToOne @JoinColumn(name="projectId", nullable=false)
     private Project project;
+
+
+    public Order(){
+        
+    }
     
     public Order(int orderId, Double amount, LocalDate date, User user) {
         this.orderId = orderId;
