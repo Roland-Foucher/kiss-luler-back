@@ -3,6 +3,8 @@ package co.simplon.alt3.kisslulerback.entites;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,24 +24,25 @@ public class Project {
     @GeneratedValue
     private int id;
 
-    @Column(columnDefinition = "TINYTEXT(15)")
+    @Column(nullable = false)
     private STRING name;
 
-    @Column()
     private STRING photo;
 
-    @Column()
+    @Column(columnDefinition = "TINYTEXT")
     private STRING description;
 
-    @Column()
+    @Column(nullable = false)
     private LocalDate dateInit;
 
-    @Column()
+    @Column(nullable = false)
     private LocalDate dateEnd;
 
+    @Column(columnDefinition = "ENUM('INPROGRESS', 'CONCEPTION' , 'BLACKLISTED', 'PAUSED')", nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column(columnDefinition = "ENUM('TOURDATE','EP','CD','EVENT','INSTRUMENT','COMMUNICATION')", nullable = false)
     @Enumerated(EnumType.STRING)
     private Category category;
 
@@ -49,7 +52,7 @@ public class Project {
     @OneToMany(mappedBy = "order")
     private List<Order> orders = new ArrayList<>();
 
-    @OneToMany(mappedBy = "consideration")
+    @OneToMany(mappedBy = "consideration", cascade = CascadeType.REMOVE)
     private List<Consideration> considerations = new ArrayList<>();
 
     public Project() {
@@ -62,21 +65,6 @@ public class Project {
         this.description = description;
         this.dateInit = dateInit;
         this.dateEnd = dateEnd;
-    }
-
-    public Project(int id, STRING name, STRING photo, STRING description, LocalDate dateInit, LocalDate dateEnd,
-            Status status, Category category, User user, List<Order> orders, List<Consideration> considerations) {
-        this.id = id;
-        this.name = name;
-        this.photo = photo;
-        this.description = description;
-        this.dateInit = dateInit;
-        this.dateEnd = dateEnd;
-        this.status = status;
-        this.category = category;
-        this.user = user;
-        this.orders = orders;
-        this.considerations = considerations;
     }
 
     public int getId() {
