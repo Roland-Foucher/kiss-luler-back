@@ -49,10 +49,10 @@ public class Project {
     @ManyToOne
     private User user;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "project")
     private List<Order> orders = new ArrayList<>();
 
-    @OneToMany(mappedBy = "consideration", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
     private List<Consideration> considerations = new ArrayList<>();
 
     public Project() {
