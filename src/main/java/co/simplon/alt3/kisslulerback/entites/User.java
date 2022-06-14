@@ -1,5 +1,9 @@
 package co.simplon.alt3.kisslulerback.entites;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,27 +11,42 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import co.simplon.alt3.kisslulerback.enums.Role;
 
 @Entity
-public class User {
+public class User implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Integer userId;
 
-  @Column(columnDefinition = "TINYTEXT")
+  @Column(nullable = false)
   private String firstName;
 
-  @Column(columnDefinition = "TINYTEXT")
+  @Column(nullable = false)
   private String lastName;
 
+  @Column(nullable = false)
   private String email;
+
+  @Column(nullable = false)
+  private String password;
 
   @Enumerated(EnumType.STRING)
   @Column(columnDefinition = "ENUM('ADMIN', 'USER', 'BLACKLISTED')", nullable = false)
   private Role role;
+
+  @OneToMany(mappedBy = "user")
+  List<Order> orders = new ArrayList<>();
+
+  @OneToMany(mappedBy = "user")
+  List<Project> projects = new ArrayList<>();
 
   /////////// CONSTUCTEURS //////////////
 
@@ -38,8 +57,8 @@ public class User {
     this.role = role;
   }
 
-  public User(Integer id, String firstName, String lastName, String email, Role role) {
-    this.id = id;
+  public User(Integer userId, String firstName, String lastName, String email, Role role) {
+    this.userId = userId;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
@@ -50,10 +69,6 @@ public class User {
   }
 
   /////////// GETTER //////////////
-
-  public Integer getId() {
-    return id;
-  }
 
   public String getFirstName() {
     return firstName;
@@ -71,11 +86,23 @@ public class User {
     return role;
   }
 
-  /////////// SETTER //////////////
-
-  public void setId(Integer id) {
-    this.id = id;
+  public Integer getUserId() {
+    return userId;
   }
+
+  public List<Order> getOrders() {
+    return orders;
+  }
+
+  public List<Project> getProjects() {
+    return projects;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  /////////// SETTER //////////////
 
   public void setFirstName(String firstName) {
     this.firstName = firstName;
@@ -93,4 +120,43 @@ public class User {
     this.role = role;
   }
 
+  public void setUserId(Integer userId) {
+    this.userId = userId;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  /////////// SECURITY //////////////
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return List.of(new SimpleGrantedAuthority(this.role.name()));
+  }
+
+  @Override
+  public String getUsername() {
+    return this.getEmail();
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
 }
