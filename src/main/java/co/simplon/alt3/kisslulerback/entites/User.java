@@ -11,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -43,10 +44,10 @@ public class User implements UserDetails {
   private Role role;
 
   @OneToMany(mappedBy = "user")
-  List<Order> orders = new ArrayList<>();
+  private List<Order> orders = new ArrayList<>();
 
   @OneToMany(mappedBy = "user")
-  List<Project> projects = new ArrayList<>();
+  private List<Project> projects = new ArrayList<>();
 
   /////////// CONSTUCTEURS //////////////
 
