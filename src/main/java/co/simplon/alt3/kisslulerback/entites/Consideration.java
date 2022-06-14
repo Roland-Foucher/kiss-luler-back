@@ -22,7 +22,7 @@ public class Consideration {
     @Column(nullable = false)
     private String title;
 
-    @Column
+    @Column(columnDefinition = "TINYTEXT")
     private String description;
 
     @Column
