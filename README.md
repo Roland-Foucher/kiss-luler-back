@@ -3,7 +3,8 @@
 ## Analyse des besoins
 
 **QUOI ?**
-  * obligatoire : 
+
+* obligatoire :
   
     *User* 
     * créer un compte
@@ -39,11 +40,13 @@
     * user connecté
 
 **COMMENT ?**
-  * context final : application web.
+
+* context final : application web.
   * techno : spring java mysql React/Typescript.
   * délai : 4 semaines effectives.
 
 **USAGE ?**
-  * usage déstiner au grand public, sensible à la musique.
+
+* usage déstiner au grand public, sensible à la musique.
   * usage destiné aux professionnels administrateurs du site.
 
