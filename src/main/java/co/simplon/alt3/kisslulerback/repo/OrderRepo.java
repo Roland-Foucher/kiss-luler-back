@@ -1,8 +1,8 @@
 package co.simplon.alt3.kisslulerback.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import co.simplon.alt3.kisslulerback.entites.Order;
+import co.simplon.alt3.kisslulerback.entites.UserOrder;
 
-public interface OrderRepo extends JpaRepository <Order, Integer> {
+public interface OrderRepo extends JpaRepository <UserOrder, Integer> {
     
 }

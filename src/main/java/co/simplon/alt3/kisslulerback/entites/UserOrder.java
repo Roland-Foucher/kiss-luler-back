@@ -6,11 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Order {
+public class UserOrder {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +27,10 @@ public class Order {
   @ManyToOne
   private Project project;
 
-  public Order() {
+  public UserOrder() {
   }
 
-  public Order(Integer id, Double amount, LocalDate date, User user) {
+  public UserOrder(Integer id, Double amount, LocalDate date, User user) {
     this.id = id;
     this.amount = amount;
     this.date = date;
