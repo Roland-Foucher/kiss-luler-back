@@ -10,87 +10,85 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Consideration {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private int considerationId;
 
-    @Column(nullable = false)
-    private int considAmount;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @Column(nullable = false)
-    private String title;
+  @Column(columnDefinition = "INT unsigned", nullable = false)
+  private int considAmount;
 
-    @Column(columnDefinition = "TINYTEXT")
-    private String description;
+  @Column(nullable = false)
+  private String title;
 
-    @Column
-    private String photo;
+  @Column(columnDefinition = "TINYTEXT")
+  private String description;
 
-    @ManyToOne @JoinColumn(name="projectId", nullable=false)
-    private Project project;
+  private String photo;
 
-    public Consideration(){
-        
-    }
+  @ManyToOne
+  private Project project;
 
-    public Consideration(int considerationId, int considAmount, String title, String description,
-            String photo, Project project) {
-        this.considerationId = considerationId;
-        this.considAmount = considAmount;
-        this.title = title;
-        this.description = description;
-        this.photo = photo;
-        this.project = project;
-    }
+  public Consideration() {
 
-    public int getConsiderationId() {
-        return considerationId;
-    }
+  }
 
-    public void setConsiderationId(int considerationId) {
-        this.considerationId = considerationId;
-    }
+  public Consideration(Integer id, int considAmount, String title, String description,
+      String photo, Project project) {
+    this.id = id;
+    this.considAmount = considAmount;
+    this.title = title;
+    this.description = description;
+    this.photo = photo;
+    this.project = project;
+  }
 
-    public int getConsidAmount() {
-        return considAmount;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public void setConsidAmount(int considAmount) {
-        this.considAmount = considAmount;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public String getTitle() {
-        return title;
-    }
+  public int getConsidAmount() {
+    return considAmount;
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public void setConsidAmount(int considAmount) {
+    this.considAmount = considAmount;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public String getPhoto() {
-        return photo;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public Project getProject() {
-        return project;
-    }
+  public String getPhoto() {
+    return photo;
+  }
 
-    public void setProject(Project project) {
-        this.project = project;
-    }
+  public void setPhoto(String photo) {
+    this.photo = photo;
+  }
+
+  public Project getProject() {
+    return project;
+  }
+
+  public void setProject(Project project) {
+    this.project = project;
+  }
 
 }

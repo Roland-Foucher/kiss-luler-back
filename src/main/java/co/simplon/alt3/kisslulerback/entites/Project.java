@@ -20,7 +20,7 @@ public class Project {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     private String name;
@@ -56,7 +56,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(int id, String name, String photo, String description, LocalDate dateInit, LocalDate dateEnd) {
+    public Project(Integer id, String name, String photo, String description, LocalDate dateInit, LocalDate dateEnd) {
         this.id = id;
         this.name = name;
         this.photo = photo;
@@ -65,11 +65,11 @@ public class Project {
         this.dateEnd = dateEnd;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

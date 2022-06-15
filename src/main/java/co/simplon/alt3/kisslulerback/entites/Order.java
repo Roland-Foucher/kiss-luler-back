@@ -12,69 +12,62 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Order {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private int orderId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @Column
-    private Double amount;
+  @Column(columnDefinition = "DOUBLE unsigned", nullable = false)
+  private Double amount;
 
-    @Column
-    private LocalDate date;
+  @Column(nullable = false)
+  private LocalDate date;
 
-    @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private User user;
+  @ManyToOne
+  private User user;
 
-    @ManyToOne @JoinColumn(name="projectId", nullable=false)
-    private Project project;
+  @ManyToOne
+  private Project project;
 
+  public Order() {
+  }
 
-    public Order(){
-        
-    }
-    
-    public Order(int orderId, Double amount, LocalDate date, User user) {
-        this.orderId = orderId;
-        this.amount = amount;
-        this.date = date;
-        this.user = user;
-    }
+  public Order(Integer id, Double amount, LocalDate date, User user) {
+    this.id = id;
+    this.amount = amount;
+    this.date = date;
+    this.user = user;
+  }
 
-    public int getOrderId() {
-        return orderId;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public Double getAmount() {
-        return amount;
-    }
+  public Double getAmount() {
+    return amount;
+  }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
+  public void setAmount(Double amount) {
+    this.amount = amount;
+  }
 
-    public LocalDate getDate() {
-        return date;
-    }
+  public LocalDate getDate() {
+    return date;
+  }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
+  public void setDate(LocalDate date) {
+    this.date = date;
+  }
 
-    public User getUser() {
-        return user;
-    }
+  public User getUser() {
+    return user;
+  }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-   
-
+  public void setUser(User user) {
+    this.user = user;
+  }
 
 }

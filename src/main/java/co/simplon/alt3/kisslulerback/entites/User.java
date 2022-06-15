@@ -27,7 +27,7 @@ public class User implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer userId;
+  private Integer id;
 
   @Column(nullable = false)
   private String firstName;
@@ -60,8 +60,8 @@ public class User implements UserDetails {
     this.role = role;
   }
 
-  public User(Integer userId, String firstName, String lastName, String email, Role role) {
-    this.userId = userId;
+  public User(Integer id, String firstName, String lastName, String email, Role role) {
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
@@ -90,7 +90,7 @@ public class User implements UserDetails {
   }
 
   public Integer getUserId() {
-    return userId;
+    return id;
   }
 
   public List<Order> getOrders() {
@@ -123,8 +123,8 @@ public class User implements UserDetails {
     this.role = role;
   }
 
-  public void setUserId(Integer userId) {
-    this.userId = userId;
+  public void setUserId(Integer id) {
+    this.id = id;
   }
 
   public void setPassword(String password) {
