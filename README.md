@@ -1,5 +1,15 @@
 # KissLulerBack
 
+## Objectif scrum 1 (semaine 13/06 - 17/06)
+
+* Définir les besoins
+* Faire un Use Case
+* Faire un diagramme d'entité
+* Développer les entités et les repository JPA
+* Pouvoir afficher une liste de Projet sur la page principale
+* Pouvoir connecter un utilisateur
+* Pouvoir afficher les projets de l'utilisateur sur sa page
+
 ## Analyse des besoins
 
 **QUOI ?**
