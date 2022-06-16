@@ -68,9 +68,6 @@ public class ProjectServiceTest {
         assertEquals(3, fetchAllProject.size());
         assertEquals("J - 6", fetchAllProject.get(0).getDate());
     
-
-
-
         // getDate 6 jours de la premiere et deuxieme
     }
 }
