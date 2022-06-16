@@ -40,11 +40,12 @@ public class JwtFilter extends OncePerRequestFilter {
     String token = null;
 
     if (request.getServletPath().equals("/login") || request.getServletPath().equals("/refreshToken")) {
-      
+      // si on est sur login = pas de check du token
       filterChain.doFilter(request, response);
 
     } else {
 
+      // check token 
       String authorizationHeader = request.getHeader("Authorization");
       
       if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
@@ -53,6 +54,7 @@ public class JwtFilter extends OncePerRequestFilter {
           UsernamePasswordAuthenticationToken authenticationToken = parseToken(token);
           SecurityContextHolder.getContext().setAuthentication(authenticationToken);
           filterChain.doFilter(request, response);
+          
         } catch (Exception e) {
 
           response.setStatus(403);

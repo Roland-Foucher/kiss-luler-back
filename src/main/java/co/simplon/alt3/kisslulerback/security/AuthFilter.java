@@ -2,11 +2,8 @@ package co.simplon.alt3.kisslulerback.security;
 
 import java.io.IOException;
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -20,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
@@ -43,8 +41,16 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
   public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
       throws AuthenticationException {
 
-    String username = request.getParameter("username");
-    String password = request.getParameter("password");
+    String username;
+    String password;
+
+    try {
+      Map<String, String> requestMap = new ObjectMapper().readValue(request.getInputStream(), Map.class);
+      username = requestMap.get("username");
+      password = requestMap.get("password");
+    } catch (IOException e) {
+      throw new AuthenticationServiceException(e.getMessage(), e);
+    }
 
     if (username == null || password == null) {
       throw new AuthenticationServiceException("username or password are null - can't auth");
@@ -56,31 +62,31 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 
   @Override
   protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-          Authentication authResult) throws IOException, ServletException {
+      Authentication authResult) throws IOException, ServletException {
 
-      try {
-          User user = (User) authResult.getPrincipal();
-          JWTClaimsSet claims = new JWTClaimsSet.Builder()
-                  .subject(user.getEmail())
-                  .issuer(request.getRequestURL().toString())
-                  .claim("role", user.getRole())
-                  .expirationTime(Date.from(Instant.now().plusSeconds(1 * 3600)))
-                  .issueTime(new Date())
-                  .build();
+    try {
+      User user = (User) authResult.getPrincipal();
+      JWTClaimsSet claims = new JWTClaimsSet.Builder()
+          .subject(user.getEmail())
+          .issuer(request.getRequestURL().toString())
+          .claim("role", user.getRole())
+          .expirationTime(Date.from(Instant.now().plusSeconds(1 * 3600)))
+          .issueTime(new Date())
+          .build();
 
-          Payload payload = new Payload(claims.toJSONObject());
+      Payload payload = new Payload(claims.toJSONObject());
 
-          JWSObject jwsObject = new JWSObject(new JWSHeader(JWSAlgorithm.HS256),
-                  payload);
+      JWSObject jwsObject = new JWSObject(new JWSHeader(JWSAlgorithm.HS256),
+          payload);
 
-          jwsObject.sign(new MACSigner(jwtSecret));
-          
-          response.addHeader("access_token", jwsObject.serialize());
-      } catch (KeyLengthException e) {
-          e.printStackTrace();
-      } catch (JOSEException e) {
-          e.printStackTrace();
-      }
+      jwsObject.sign(new MACSigner(jwtSecret));
+
+      response.addHeader("access_token", jwsObject.serialize());
+    } catch (KeyLengthException e) {
+      e.printStackTrace();
+    } catch (JOSEException e) {
+      e.printStackTrace();
+    }
   }
 
 }
