@@ -1,6 +1,8 @@
 package co.simplon.alt3.kisslulerback.services;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,9 +43,12 @@ public class ProjectService {
         // renvoyer cette liste vers le front
     }
 
-    public List<ProjectDTO> FetchAllPRoject() {
+    public List<ProjectDTO> FetchAllProject() {
 
-        return null;
+        return projectRepo.findAll() // on recupère tous les projets de la bdd
+            .stream() // on stream la list
+            .map(this::convertProjectDTO) // on passe tous les elements de la liste dans la methode convertProjectDTO <=> el -> this.convertPojectDTO(el)
+            .collect(Collectors.toList()); // on collect tous les éléement modifiés pour en refaire une list
 
     }
 
