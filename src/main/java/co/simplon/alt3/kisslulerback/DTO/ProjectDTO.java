@@ -13,7 +13,7 @@ public class ProjectDTO {
     private String photo;
     private Category category;
     private Double considerations;
-    private String date;//date end - date start
+    private String date; //date end - date start
 
     public int getId() {
         return id;
