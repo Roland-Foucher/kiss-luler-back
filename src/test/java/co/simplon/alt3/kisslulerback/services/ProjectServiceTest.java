@@ -1,15 +1,20 @@
 package co.simplon.alt3.kisslulerback.services;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.util.Assert;
 
 import co.simplon.alt3.kisslulerback.DTO.ProjectDTO;
 import co.simplon.alt3.kisslulerback.entites.Project;
@@ -41,6 +46,26 @@ public class ProjectServiceTest {
         ProjectDTO projectDTO = new ProjectDTO();
         projectDTO.setDate(LocalDate.of(2022, 06, 25));
         assertEquals("J - 9", projectDTO.getDate());
+
+    }
+
+    @Test
+    void FetchAllProject(){
+
+        Project p1 = new Project(1, "name", "photo", "description", LocalDate.now(), LocalDate.now().plusDays(6));
+
+        Project p2 = new Project(2, "name", "photo", "description", LocalDate.now(), LocalDate.now().plusDays(10));
+
+        Project p3 = new Project(3, "name", "photo", "description", LocalDate.now(), LocalDate.now().plusDays(9));
+
+        List<Project> lambda = new ArrayList<>(List.of(p1, p2, p3));
+        when(projectRepo.findAll())
+        .thenReturn(lambda);
+
+
+        assertEquals(lambda, projectRepo.findAll());
+
+        // ,getDate 6 jours de la premiere et deuxieme
 
     }
 }
