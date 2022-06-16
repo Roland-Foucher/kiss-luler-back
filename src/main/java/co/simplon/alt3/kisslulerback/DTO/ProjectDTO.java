@@ -1,20 +1,19 @@
 package co.simplon.alt3.kisslulerback.DTO;
 
 import java.time.LocalDate;
-import co.simplon.alt3.kisslulerback.entites.Consideration;
-import co.simplon.alt3.kisslulerback.entites.User;
+import java.time.Period;
+
 import co.simplon.alt3.kisslulerback.enums.Category;
 
-public class ProjectsDTO {
-
-
+public class ProjectDTO {
+    
     private int id;
     private String title;
     private String userName;
     private String photo;
     private Category category;
-    private int considerations;
-    private String date;
+    private Double considerations;
+    private String date; //date end - date start
 
     public int getId() {
         return id;
@@ -56,11 +55,11 @@ public class ProjectsDTO {
         this.category = category;
     }
 
-    public int getConsiderations() {
+    public Double getConsiderations() {
         return considerations;
     }
 
-    public void setConsiderations(int considerations) {
+    public void setConsiderations(Double considerations) {
         this.considerations = considerations;
     }
 
@@ -68,16 +67,11 @@ public class ProjectsDTO {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDate(LocalDate date) {
+
+        this.date =  "J - " + Period.between(LocalDate.now(), date).getDays();
+
+       
+
     }
-
-    // considerationsMax
-
-
-
-    ;
-
-
-
 }
