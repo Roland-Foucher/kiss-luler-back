@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import co.simplon.alt3.kisslulerback.DTO.ProjectsDTO;
 import co.simplon.alt3.kisslulerback.entites.Project;
 import co.simplon.alt3.kisslulerback.entites.UserOrder;
 import co.simplon.alt3.kisslulerback.repo.ProjectRepo;
@@ -33,5 +34,13 @@ public class ProjectServiceTest {
 
         assertEquals(6000.0, projectService.CalculateAllContribution(project));
     }
+    
+    @Test
+    void FetchPeriodeProject(){
 
+        ProjectsDTO projectDTO = new ProjectsDTO();
+        projectDTO.setDate(LocalDate.of(2022, 06, 25));
+        assertEquals("J - 9", projectDTO.getDate());
+
+    }
 }
