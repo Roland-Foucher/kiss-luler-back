@@ -58,14 +58,11 @@ public class ProjectServiceTest {
 
         Project p3 = new Project(3, "name", "photo", "description", LocalDate.now(), LocalDate.now().plusDays(9));
 
-        List<Project> lambda = new ArrayList<>(List.of(p1, p2, p3));
+        List<Project> result = new ArrayList<>(List.of(p1, p2, p3));
         when(projectRepo.findAll())
-        .thenReturn(lambda);
+        .thenReturn(result);
+        assertEquals(result, projectRepo.findAll());
 
-
-        assertEquals(lambda, projectRepo.findAll());
-
-        // ,getDate 6 jours de la premiere et deuxieme
-
+        // getDate 6 jours de la premiere et deuxieme
     }
 }
