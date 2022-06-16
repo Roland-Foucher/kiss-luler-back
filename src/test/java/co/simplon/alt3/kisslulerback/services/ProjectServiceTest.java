@@ -1,7 +1,6 @@
 package co.simplon.alt3.kisslulerback.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.List;
