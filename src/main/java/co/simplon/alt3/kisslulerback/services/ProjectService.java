@@ -1,5 +1,7 @@
 package co.simplon.alt3.kisslulerback.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +16,15 @@ public class ProjectService {
     @Autowired
     ProjectRepo projectRepo;
 
-    protected double CalculateAllContribution(Project project ) {
+    protected double CalculateAllContribution(Project project) {
 
         return project.getOrders()
-            .stream()
-            .mapToDouble(UserOrder::getAmount)
-            .sum(); // .map(el -> el.getAmount())
+                .stream()
+                .mapToDouble(UserOrder::getAmount)
+                .sum(); // .map(el -> el.getAmount())
     }
 
-    public ProjectDTO convertProjectDTO (Project project){
+    public ProjectDTO convertProjectDTO(Project project) {
         ProjectDTO projectDTO = new ProjectDTO();
 
         projectDTO.setId(project.getId());
@@ -31,13 +33,18 @@ public class ProjectService {
         projectDTO.setDate(project.getDateEnd());
         projectDTO.setPhoto(project.getPhoto());
         projectDTO.setTitle(project.getName());
-        projectDTO.setUserName(project.getUser().getFirstName());;
-
+        projectDTO.setUserName(project.getUser().getFirstName());
+        ;
 
         return projectDTO;
-        //methode repo qui va findAllproject et les convertir en project DTO et renvoyer cette liste vers le front
+        // methode repo qui va findAllproject et les convertir en project DTO et
+        // renvoyer cette liste vers le front
+    }
+
+    public List<ProjectDTO> FetchAllPRoject() {
+
+        return null;
+
     }
 
 }
-
-
