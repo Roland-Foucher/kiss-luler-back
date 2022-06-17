@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -53,18 +54,20 @@ public class User implements UserDetails {
 
   /////////// CONSTUCTEURS //////////////
 
-  public User(String firstName, String lastName, String email, Role role) {
+  public User(String firstName, String lastName, String email, String password, Role role) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
+    this.password = password;
     this.role = role;
   }
 
-  public User(Integer id, String firstName, String lastName, String email, Role role) {
+  public User(Integer id, String firstName, String lastName, String email, String password, Role role) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
+    this.password = password;
     this.role = role;
   }
 

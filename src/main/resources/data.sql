@@ -1,0 +1,82 @@
+INSERT INTO
+  `user`
+VALUES
+  (
+    1,
+    'j.jean@gmail.com',
+    'Jean',
+    'Paul',
+    '$2a$10$fGpvN77P4H89ddPMxVL5burWrQqKlTiaxUcOpaLfyNkPn3JyMt.26',
+    'USER'
+  ),(
+    2,
+    'juju@gmail.com',
+    'Jules',
+    'Dupond',
+    '$2a$10$cKMOTutNGUXXPEUT3VQYtuQTu/Z/fd2D2Ig.m5rZOi3gpTkc3UL0S',
+    'USER'
+  ),(
+    3,
+    'beberd@gmail.com',
+    'Bernard',
+    'Legrand',
+    '$2a$10$L73pgnWKBqRiR8Utn38KL.ElRjMTH.tT.Qbs7o2Yj0uewzetkQ6v6',
+    'USER'
+  ),(
+    4,
+    'admin@gmail.com',
+    'admin',
+    'admin',
+    '$2a$10$avJXsAy4aIs6UTGmft6vu.x7hoOthRf2/3BHkIQTGP/mIxjPiKrhS',
+    'USER'
+  );
+INSERT INTO
+  `project`
+VALUES
+  (
+    1,
+    'TOURDATE',
+    '2022-09-10',
+    '2022-06-10',
+    NULL,
+    'tourdate',
+    NULL,
+    'INPROGRESS',
+    1
+  ),(
+    2,
+    'CD',
+    '2022-10-06',
+    '2022-06-12',
+    NULL,
+    'CD',
+    NULL,
+    'INPROGRESS',
+    1
+  ),(
+    3,
+    'EP',
+    '2022-07-05',
+    '2022-05-10',
+    NULL,
+    'EP',
+    NULL,
+    'CONCEPTION',
+    2
+  );
+INSERT INTO
+  `consideration`
+VALUES
+  (2, 20, NULL, NULL, 'une photo', 1),(3, 50, NULL, NULL, 'Une place de concert', 1),(4, 40, NULL, NULL, 'un CD dedicacé', 2),
+  (
+    5,
+    30,
+    NULL,
+    NULL,
+    'Ma reconnaissance éternelle',
+    3
+  );
+INSERT INTO
+  `user_order`
+VALUES
+  (1, 20, '2022-06-20', 1, 1),(2, 30, '2022-05-05', 2, 2),(3, 50, '2022-05-05', 3, 3);

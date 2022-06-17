@@ -23,7 +23,7 @@ public class UserService {
   private PasswordEncoder encoder;
 
   public User register(User user) throws UserExistsException {
-    if (userRepo.findByEmail(user.getEmail()).isPresent()) {
+    if (userRepo.existsByEmail(user.getEmail())) {
       throw new UserExistsException();
     }
     user.setRole(Role.USER);
@@ -34,7 +34,7 @@ public class UserService {
     // son inscription
     SecurityContextHolder.getContext()
         .setAuthentication(new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities()));
-    
+
     return user;
   }
 
