@@ -1,100 +1,75 @@
 package co.simplon.alt3.kisslulerback.security;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nimbusds.jose.JOSEException;
-import com.nimbusds.jose.JWSAlgorithm;
-import com.nimbusds.jose.crypto.MACVerifier;
-import com.nimbusds.jose.jwk.source.ImmutableSecret;
-import com.nimbusds.jose.proc.BadJOSEException;
-import com.nimbusds.jose.proc.JWSKeySelector;
-import com.nimbusds.jose.proc.JWSVerificationKeySelector;
-import com.nimbusds.jose.proc.SecurityContext;
-import com.nimbusds.jwt.JWTClaimsSet;
-import com.nimbusds.jwt.SignedJWT;
-import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
-import com.nimbusds.jwt.proc.DefaultJWTProcessor;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 
-public class JwtFilter extends OncePerRequestFilter {
+public class JwtFilter extends BasicAuthenticationFilter {
 
+  public JwtFilter(AuthenticationManager authenticationManager) {
+    super(authenticationManager);
+  }
+
+  /**
+   * authentification grace au token si presenet
+   */
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-      throws ServletException, IOException {
+      throws IOException, ServletException {
 
-    String token = null;
+    // recueration du header de la requete
+    String header = request.getHeader(SecurityConstants.HEADER_STRING);
 
-    if (request.getServletPath().equals("/login") || request.getServletPath().equals("/refreshToken")) {
-      // si on est sur login = pas de check du token
+    // si pas de token : on renvoi directement vers le fitre suivant (comme un
+    // next() en nodeJS)
+    if (header == null || !header.startsWith(SecurityConstants.TOKEN_PREFIX)) {
       filterChain.doFilter(request, response);
-
-    } else {
-
-      // check token 
-      String authorizationHeader = request.getHeader("Authorization");
-      
-      if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-        try {
-          token = authorizationHeader.substring("Bearer ".length());
-          UsernamePasswordAuthenticationToken authenticationToken = parseToken(token);
-          SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-          filterChain.doFilter(request, response);
-          
-        } catch (Exception e) {
-
-          response.setStatus(403);
-          Map<String, String> error = new HashMap<>();
-          error.put("errorMessage", e.getMessage());
-          response.setContentType("application/json");
-          new ObjectMapper().writeValue(response.getOutputStream(), error);
-        }
-      } else {
-        filterChain.doFilter(request, response);
-      }
+      return;
     }
+
+    // on authentifie l'utilisateur en parsant le token
+    SecurityContextHolder.getContext().setAuthentication(getAuthentication(request));
+
+    // -> next opération
+    filterChain.doFilter(request, response);
 
   }
 
-  public static UsernamePasswordAuthenticationToken parseToken(String token) throws JOSEException,
-      BadJOSEException, ParseException {
+  // Reads the JWT from the Authorization header, and then uses JWT to validate
+  // the token
+  private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
 
-    byte[] secretKey = AuthFilter.jwtSecret.getBytes();
-    SignedJWT signedJWT = SignedJWT.parse(token);
-    signedJWT.verify(new MACVerifier(secretKey));
+    // recupération du token
+    String token = request.getHeader(SecurityConstants.HEADER_STRING);
 
-    ConfigurableJWTProcessor<SecurityContext> jwtProcessor = new DefaultJWTProcessor<>();
+    if (token != null) {
+      // parse the token.
+      String user = JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()))
+          .build()
+          .verify(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
+          .getSubject();
 
-    JWSKeySelector<SecurityContext> keySelector = new JWSVerificationKeySelector<>(JWSAlgorithm.HS256,
-        new ImmutableSecret<>(secretKey));
+      if (user != null) {
+        // new arraylist means authorities
+        return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+      }
 
-    jwtProcessor.setJWSKeySelector(keySelector);
-    jwtProcessor.process(signedJWT, null);
-    
-    JWTClaimsSet claims = signedJWT.getJWTClaimsSet();
-    String username = claims.getSubject();
+      return null;
+    }
 
-    var roles = (List<String>) claims.getClaim("roles");
-    var authorities = roles == null ? null
-        : roles.stream()
-            .map(SimpleGrantedAuthority::new)
-            .collect(Collectors.toList());
-
-    return new UsernamePasswordAuthenticationToken(username, null, authorities);
+    return null;
   }
 
 }
