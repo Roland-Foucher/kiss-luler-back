@@ -24,7 +24,6 @@ import co.simplon.alt3.kisslulerback.enums.Role;
 
 @Entity
 @OnDelete(action = OnDeleteAction.CASCADE)
-@Table(name = "user")
 public class User implements UserDetails {
 
   @Id

@@ -21,7 +21,6 @@ import co.simplon.alt3.kisslulerback.enums.Category;
 import co.simplon.alt3.kisslulerback.enums.Status;
 
 @Entity
-@OnDelete(action = OnDeleteAction.NO_ACTION)
 public class Project {
 
   @Id
