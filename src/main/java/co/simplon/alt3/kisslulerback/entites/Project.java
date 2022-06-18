@@ -58,13 +58,15 @@ public class Project {
   public Project() {
   }
 
-  public Project(Integer id, String name, String photo, String description, LocalDate dateInit, LocalDate dateEnd) {
+  public Project(Integer id, String name, String photo, String description, LocalDate dateInit, LocalDate dateEnd,
+      Category category) {
     this.id = id;
     this.name = name;
     this.photo = photo;
     this.description = description;
     this.dateInit = dateInit;
     this.dateEnd = dateEnd;
+    this.category = category;
   }
 
   public Integer getId() {

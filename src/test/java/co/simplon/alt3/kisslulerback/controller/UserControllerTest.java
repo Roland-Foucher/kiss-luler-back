@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@Sql(scripts = { "/schema.sql", "/data.sql" }, executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+@Sql(scripts = { "/schema.sql", "/data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 public class UserControllerTest {
 
   @Autowired

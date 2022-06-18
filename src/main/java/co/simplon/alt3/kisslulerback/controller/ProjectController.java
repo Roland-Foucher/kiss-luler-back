@@ -10,25 +10,27 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import co.simplon.alt3.kisslulerback.DTO.ProjectDTO;
-import co.simplon.alt3.kisslulerback.services.ProjectService;
+import co.simplon.alt3.kisslulerback.services.IProjectService;
 
 @RestController
 @RequestMapping("api/project")
 public class ProjectController {
 
-    @Autowired
-    ProjectService projectService;
+  @Autowired
+  IProjectService projectService;
 
-    @GetMapping
-    public List<ProjectDTO> allProjects() {
-        try {
+  @GetMapping
+  public List<ProjectDTO> allProjects() {
+    try {
 
-            return projectService.FetchAllProject();
+      return projectService.FetchAllProject();
 
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Une erreur est parvenue, nous sommes désolés");
-
-        }
-
+    } catch (IllegalArgumentException e) {
+      throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
+    } catch (Exception e) {
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+          "Une erreur est parvenue, nous sommes désolés");
     }
+
+  }
 }

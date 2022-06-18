@@ -1,6 +1,7 @@
 package co.simplon.alt3.kisslulerback.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ import co.simplon.alt3.kisslulerback.DTO.ProjectDTO;
 import co.simplon.alt3.kisslulerback.entites.Project;
 import co.simplon.alt3.kisslulerback.entites.User;
 import co.simplon.alt3.kisslulerback.entites.UserOrder;
+import co.simplon.alt3.kisslulerback.enums.Category;
 import co.simplon.alt3.kisslulerback.enums.Role;
 import co.simplon.alt3.kisslulerback.repo.ProjectRepo;
 
@@ -25,7 +27,7 @@ public class ProjectServiceTest {
   @Mock
   ProjectRepo projectRepo;
   @InjectMocks
-  ProjectService projectService;
+  ProjectServiceImpl projectService;
 
   @Test
   void TestCalculateAllContibution() {
@@ -38,48 +40,26 @@ public class ProjectServiceTest {
     assertEquals(6000.0, projectService.CalculateAllContribution(project));
   }
 
-  /**
-   * test standard de l'affichage des jours restants
-   */
   @Test
-  void FetchPeriodeProject() {
+  void TestCalculateAllContributionWithoutOrder() {
+    Project project = new Project();
 
-    ProjectDTO projectDTO = new ProjectDTO();
-    projectDTO.setDate(LocalDate.now().plusDays(9));
-    assertEquals("J - 9", projectDTO.getDate());
-
-  }
-
-  /**
-   * test si le delai est depassé
-   */
-  @Test
-  void FetchPeriodeAfterProject() {
-    ProjectDTO projectDTO = new ProjectDTO();
-    projectDTO.setDate(LocalDate.of(2022, 05, 25));
-    assertEquals("Closed", projectDTO.getDate());
-  }
-
-  /**
-   * test si c'est le dernier jour
-   */
-  @Test
-  void FetchPeriodeProjectToday() {
-    ProjectDTO projectDTO = new ProjectDTO();
-    projectDTO.setDate(LocalDate.now());
-    assertEquals("J - 0", projectDTO.getDate());
+    assertEquals(0.0, projectService.CalculateAllContribution(project));
   }
 
   @Test
   void FetchAllProject() {
 
-    Project p1 = new Project(1, "name", "photo", "description", LocalDate.now(), LocalDate.now().plusDays(6));
+    Project p1 = new Project(1, "name", "photo", "description", LocalDate.now(), LocalDate.now().plusDays(6),
+        Category.CD);
     p1.setUser(new User("firstName", "lastName", "email", "password", Role.USER));
 
-    Project p2 = new Project(2, "name", "photo", "description", LocalDate.now(), LocalDate.now().plusDays(10));
+    Project p2 = new Project(2, "name", "photo", "description", LocalDate.now(), LocalDate.now().plusDays(10),
+        Category.COMMUNICATION);
     p2.setUser(new User("firstName", "lastName", "email", "password", Role.USER));
 
-    Project p3 = new Project(3, "name", "photo", "description", LocalDate.now(), LocalDate.now().plusDays(9));
+    Project p3 = new Project(3, "name", "photo", "description", LocalDate.now(), LocalDate.now().plusDays(9),
+        Category.INSTRUMENT);
     p3.setUser(new User("firstName", "lastName", "email", "password", Role.USER));
 
     List<Project> result = new ArrayList<>(List.of(p1, p2, p3));
@@ -92,5 +72,11 @@ public class ProjectServiceTest {
     assertEquals("J - 6", fetchAllProject.get(0).getDate());
 
     // getDate 6 jours de la premiere et deuxieme
+  }
+
+  @Test
+  void voidFetchAllProjectDatabaseEmpty() {
+    when(projectRepo.findAll()).thenReturn(new ArrayList<>());
+    assertThrows(IllegalArgumentException.class, () -> projectService.FetchAllProject());
   }
 }

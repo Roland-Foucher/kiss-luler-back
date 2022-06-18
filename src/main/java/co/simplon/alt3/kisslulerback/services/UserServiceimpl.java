@@ -14,7 +14,7 @@ import co.simplon.alt3.kisslulerback.exception.WrongPasswordException;
 import co.simplon.alt3.kisslulerback.repo.UserRepo;
 
 @Service
-public class UserService {
+public class UserServiceimpl implements IUserService {
 
   @Autowired
   private UserRepo userRepo;

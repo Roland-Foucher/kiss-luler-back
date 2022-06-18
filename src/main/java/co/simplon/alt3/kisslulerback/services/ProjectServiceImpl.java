@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import co.simplon.alt3.kisslulerback.DTO.ProjectDTO;
 import co.simplon.alt3.kisslulerback.entites.Project;
@@ -14,7 +15,7 @@ import co.simplon.alt3.kisslulerback.entites.UserOrder;
 import co.simplon.alt3.kisslulerback.repo.ProjectRepo;
 
 @Service
-public class ProjectService {
+public class ProjectServiceImpl implements IProjectService {
 
   @Autowired
   ProjectRepo projectRepo;
@@ -32,19 +33,20 @@ public class ProjectService {
    * @param project
    * @return un projet converti en projetDTO
    */
-  public ProjectDTO convertProjectDTO(Project project) {
-    ProjectDTO projectDTO = new ProjectDTO();
+  protected ProjectDTO convertProjectDTO(Project project) {
 
-    projectDTO.setId(project.getId());
-    projectDTO.setCategory(project.getCategory());
-    projectDTO.setConsiderations(CalculateAllContribution(project));
-    projectDTO.setDate(project.getDateEnd());
-    projectDTO.setPhoto(project.getPhoto());
-    projectDTO.setTitle(project.getName());
-    projectDTO.setUserName(project.getUser().getFirstName());
-    ;
+    Assert.notNull(project.getUser(), "impossible d'acceder à l'utilisateur attaché à ce projet");
 
-    return projectDTO;
+    return new ProjectDTO.Builder()
+        .setId(project.getId())
+        .setCategory(project.getCategory())
+        .setConsiderations(CalculateAllContribution(project))
+        .setDate(project.getDateEnd())
+        .setPhoto(project.getPhoto())
+        .setTitle(project.getName())
+        .setUserName(project.getUser().getFirstName())
+        .build();
+
     // methode repo qui va findAllproject et les convertir en project DTO et
     // renvoyer cette liste vers le front
   }
@@ -56,12 +58,15 @@ public class ProjectService {
   @Transactional
   public List<ProjectDTO> FetchAllProject() {
 
-    return projectRepo.findAll() // on recupère tous les projets de la bdd
+    final List<Project> projets = projectRepo.findAll();
+
+    Assert.notEmpty(projets, "pas de projets dans la base de données");
+
+    return projets // on recupère tous les projets de la bdd
         .stream() // on stream la list
         .map(this::convertProjectDTO) // on passe tous les elements de la liste dans la methode convertProjectDTO <=>
                                       // el -> this.convertPojectDTO(el)
         .collect(Collectors.toList()); // on collect tous les éléments modifiés pour en refaire une list
-
   }
 
 }

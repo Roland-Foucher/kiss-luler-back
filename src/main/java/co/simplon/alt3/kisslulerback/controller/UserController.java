@@ -5,8 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,22 +18,23 @@ import co.simplon.alt3.kisslulerback.DTO.ChangePasswordDto;
 import co.simplon.alt3.kisslulerback.entites.User;
 import co.simplon.alt3.kisslulerback.exception.UserExistsException;
 import co.simplon.alt3.kisslulerback.exception.WrongPasswordException;
-import co.simplon.alt3.kisslulerback.services.UserService;
+import co.simplon.alt3.kisslulerback.services.IUserService;
 
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
 
   @Autowired
-  UserService userService;
+  IUserService userService;
 
   @GetMapping("/account")
-  public User getAccount(@AuthenticationPrincipal User user) {
+  public User getAccount(@AuthenticationPrincipal final User user) {
+    Assert.notNull(user, "pas d'utilisateur authentifié !");
     return user;
   }
 
   @PostMapping
-  public User register(@Valid @RequestBody User user) {
+  public User register(@Valid @RequestBody final User user) {
     try {
 
       return userService.register(user);
@@ -45,7 +45,11 @@ public class UserController {
   }
 
   @PatchMapping("/account/password")
-  public void changePassword(@Valid @RequestBody ChangePasswordDto body, @AuthenticationPrincipal User user) {
+  public void changePassword(@Valid @RequestBody final ChangePasswordDto body,
+      @AuthenticationPrincipal final User user) {
+
+    Assert.notNull(user, "pas d'utilisateur authentifié !");
+
     try {
       userService.changePassowrd(body, user);
 
