@@ -30,7 +30,7 @@ public class JwtFilter extends BasicAuthenticationFilter {
       throws IOException, ServletException {
 
     // recueration du header de la requete
-    String header = request.getHeader(SecurityConstants.HEADER_STRING);
+    final String header = request.getHeader(SecurityConstants.HEADER_STRING);
 
     // si pas de token : on renvoi directement vers le fitre suivant (comme un
     // next() en nodeJS)
@@ -52,11 +52,11 @@ public class JwtFilter extends BasicAuthenticationFilter {
   private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
 
     // recupération du token
-    String token = request.getHeader(SecurityConstants.HEADER_STRING);
+    final String token = request.getHeader(SecurityConstants.HEADER_STRING);
 
     if (token != null) {
       // parse the token.
-      String user = JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()))
+      final String user = JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()))
           .build()
           .verify(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
           .getSubject();

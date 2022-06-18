@@ -14,9 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import co.simplon.alt3.kisslulerback.enums.Category;
 import co.simplon.alt3.kisslulerback.enums.Status;
 

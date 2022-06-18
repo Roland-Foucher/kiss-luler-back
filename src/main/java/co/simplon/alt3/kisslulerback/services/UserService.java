@@ -6,7 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import co.simplon.alt3.kisslulerback.auth.ChangePasswordDto;
+import co.simplon.alt3.kisslulerback.DTO.ChangePasswordDto;
 import co.simplon.alt3.kisslulerback.entites.User;
 import co.simplon.alt3.kisslulerback.enums.Role;
 import co.simplon.alt3.kisslulerback.exception.UserExistsException;
@@ -22,7 +22,7 @@ public class UserService {
   @Autowired
   private PasswordEncoder encoder;
 
-  public User register(User user) throws UserExistsException {
+  public User register(final User user) throws UserExistsException {
     if (userRepo.existsByEmail(user.getEmail())) {
       throw new UserExistsException();
     }
@@ -38,12 +38,12 @@ public class UserService {
     return user;
   }
 
-  private void hashPassword(User user) {
-    String hashed = encoder.encode(user.getPassword());
+  private void hashPassword(final User user) {
+    final String hashed = encoder.encode(user.getPassword());
     user.setPassword(hashed);
   }
 
-  public void changePassowrd(ChangePasswordDto body, User user) throws WrongPasswordException {
+  public void changePassowrd(final ChangePasswordDto body, final User user) throws WrongPasswordException {
     if (!encoder.matches(body.oldPassword, user.getPassword())) {
       throw new WrongPasswordException();
     }

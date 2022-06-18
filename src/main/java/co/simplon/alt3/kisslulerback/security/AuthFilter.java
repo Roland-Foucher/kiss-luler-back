@@ -26,6 +26,8 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 
   public AuthFilter(AuthenticationManager authenticationManager) {
     super(authenticationManager);
+
+    // definition de l'url de login
     setFilterProcessesUrl(SecurityConstants.SIGN_UP_URL);
   }
 
@@ -39,7 +41,7 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
     try {
 
       // on requpère le userName et password de la requete grace au DTO loginDTO
-      LoginDTO loginDTO = new ObjectMapper().readValue(request.getInputStream(), LoginDTO.class);
+      final LoginDTO loginDTO = new ObjectMapper().readValue(request.getInputStream(), LoginDTO.class);
 
       if (loginDTO.getUsername() == null || loginDTO.getPassword() == null) {
         throw new AuthenticationServiceException("username or password are null - can't auth");
@@ -65,18 +67,26 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
       FilterChain chain,
       Authentication auth) throws IOException {
 
+    final String userName = ((User) auth.getPrincipal()).getUsername();
     // creation du token à partir de l'utilisteur
-    String token = JWT.create()
-        .withSubject(((User) auth.getPrincipal()).getUsername())
-        .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
-        .sign(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()));
+    final String token = AuthFilter.createToken(userName);
 
     // creation du body
-    String body = ((User) auth.getPrincipal()).getUsername() + " " + token;
+    final String body = userName + " " + token;
 
     // implementation du body dans la reponse
     res.getWriter().write(body);
     res.getWriter().flush();
 
+  }
+
+  /**
+   * création d'un token à partir du username
+   */
+  public static String createToken(String username) {
+    return JWT.create()
+        .withSubject(username)
+        .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
+        .sign(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()));
   }
 }

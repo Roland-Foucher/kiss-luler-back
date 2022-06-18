@@ -1,4 +1,4 @@
-package co.simplon.alt3.kisslulerback.auth;
+package co.simplon.alt3.kisslulerback.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
