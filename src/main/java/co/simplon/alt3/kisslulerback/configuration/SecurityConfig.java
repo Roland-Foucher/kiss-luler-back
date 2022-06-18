@@ -13,9 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
-import co.simplon.alt3.kisslulerback.auth.AuthService;
 import co.simplon.alt3.kisslulerback.enums.Role;
 import co.simplon.alt3.kisslulerback.security.AuthFilter;
+import co.simplon.alt3.kisslulerback.security.AuthService;
 import co.simplon.alt3.kisslulerback.security.JwtFilter;
 
 @Configuration
@@ -32,7 +32,7 @@ public class SecurityConfig {
     http.cors().configurationSource(request -> corsConfiguration());
 
     http.authorizeRequests()
-        .mvcMatchers("/api/user/account").authenticated()
+        .mvcMatchers("/api/user/account/*").authenticated()
         .mvcMatchers("/api/admin/*").hasAuthority(Role.ADMIN.name())
         .anyRequest().permitAll()
         .and().csrf().disable()
@@ -43,7 +43,8 @@ public class SecurityConfig {
         .addFilter(new AuthFilter(authenticationConfiguration.getAuthenticationManager()))
         .addFilterBefore(new JwtFilter(authenticationConfiguration.getAuthenticationManager()),
             UsernamePasswordAuthenticationFilter.class)
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // mode stateless disable les
+                                                                                     // sessions
 
     return http.build();
   }

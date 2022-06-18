@@ -12,7 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -31,15 +33,21 @@ public class User implements UserDetails {
   private Integer id;
 
   @Column(nullable = false)
+  @NotBlank
   private String firstName;
 
   @Column(nullable = false)
+  @NotBlank
   private String lastName;
 
   @Column(unique = true, nullable = false)
+  @NotBlank
+  @Email
   private String email;
 
   @Column(nullable = false)
+  @NotBlank
+  @Size(min = 6, message = "le mot de passe doit contenir au minimun 6 caractères")
   private String password;
 
   @Enumerated(EnumType.STRING)
