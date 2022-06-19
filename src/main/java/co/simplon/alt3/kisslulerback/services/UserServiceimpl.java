@@ -7,8 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import co.simplon.alt3.kisslulerback.DTO.ChangePasswordDto;
+import co.simplon.alt3.kisslulerback.DTO.UserRegisterDTO;
 import co.simplon.alt3.kisslulerback.entites.User;
-import co.simplon.alt3.kisslulerback.enums.Role;
 import co.simplon.alt3.kisslulerback.exception.UserExistsException;
 import co.simplon.alt3.kisslulerback.exception.WrongPasswordException;
 import co.simplon.alt3.kisslulerback.repo.UserRepo;
@@ -22,11 +22,14 @@ public class UserServiceimpl implements IUserService {
   @Autowired
   private PasswordEncoder encoder;
 
-  public User register(final User user) throws UserExistsException {
-    if (userRepo.existsByEmail(user.getEmail())) {
+  public User register(final UserRegisterDTO userDto) throws UserExistsException {
+    if (userRepo.existsByEmail(userDto.getEmail())) {
       throw new UserExistsException();
     }
-    user.setRole(Role.USER);
+
+    // conversion du DTO en user
+    User user = new User(userDto);
+
     hashPassword(user);
     userRepo.save(user);
 
@@ -48,6 +51,7 @@ public class UserServiceimpl implements IUserService {
       throw new WrongPasswordException();
     }
     user.setPassword(body.newPassword);
+
     hashPassword(user);
     userRepo.save(user);
   }

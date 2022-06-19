@@ -12,9 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -22,7 +19,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import co.simplon.alt3.kisslulerback.DTO.UserRegisterDTO;
 import co.simplon.alt3.kisslulerback.enums.Role;
+import co.simplon.alt3.kisslulerback.security.AuthService;
 
 @Entity
 @OnDelete(action = OnDeleteAction.CASCADE)
@@ -33,21 +32,15 @@ public class User implements UserDetails {
   private Integer id;
 
   @Column(nullable = false)
-  @NotBlank
   private String firstName;
 
   @Column(nullable = false)
-  @NotBlank
   private String lastName;
 
   @Column(unique = true, nullable = false)
-  @NotBlank
-  @Email
   private String email;
 
   @Column(nullable = false)
-  @NotBlank
-  @Size(min = 6, message = "le mot de passe doit contenir au minimun 6 caractères")
   private String password;
 
   @Enumerated(EnumType.STRING)
@@ -61,6 +54,20 @@ public class User implements UserDetails {
   private List<Project> projects = new ArrayList<>();
 
   /////////// CONSTUCTEURS //////////////
+
+  /**
+   * constructeur pour un utilisateur qui s'inscrit
+   * 
+   * @param userRegisterDTO dto du formulaire user remontant du front
+   */
+  public User(UserRegisterDTO userRegisterDTO) {
+
+    this.firstName = userRegisterDTO.getFirstName();
+    this.lastName = userRegisterDTO.getLastName();
+    this.email = userRegisterDTO.getEmail();
+    this.password = userRegisterDTO.getPassword();
+    this.role = Role.USER;
+  }
 
   public User(String firstName, String lastName, String email, String password, Role role) {
     this.firstName = firstName;

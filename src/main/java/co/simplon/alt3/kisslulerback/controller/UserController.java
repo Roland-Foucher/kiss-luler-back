@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import co.simplon.alt3.kisslulerback.DTO.ChangePasswordDto;
+import co.simplon.alt3.kisslulerback.DTO.UserRegisterDTO;
 import co.simplon.alt3.kisslulerback.entites.User;
 import co.simplon.alt3.kisslulerback.exception.UserExistsException;
 import co.simplon.alt3.kisslulerback.exception.WrongPasswordException;
@@ -34,10 +35,10 @@ public class UserController {
   }
 
   @PostMapping
-  public User register(@Valid @RequestBody final User user) {
+  public User register(@Valid @RequestBody final UserRegisterDTO userDto) {
     try {
 
-      return userService.register(user);
+      return userService.register(userDto);
 
     } catch (UserExistsException e) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists");
