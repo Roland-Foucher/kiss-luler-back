@@ -21,7 +21,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import co.simplon.alt3.kisslulerback.DTO.UserRegisterDTO;
 import co.simplon.alt3.kisslulerback.enums.Role;
-import co.simplon.alt3.kisslulerback.security.AuthService;
 
 @Entity
 @OnDelete(action = OnDeleteAction.CASCADE)
