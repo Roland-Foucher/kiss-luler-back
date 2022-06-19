@@ -11,7 +11,6 @@ import org.springframework.util.Assert;
 
 import co.simplon.alt3.kisslulerback.DTO.ProjectDTO;
 import co.simplon.alt3.kisslulerback.entites.Project;
-import co.simplon.alt3.kisslulerback.entites.UserOrder;
 import co.simplon.alt3.kisslulerback.repo.ProjectRepo;
 
 @Service
@@ -19,37 +18,6 @@ public class ProjectServiceImpl implements IProjectService {
 
   @Autowired
   ProjectRepo projectRepo;
-
-  protected double CalculateAllContribution(Project project) {
-
-    return project.getOrders()
-        .stream()
-        .mapToDouble(UserOrder::getAmount)
-        .sum(); // .map(el -> el.getAmount())
-  }
-
-  /**
-   * 
-   * @param project
-   * @return un projet converti en projetDTO
-   */
-  protected ProjectDTO convertProjectDTO(Project project) {
-
-    Assert.notNull(project.getUser(), "impossible d'acceder à l'utilisateur attaché à ce projet");
-
-    return new ProjectDTO.Builder()
-        .setId(project.getId())
-        .setCategory(project.getCategory())
-        .setConsiderations(CalculateAllContribution(project))
-        .setDate(project.getDateEnd())
-        .setPhoto(project.getPhoto())
-        .setTitle(project.getName())
-        .setUserName(project.getUser().getFirstName())
-        .build();
-
-    // methode repo qui va findAllproject et les convertir en project DTO et
-    // renvoyer cette liste vers le front
-  }
 
   /**
    * 
@@ -64,8 +32,8 @@ public class ProjectServiceImpl implements IProjectService {
 
     return projets // on recupère tous les projets de la bdd
         .stream() // on stream la list
-        .map(this::convertProjectDTO) // on passe tous les elements de la liste dans la methode convertProjectDTO <=>
-                                      // el -> this.convertPojectDTO(el)
+        .map(ProjectDTO::new) // on passe tous les elements de la liste dans un constructeur de ProjectDTO <=>
+                              // el -> new ProjectDTO(el)
         .collect(Collectors.toList()); // on collect tous les éléments modifiés pour en refaire une list
   }
 

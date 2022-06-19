@@ -2,9 +2,13 @@ package co.simplon.alt3.kisslulerback.DTO;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 import org.springframework.util.Assert;
 
+import co.simplon.alt3.kisslulerback.entites.Project;
+import co.simplon.alt3.kisslulerback.entites.User;
+import co.simplon.alt3.kisslulerback.entites.UserOrder;
 import co.simplon.alt3.kisslulerback.enums.Category;
 
 public class ProjectDTO {
@@ -16,6 +20,26 @@ public class ProjectDTO {
   private Category category;
   private Double considerations;
   private String date; // date end - date start
+
+  public ProjectDTO() {
+  }
+
+  public ProjectDTO(Project project) {
+    User user = project.getUser();
+    List<UserOrder> order = project.getOrders();
+
+    Assert.notNull(user, "impossible d'acceder à l'utilisateur attaché à ce projet");
+    Assert.notNull(order, "impossible d'acceder aux orders attaché à ce projet");
+
+    this.id = project.getId();
+    this.title = project.getName();
+    this.userName = project.getUser().getFirstName() + " " + user.getLastName();
+    this.photo = project.getPhoto();
+    this.category = project.getCategory();
+    this.considerations = calculateAllContribution(order);
+    setDate(project.getDateEnd());
+
+  }
 
   public int getId() {
     return id;
@@ -54,56 +78,11 @@ public class ProjectDTO {
     }
   }
 
-  public static class Builder {
+  protected static double calculateAllContribution(List<UserOrder> orders) {
 
-    private ProjectDTO projectDTO;
-
-    public Builder() {
-      this.projectDTO = new ProjectDTO();
-    }
-
-    public Builder setId(Integer id) {
-      projectDTO.id = id;
-      return this;
-    }
-
-    public Builder setTitle(String title) {
-      Assert.notNull(title, "title est null à la creation de projectDTO");
-      projectDTO.title = title;
-      return this;
-    }
-
-    public Builder setUserName(String userName) {
-      Assert.notNull(userName, "userName est null à la creation de projectDTO");
-      projectDTO.userName = userName;
-      return this;
-    }
-
-    public Builder setPhoto(String photo) {
-      projectDTO.photo = photo;
-      return this;
-    }
-
-    public Builder setCategory(Category category) {
-      Assert.notNull(category, "category est null à la creation de projectDTO");
-      projectDTO.category = category;
-      return this;
-    }
-
-    public Builder setConsiderations(Double considerations) {
-      Assert.notNull(considerations, "consideration est null à la creation de projectDTO");
-      projectDTO.considerations = considerations;
-      return this;
-    }
-
-    public Builder setDate(LocalDate date) {
-      Assert.notNull(date, "date est null à la creation de projectDTO");
-      projectDTO.setDate(date);
-      return this;
-    }
-
-    public ProjectDTO build() {
-      return projectDTO;
-    }
+    return orders
+        .stream()
+        .mapToDouble(UserOrder::getAmount)
+        .sum(); // .map(el -> el.getAmount())
   }
 }

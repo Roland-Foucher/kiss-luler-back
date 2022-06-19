@@ -16,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import co.simplon.alt3.kisslulerback.DTO.ProjectDTO;
 import co.simplon.alt3.kisslulerback.entites.Project;
 import co.simplon.alt3.kisslulerback.entites.User;
-import co.simplon.alt3.kisslulerback.entites.UserOrder;
 import co.simplon.alt3.kisslulerback.enums.Category;
 import co.simplon.alt3.kisslulerback.enums.Role;
 import co.simplon.alt3.kisslulerback.repo.ProjectRepo;
@@ -28,24 +27,6 @@ public class ProjectServiceTest {
   ProjectRepo projectRepo;
   @InjectMocks
   ProjectServiceImpl projectService;
-
-  @Test
-  void TestCalculateAllContibution() {
-
-    Project project = new Project();
-    project.getOrders()
-        .addAll(List.of(new UserOrder(1, 3000.0, LocalDate.now(), null),
-            new UserOrder(1, 3000.0, LocalDate.now(), null)));
-
-    assertEquals(6000.0, projectService.CalculateAllContribution(project));
-  }
-
-  @Test
-  void TestCalculateAllContributionWithoutOrder() {
-    Project project = new Project();
-
-    assertEquals(0.0, projectService.CalculateAllContribution(project));
-  }
 
   @Test
   void FetchAllProject() {
