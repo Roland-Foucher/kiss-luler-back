@@ -22,11 +22,11 @@ public class ProjectController {
   @GetMapping
   public List<ProjectDTO> allProjects() {
     try {
-
       return projectService.FetchAllProject();
 
     } catch (IllegalArgumentException e) {
       throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
+
     } catch (Exception e) {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
           "Une erreur est parvenue, nous sommes désolés");

@@ -4,6 +4,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * DTO permettant d'ajouter un nouvel user
+ */
 public class UserRegisterDTO {
   @NotBlank
   private String firstName;
@@ -44,7 +47,6 @@ public class UserRegisterDTO {
   }
 
   public String getPassword() {
-
     return password;
   }
 

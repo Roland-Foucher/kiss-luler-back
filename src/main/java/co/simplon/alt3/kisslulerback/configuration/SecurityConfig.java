@@ -25,12 +25,17 @@ public class SecurityConfig {
   @Autowired
   AuthService authService;
 
+  /**
+   * Configuration de Spring Security
+   */
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationConfiguration authenticationConfiguration)
       throws Exception {
 
+    // Ajout de la configuration cors
     http.cors().configurationSource(request -> corsConfiguration());
 
+    // configuration des routes et Droits
     http.authorizeRequests()
         .mvcMatchers("/api/user/account/*").authenticated()
         .mvcMatchers("/api/admin/*").hasAuthority(Role.ADMIN.name())
@@ -38,13 +43,15 @@ public class SecurityConfig {
         .and().csrf().disable()
         .logout().logoutSuccessHandler((req, res, auth) -> {
           res.setStatus(204);
-        })
-        .and()
-        .addFilter(new AuthFilter(authenticationConfiguration.getAuthenticationManager()))
+        });
+
+    // configuration de jwt
+    http.addFilter(new AuthFilter(authenticationConfiguration.getAuthenticationManager()))
         .addFilterBefore(new JwtFilter(authenticationConfiguration.getAuthenticationManager()),
-            UsernamePasswordAuthenticationFilter.class)
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // mode stateless disable les
-                                                                                     // sessions
+            UsernamePasswordAuthenticationFilter.class);
+
+    // mode stateless disable les sessions
+    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     return http.build();
   }
@@ -55,9 +62,7 @@ public class SecurityConfig {
   }
 
   /**
-   * Cette méthode ne changera à priori pas de projet en projet, ya juste le
-   * allowedOrigin
-   * qu'on pourra changer selon où est le front
+   * Configuration des cors pour tous les controllers
    */
   private CorsConfiguration corsConfiguration() {
     CorsConfiguration configuration = new CorsConfiguration();

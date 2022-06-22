@@ -37,7 +37,6 @@ public class UserController {
   @PostMapping
   public User register(@Valid @RequestBody final UserRegisterDTO userDto) {
     try {
-
       return userService.register(userDto);
 
     } catch (UserExistsException e) {
@@ -55,7 +54,6 @@ public class UserController {
       userService.changePassowrd(body, user);
 
     } catch (WrongPasswordException e) {
-
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Old Password doesn't match");
     }
   }

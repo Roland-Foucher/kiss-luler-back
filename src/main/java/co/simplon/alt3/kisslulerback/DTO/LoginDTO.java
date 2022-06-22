@@ -3,6 +3,9 @@ package co.simplon.alt3.kisslulerback.DTO;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * DTO de login de l'utilisateur
+ */
 public class LoginDTO {
 
   @Email
