@@ -20,7 +20,6 @@ public class ProjectServiceImpl implements IProjectService {
   ProjectRepo projectRepo;
 
   /**
-   * 
    * @return une list de projet converti en DTO
    */
   @Transactional

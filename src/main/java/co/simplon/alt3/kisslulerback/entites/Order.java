@@ -7,9 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-public class UserOrder {
+@Table(name = "user_order")
+public class Order {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +29,10 @@ public class UserOrder {
   @ManyToOne
   private Project project;
 
-  public UserOrder() {
+  public Order() {
   }
 
-  public UserOrder(Integer id, Double amount, LocalDate date, User user) {
+  public Order(Integer id, Double amount, LocalDate date, User user) {
     this.id = id;
     this.amount = amount;
     this.date = date;

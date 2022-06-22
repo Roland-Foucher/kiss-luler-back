@@ -50,7 +50,7 @@ public class Project {
   private User user;
 
   @OneToMany(mappedBy = "project")
-  private List<UserOrder> orders = new ArrayList<>();
+  private List<Order> orders = new ArrayList<>();
 
   @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
   private List<Consideration> considerations = new ArrayList<>();
@@ -141,7 +141,7 @@ public class Project {
     this.user = user;
   }
 
-  public List<UserOrder> getOrders() {
+  public List<Order> getOrders() {
     return orders;
   }
 

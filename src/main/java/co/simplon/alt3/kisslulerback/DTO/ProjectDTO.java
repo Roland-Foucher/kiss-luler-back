@@ -8,7 +8,7 @@ import org.springframework.util.Assert;
 
 import co.simplon.alt3.kisslulerback.entites.Project;
 import co.simplon.alt3.kisslulerback.entites.User;
-import co.simplon.alt3.kisslulerback.entites.UserOrder;
+import co.simplon.alt3.kisslulerback.entites.Order;
 import co.simplon.alt3.kisslulerback.enums.Category;
 
 /**
@@ -36,7 +36,7 @@ public class ProjectDTO {
     // récupération des entités liées au projet par jointure de table et
     // verification qu'elles ne soient pas null
     final User user = project.getUser();
-    final List<UserOrder> order = project.getOrders();
+    final List<Order> order = project.getOrders();
     Assert.notNull(user, "impossible d'acceder à l'utilisateur attaché à ce projet");
     Assert.notNull(order, "impossible d'acceder aux orders attaché à ce projet");
 
@@ -64,11 +64,11 @@ public class ProjectDTO {
   /**
    * Calcule le totale des contributions du projet
    */
-  protected static double calculateAllContribution(List<UserOrder> orders) {
+  protected static double calculateAllContribution(List<Order> orders) {
 
     return orders
         .stream()
-        .mapToDouble(UserOrder::getAmount)
+        .mapToDouble(Order::getAmount)
         .sum(); // .map(el -> el.getAmount())
   }
 

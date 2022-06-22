@@ -47,10 +47,10 @@ public class UserServiceimpl implements IUserService {
   }
 
   public void changePassowrd(final ChangePasswordDto body, final User user) throws WrongPasswordException {
-    if (!encoder.matches(body.oldPassword, user.getPassword())) {
+    if (!encoder.matches(body.getOldPassword(), user.getPassword())) {
       throw new WrongPasswordException();
     }
-    user.setPassword(body.newPassword);
+    user.setPassword(body.getNewPassword());
 
     hashPassword(user);
     userRepo.save(user);

@@ -47,7 +47,7 @@ public class User implements UserDetails {
   private Role role;
 
   @OneToMany(mappedBy = "user")
-  private List<UserOrder> orders = new ArrayList<>();
+  private List<Order> orders = new ArrayList<>();
 
   @OneToMany(mappedBy = "user")
   private List<Project> projects = new ArrayList<>();
@@ -110,7 +110,7 @@ public class User implements UserDetails {
     return id;
   }
 
-  public List<UserOrder> getOrders() {
+  public List<Order> getOrders() {
     return orders;
   }
 
