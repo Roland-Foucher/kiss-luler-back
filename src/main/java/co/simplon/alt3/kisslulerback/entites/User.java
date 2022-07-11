@@ -19,6 +19,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import co.simplon.alt3.kisslulerback.DTO.UserRegisterDTO;
 import co.simplon.alt3.kisslulerback.enums.Role;
 
@@ -46,9 +48,11 @@ public class User implements UserDetails {
   @Column(columnDefinition = "ENUM('ADMIN', 'USER', 'BLACKLISTED')", nullable = false)
   private Role role;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "user")
   private List<Order> orders = new ArrayList<>();
 
+  @JsonIgnore
   @OneToMany(mappedBy = "user")
   private List<Project> projects = new ArrayList<>();
 

@@ -8,18 +8,27 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
+import co.simplon.alt3.kisslulerback.entites.User;
+import co.simplon.alt3.kisslulerback.repo.UserRepo;
+
 public class JwtFilter extends BasicAuthenticationFilter {
 
-  public JwtFilter(AuthenticationManager authenticationManager) {
+  private AuthService authService;
+
+  public JwtFilter(AuthenticationManager authenticationManager, AuthService authService) {
     super(authenticationManager);
+    this.authService = authService;
   }
 
   /**
@@ -56,14 +65,16 @@ public class JwtFilter extends BasicAuthenticationFilter {
 
     if (token != null) {
       // parse the token.
-      final String user = JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()))
+      final String userName = JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()))
           .build()
           .verify(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
           .getSubject();
 
-      if (user != null) {
-        // new arraylist means authorities
-        return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+      if (userName != null) {
+
+        UserDetails user = authService.loadUserByUsername(userName);
+
+        return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
       }
 
       return null;

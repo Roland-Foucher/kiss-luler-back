@@ -47,7 +47,7 @@ public class SecurityConfig {
 
     // configuration de jwt
     http.addFilter(new AuthFilter(authenticationConfiguration.getAuthenticationManager()))
-        .addFilterBefore(new JwtFilter(authenticationConfiguration.getAuthenticationManager()),
+        .addFilterBefore(new JwtFilter(authenticationConfiguration.getAuthenticationManager(), authService),
             UsernamePasswordAuthenticationFilter.class);
 
     // mode stateless disable les sessions
