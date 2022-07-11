@@ -22,7 +22,7 @@ public class ProjectDTO {
   private String userName;
   private String photo;
   private Category category;
-  private Double considerations;
+  private Double considerations_amount;
   private String date; // date end - date start
 
   public ProjectDTO() {
@@ -45,7 +45,7 @@ public class ProjectDTO {
     this.userName = project.getUser().getFirstName() + " " + user.getLastName();
     this.photo = project.getPhoto();
     this.category = project.getCategory();
-    this.considerations = calculateAllContribution(order);
+    this.considerations_amount = calculateAllContribution(order);
     setDate(project.getDateEnd());
   }
 
@@ -94,8 +94,8 @@ public class ProjectDTO {
     return category;
   }
 
-  public Double getConsiderations() {
-    return considerations;
+  public Double getConsiderations_amount() {
+    return considerations_amount;
   }
 
   public String getDate() {
