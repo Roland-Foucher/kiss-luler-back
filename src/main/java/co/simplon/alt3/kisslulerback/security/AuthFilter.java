@@ -67,12 +67,13 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
       FilterChain chain,
       Authentication auth) throws IOException {
 
-    final String userName = ((User) auth.getPrincipal()).getUsername();
+    final User user = ((User) auth.getPrincipal());
+    final String userName = user.getUsername();
     // creation du token à partir de l'utilisteur
     final String token = AuthFilter.createToken(userName);
 
     // creation du body
-    final String body = userName + " " + token;
+    final String body = "{\"username\" :\"" + userName + "\",\"token\": \"" + token + "\"}";
 
     // implementation du body dans la reponse
     res.getWriter().write(body);
