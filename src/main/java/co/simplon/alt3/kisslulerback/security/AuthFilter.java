@@ -18,8 +18,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import co.simplon.alt3.kisslulerback.DTO.LoginDTO;
+import co.simplon.alt3.kisslulerback.DTO.UserDTOWithToken;
+import co.simplon.alt3.kisslulerback.DTO.FullUserDTO;
 import co.simplon.alt3.kisslulerback.entites.User;
 
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {
@@ -68,17 +71,17 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
       Authentication auth) throws IOException {
 
     final User user = ((User) auth.getPrincipal());
-    final String userName = user.getUsername();
     // creation du token à partir de l'utilisteur
-    final String token = AuthFilter.createToken(userName);
+    final String token = AuthFilter.createToken(user.getUsername());
+
+    final UserDTOWithToken uTokenDTO = new UserDTOWithToken(new FullUserDTO(user), token);
 
     // creation du body
-    final String body = "{\"username\" :\"" + userName + "\",\"token\": \"" + token + "\"}";
+    final String body = new Gson().toJson(uTokenDTO);
 
     // implementation du body dans la reponse
     res.getWriter().write(body);
     res.getWriter().flush();
-
   }
 
   /**
