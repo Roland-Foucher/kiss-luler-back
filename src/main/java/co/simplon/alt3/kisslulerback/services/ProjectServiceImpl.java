@@ -14,9 +14,11 @@ import org.springframework.util.Assert;
 import co.simplon.alt3.kisslulerback.DTO.ProjectDTO;
 import co.simplon.alt3.kisslulerback.DTO.ProjectDTOdetail;
 import co.simplon.alt3.kisslulerback.entites.Project;
+import co.simplon.alt3.kisslulerback.entites.User;
 import co.simplon.alt3.kisslulerback.repo.ProjectRepo;
 
 @Service
+@Transactional
 public class ProjectServiceImpl implements IProjectService {
 
   @Autowired
@@ -25,14 +27,17 @@ public class ProjectServiceImpl implements IProjectService {
   /**
    * @return une list de projet converti en DTO
    */
-  @Transactional
   public List<ProjectDTO> FetchAllProject() {
 
-    final List<Project> projets = projectRepo.findAll();
+    final List<Project> projects = projectRepo.findAll();
 
-    Assert.notEmpty(projets, "pas de projets dans la base de données");
+    Assert.notEmpty(projects, "pas de projets dans la base de données");
 
-    return projets // on recupère tous les projets de la bdd
+    return convertProjectsToProjectDTOs(projects);
+  }
+
+  private List<ProjectDTO> convertProjectsToProjectDTOs(List<Project> projects) {
+    return projects // on recupère tous les projets de la bdd
         .stream() // on stream la list
         .map(ProjectDTO::new) // on passe tous les elements de la liste dans un constructeur de
                               // ProjectDTO <=>
@@ -44,7 +49,7 @@ public class ProjectServiceImpl implements IProjectService {
   /**
    * 
    * @param id the project
-   * @return one project 
+   * @return one project
    */
   @Transactional
   public ProjectDTOdetail FetchOneProject(Integer id) {
@@ -54,6 +59,13 @@ public class ProjectServiceImpl implements IProjectService {
     ProjectDTOdetail oneProject = new ProjectDTOdetail(project);
     return oneProject;
 
+  }
+
+  public List<ProjectDTO> getProjectByUser(final User user) {
+    List<Project> projects = projectRepo.findByUser(user);
+    Assert.notNull(projects, "impossible de récupérer la liste des projets de l'utilisateur");
+
+    return convertProjectsToProjectDTOs(projects);
   }
 
 }

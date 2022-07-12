@@ -1,5 +1,7 @@
 package co.simplon.alt3.kisslulerback.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import co.simplon.alt3.kisslulerback.DTO.ChangePasswordDto;
+import co.simplon.alt3.kisslulerback.DTO.ProjectDTO;
 import co.simplon.alt3.kisslulerback.DTO.UserRegisterDTO;
 import co.simplon.alt3.kisslulerback.entites.User;
 import co.simplon.alt3.kisslulerback.exception.UserExistsException;
 import co.simplon.alt3.kisslulerback.exception.WrongPasswordException;
+import co.simplon.alt3.kisslulerback.services.IProjectService;
 import co.simplon.alt3.kisslulerback.services.IUserService;
 
 @RestController
@@ -28,8 +32,17 @@ public class UserController {
   @Autowired
   IUserService userService;
 
+  @Autowired
+  IProjectService projectService;
+
+  @GetMapping("/account/projects")
+  public List<ProjectDTO> getAccount(@AuthenticationPrincipal final User user) {
+    Assert.notNull(user, "pas d'utilisateur authentifié !");
+    return projectService.getProjectByUser(user);
+  }
+
   @GetMapping("/account")
-  public User getAccount(@AuthenticationPrincipal final User user) {
+  public User getUser(@AuthenticationPrincipal final User user) {
     Assert.notNull(user, "pas d'utilisateur authentifié !");
     return user;
   }
