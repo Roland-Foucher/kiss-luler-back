@@ -183,4 +183,8 @@ public class User implements UserDetails {
   public boolean isEnabled() {
     return true;
   }
+
+  public void setProjects(List<Project> projects) {
+    this.projects = projects;
+  }
 }

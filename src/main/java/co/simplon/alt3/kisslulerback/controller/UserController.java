@@ -35,16 +35,10 @@ public class UserController {
   @Autowired
   IProjectService projectService;
 
-  @GetMapping("/account/projects")
+  @GetMapping("/account")
   public List<ProjectDTO> getAccount(@AuthenticationPrincipal final User user) {
     Assert.notNull(user, "pas d'utilisateur authentifié !");
     return projectService.getProjectByUser(user);
-  }
-
-  @GetMapping("/account")
-  public User getUser(@AuthenticationPrincipal final User user) {
-    Assert.notNull(user, "pas d'utilisateur authentifié !");
-    return user;
   }
 
   @PostMapping
