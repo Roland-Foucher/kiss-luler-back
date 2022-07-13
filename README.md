@@ -1,15 +1,5 @@
 # KissLulerBack
 
-## Objectif scrum 1 (semaine 13/06 - 17/06)
-
-* Définir les besoins
-* Faire un Use Case
-* Faire un diagramme d'entité
-* Développer les entités et les repository JPA
-* Pouvoir afficher une liste de Projet sur la page principale
-* Pouvoir connecter un utilisateur
-* Pouvoir afficher les projets de l'utilisateur sur sa page
-
 ## Analyse des besoins
 
 **QUOI ?**
@@ -59,4 +49,35 @@
 
 * usage déstiner au grand public, sensible à la musique.
   * usage destiné aux professionnels administrateurs du site.
+
+## Objectif scrum 1 (semaine 13/06 - 17/06)
+
+* Définir les besoins
+* Faire un Use Case
+* Faire un diagramme d'entité
+* Développer les entités et les repository JPA
+* Pouvoir afficher une liste de Projet sur la page principale
+* Pouvoir connecter un utilisateur
+* Pouvoir afficher les projets de l'utilisateur sur sa page
+
+## Retex semaine 1
+
+def: Le retour d’expérience - RETEX est avant tout, une méthode, un outil. Et comme son nom l’indique, nous permet de faire un retour sur une situation vécue par nous-mêmes ou par quelqu’un d’autre.
+
+Le retour positif est notre capacité à communiquer et notre organisation sur gitlab ce qui nous permet une bonne assignation des tâches et un suivi régulier. 
+
+Cela nous a permis de réaliser que les objectifs que nous nous étions fixé pour cette semaine étaient trop élévé, nous avons réorganiser le travail afin de répartir les tâches en incluant la semaine suivante.
+
+## Objectif scrum 2 (semaine du 11/07 - 15-07)
+
+* Pouvoir afficher une liste de Projet sur la page principale
+* Pouvoir connecter et ajouter un utilisateur
+* Pouvoir afficher les projets de l'utilisateur sur sa page
+* Diagramme d'entité à continuer
+* Modifier le profil utilisateur
+* Uploader
+
+## Retex semaine 2
+
+
 
