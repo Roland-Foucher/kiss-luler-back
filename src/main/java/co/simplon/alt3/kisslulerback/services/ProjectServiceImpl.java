@@ -1,13 +1,11 @@
 package co.simplon.alt3.kisslulerback.services;
 
 import java.util.List;
-
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -36,6 +34,32 @@ public class ProjectServiceImpl implements IProjectService {
     return convertProjectsToProjectDTOs(projects);
   }
 
+  /**
+   * 
+   * @param id the project
+   * @return one project
+   */
+  public ProjectDTOdetail FetchOneProject(Integer id) {
+
+    Project project = projectRepo.findById(id).orElse(null);
+    Assert.notNull(project, "Pas de projet trouvé");
+    ProjectDTOdetail oneProject = new ProjectDTOdetail(project);
+    return oneProject;
+  }
+
+  /**
+   * recupère la liste de projets d'un utilisateur
+   */
+  public List<ProjectDTO> getProjectByUser(final User user) {
+    List<Project> projects = projectRepo.findByUser(user);
+    Assert.notNull(projects, "impossible de récupérer la liste des projets de l'utilisateur");
+
+    return convertProjectsToProjectDTOs(projects);
+  }
+
+  /**
+   * convert a project to projectDTO
+   */
   private List<ProjectDTO> convertProjectsToProjectDTOs(List<Project> projects) {
     return projects // on recupère tous les projets de la bdd
         .stream() // on stream la list
@@ -45,27 +69,4 @@ public class ProjectServiceImpl implements IProjectService {
         .collect(Collectors.toList()); // on collect tous les éléments modifiés pour en refaire une
                                        // list
   }
-
-  /**
-   * 
-   * @param id the project
-   * @return one project
-   */
-  @Transactional
-  public ProjectDTOdetail FetchOneProject(Integer id) {
-
-    Project project = projectRepo.findById(id).orElse(null);
-    Assert.notNull(project, "Pas de projet trouvé");
-    ProjectDTOdetail oneProject = new ProjectDTOdetail(project);
-    return oneProject;
-
-  }
-
-  public List<ProjectDTO> getProjectByUser(final User user) {
-    List<Project> projects = projectRepo.findByUser(user);
-    Assert.notNull(projects, "impossible de récupérer la liste des projets de l'utilisateur");
-
-    return convertProjectsToProjectDTOs(projects);
-  }
-
 }
