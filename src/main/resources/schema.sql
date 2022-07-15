@@ -2,13 +2,20 @@ DROP TABLE IF EXISTS user_order;
 DROP TABLE IF EXISTS consideration;
 DROP TABLE IF EXISTS project;
 DROP TABLE IF EXISTS user;
-CREATE TABLE user (
-  id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  email varchar(255) UNIQUE NOT NULL,
-  first_name varchar(255) NOT NULL,
-  last_name varchar(255) NOT NULL,
-  password varchar(255) NOT NULL,
-  role enum('ADMIN', 'USER', 'BLACKLISTED') NOT NULL
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` enum('ADMIN', 'USER', 'BLACKLISTED') NOT NULL,
+  `birthdate` date NOT NULL,
+  `job` varchar(255) DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `pseudo` varchar(255) DEFAULT NULL,
+  `subscribe_date` date NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_ob8kqyqqgmefl0aco34akdtpe` (`email`)
 );
 CREATE TABLE project (
   id int(11) NOT NULL AUTO_INCREMENT,
