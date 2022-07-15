@@ -20,23 +20,22 @@ public class UploadFileServiceImplTest extends IntegrationTestConfiguration {
   IUploadFileService uploadFileService;
 
   @Test
-  void testDeleteFile() {
-
-  }
-
-  @Test
-  void testSaveImgageFile() throws IOException, IncorrectMediaTypeFileException {
+  void testSaveImgageFileAndDelete() throws IOException, IncorrectMediaTypeFileException {
     String url = uploadFileService.saveImgageFile(
-        new MockMultipartFile("file", "file.png", MediaType.IMAGE_PNG.toString(), "some img".getBytes()),
-        new DummyUser());
+        new MockMultipartFile("file", "file.png", MediaType.IMAGE_PNG.toString(), "some img".getBytes()));
     assertNotNull(url);
+
   }
 
   @Test
   void testSaveImgageFile_WithIncorrectMediaType() throws IOException, IncorrectMediaTypeFileException {
     assertThrows(IncorrectMediaTypeFileException.class, () -> uploadFileService
         .saveImgageFile(
-            new MockMultipartFile("file", "file.png", MediaType.TEXT_HTML.toString(), "some html".getBytes()),
-            new DummyUser()));
+            new MockMultipartFile("file", "file.png", MediaType.TEXT_HTML.toString(), "some html".getBytes())));
+  }
+
+  @Test
+  void deleteFile() throws IOException {
+
   }
 }

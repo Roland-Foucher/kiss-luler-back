@@ -9,7 +9,7 @@ import co.simplon.alt3.kisslulerback.exception.IncorrectMediaTypeFileException;
 
 public interface IUploadFileService {
 
-  String saveImgageFile(MultipartFile file, User user) throws IOException, IncorrectMediaTypeFileException;
+  String saveImgageFile(MultipartFile file) throws IOException, IncorrectMediaTypeFileException;
 
   void deleteFile(String url);
 }
