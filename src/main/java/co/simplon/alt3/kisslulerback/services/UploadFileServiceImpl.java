@@ -11,7 +11,6 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import co.simplon.alt3.kisslulerback.entites.User;
 import co.simplon.alt3.kisslulerback.exception.IncorrectMediaTypeFileException;
 
 @Service
@@ -39,6 +38,15 @@ public class UploadFileServiceImpl implements IUploadFileService {
 
   @Override
   public boolean deleteFile(String url) {
+
+    Path fileToDeletePath = Paths.get(this.staticPath + url);
+    try {
+      Files.delete(fileToDeletePath);
+      return true;
+    } catch (IOException e) {
+      System.out.println("error when deleting file");
+      e.printStackTrace();
+    }
     return false;
   }
 

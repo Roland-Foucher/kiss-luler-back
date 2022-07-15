@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import co.simplon.alt3.kisslulerback.entites.User;
 import co.simplon.alt3.kisslulerback.exception.IncorrectMediaTypeFileException;
 
 public interface IUploadFileService {
