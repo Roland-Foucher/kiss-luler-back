@@ -1,7 +1,6 @@
 package co.simplon.alt3.kisslulerback.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
@@ -14,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import co.simplon.alt3.kisslulerback.DTO.ProjectDTO;
-import co.simplon.alt3.kisslulerback.DTO.ProjectDTOdetail;
 import co.simplon.alt3.kisslulerback.dummy.DummyProject;
 import co.simplon.alt3.kisslulerback.entites.Project;
 import co.simplon.alt3.kisslulerback.repo.ProjectRepo;
