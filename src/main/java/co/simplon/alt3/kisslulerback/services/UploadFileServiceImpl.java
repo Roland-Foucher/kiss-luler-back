@@ -19,6 +19,11 @@ public class UploadFileServiceImpl implements IUploadFileService {
   private String staticPath = "src/main/resources/static";
   private final String imgPattern = "^image/.*";
 
+  /**
+   * sauvegarde un fichier sur le serveur
+   * 
+   * @retrun ave cun random ID
+   */
   @Override
   public String saveImgageFile(MultipartFile file) throws IOException, IncorrectMediaTypeFileException {
 
@@ -36,6 +41,9 @@ public class UploadFileServiceImpl implements IUploadFileService {
     return fileName;
   }
 
+  /**
+   * supprime un fichier grace à son path
+   */
   @Override
   public boolean deleteFile(String url) {
 
@@ -50,6 +58,9 @@ public class UploadFileServiceImpl implements IUploadFileService {
     return false;
   }
 
+  /**
+   * verifie le type du fichier
+   */
   private boolean checkFile(MultipartFile file, String pattern) {
     return file.getContentType().matches(pattern) && file.getSize() != 0;
   }
