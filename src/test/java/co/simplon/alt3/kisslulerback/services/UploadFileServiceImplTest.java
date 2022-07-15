@@ -2,8 +2,10 @@ package co.simplon.alt3.kisslulerback.services;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.nio.file.Files;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,10 @@ public class UploadFileServiceImplTest extends IntegrationTestConfiguration {
   }
 
   @Test
-  void deleteFile() throws IOException {
+  void deleteFile() throws IOException, IncorrectMediaTypeFileException {
+    String url = uploadFileService.saveImgageFile(
+        new MockMultipartFile("file", "file.png", MediaType.IMAGE_PNG.toString(), "some img".getBytes()));
+    assertTrue(uploadFileService.deleteFile(url));
 
   }
 }

@@ -38,8 +38,8 @@ public class UploadFileServiceImpl implements IUploadFileService {
   }
 
   @Override
-  public void deleteFile(String url) {
-
+  public boolean deleteFile(String url) {
+    return false;
   }
 
   private boolean checkFile(MultipartFile file, String pattern) {
