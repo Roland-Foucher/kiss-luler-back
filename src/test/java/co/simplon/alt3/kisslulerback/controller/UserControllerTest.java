@@ -22,7 +22,10 @@ public class UserControllerTest extends ControllerTestConfiguration {
           \"firstName\": \"admin\",
           \"lastName\": \"admin\",
           \"email\": \"admin@gmail.com\",
-          \"password\": \"123456\"
+          \"password\": \"123456\",
+          \"birthdate\": \"1988-01-07\",
+          \"job\": \"null\",
+          \"pseudo\": \"null\"
         }
         """;
 
@@ -40,7 +43,10 @@ public class UserControllerTest extends ControllerTestConfiguration {
           \"firstName\": \"admin\",
           \"lastName\": \"admin\",
           \"email\": \"nouveau@gmail.com\",
-          \"password\": \"123456\"
+          \"password\": \"123456\",
+          \"birthdate\": \"1988-01-07\",
+          \"job\": \"null\",
+          \"pseudo\": \"null\"
         }
         """;
 
@@ -58,7 +64,10 @@ public class UserControllerTest extends ControllerTestConfiguration {
           \"firstName\": \"admin\",
           \"lastName\": \"admin\",
           \"email\": \"nouveau@gmail.com\",
-          \"password\": \"1234\"
+          \"password\": \"1234\",
+          \"birthdate\": \"1988-01-07\",
+          \"job\": \"null\",
+          \"pseudo\": \"null\"
         }
         """;
 

@@ -7,28 +7,48 @@ VALUES
     'Jean',
     'Paul',
     '$2a$10$fGpvN77P4H89ddPMxVL5burWrQqKlTiaxUcOpaLfyNkPn3JyMt.26',
-    'USER'
+    'USER',
+    '1988-07-01',
+    NULL,
+    NULL,
+    NULL,
+    '2022-04-02'
   ),(
     2,
     'juju@gmail.com',
     'Jules',
     'Dupond',
     '$2a$10$cKMOTutNGUXXPEUT3VQYtuQTu/Z/fd2D2Ig.m5rZOi3gpTkc3UL0S',
-    'USER'
+    'USER',
+    '1988-07-01',
+    NULL,
+    NULL,
+    NULL,
+    '2022-04-02'
   ),(
     3,
     'beberd@gmail.com',
     'Bernard',
     'Legrand',
     '$2a$10$L73pgnWKBqRiR8Utn38KL.ElRjMTH.tT.Qbs7o2Yj0uewzetkQ6v6',
-    'USER'
+    'USER',
+    '1988-07-01',
+    NULL,
+    NULL,
+    NULL,
+    '2022-04-02'
   ),(
     4,
     'admin@gmail.com',
     'admin',
     'admin',
     '$2a$10$avJXsAy4aIs6UTGmft6vu.x7hoOthRf2/3BHkIQTGP/mIxjPiKrhS',
-    'USER'
+    'USER',
+    '1988-07-01',
+    NULL,
+    NULL,
+    NULL,
+    '2022-04-02'
   );
 INSERT INTO
   `project`

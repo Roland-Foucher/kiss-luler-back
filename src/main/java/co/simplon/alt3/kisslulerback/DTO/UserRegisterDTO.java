@@ -1,7 +1,10 @@
 package co.simplon.alt3.kisslulerback.DTO;
 
+import java.time.LocalDate;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -21,6 +24,13 @@ public class UserRegisterDTO {
   @NotBlank
   @Size(min = 6, message = "le mot de passe doit contenir au minimun 6 caractères")
   private String password;
+
+  @NotNull
+  private LocalDate birthdate;
+
+  private String job;
+
+  private String pseudo;
 
   public String getFirstName() {
     return firstName;
@@ -52,5 +62,29 @@ public class UserRegisterDTO {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public LocalDate getBirthdate() {
+    return birthdate;
+  }
+
+  public void setBirthdate(LocalDate birthdate) {
+    this.birthdate = birthdate;
+  }
+
+  public String getJob() {
+    return job;
+  }
+
+  public void setJob(String job) {
+    this.job = job;
+  }
+
+  public String getPseudo() {
+    return pseudo;
+  }
+
+  public void setPseudo(String pseudo) {
+    this.pseudo = pseudo;
   }
 }

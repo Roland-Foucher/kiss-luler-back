@@ -1,5 +1,6 @@
 package co.simplon.alt3.kisslulerback.entites;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -48,6 +49,18 @@ public class User implements UserDetails {
   @Column(columnDefinition = "ENUM('ADMIN', 'USER', 'BLACKLISTED')", nullable = false)
   private Role role;
 
+  @Column(nullable = false)
+  private LocalDate birthdate;
+
+  @Column(nullable = false)
+  private LocalDate subscribeDate;
+
+  private String photo;
+
+  private String job;
+
+  private String pseudo;
+
   @JsonIgnore
   @OneToMany(mappedBy = "user")
   private List<Order> orders = new ArrayList<>();
@@ -57,6 +70,35 @@ public class User implements UserDetails {
   private List<Project> projects = new ArrayList<>();
 
   /////////// CONSTUCTEURS //////////////
+
+  public User(Integer id, String firstName, String lastName, String email, String password, Role role,
+      LocalDate birthdate, LocalDate subscribeDate, String photo, String job, String pseudo) {
+    this.id = id;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.password = password;
+    this.role = role;
+    this.birthdate = birthdate;
+    this.subscribeDate = subscribeDate;
+    this.photo = photo;
+    this.job = job;
+    this.pseudo = pseudo;
+  }
+
+  public User(String firstName, String lastName, String email, String password, Role role, LocalDate birthdate,
+      LocalDate subscribeDate, String photo, String job, String pseudo) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.password = password;
+    this.role = role;
+    this.birthdate = birthdate;
+    this.subscribeDate = subscribeDate;
+    this.photo = photo;
+    this.job = job;
+    this.pseudo = pseudo;
+  }
 
   /**
    * constructeur pour un utilisateur qui s'inscrit
@@ -70,23 +112,11 @@ public class User implements UserDetails {
     this.email = userRegisterDTO.getEmail();
     this.password = userRegisterDTO.getPassword();
     this.role = Role.USER;
-  }
+    this.job = userRegisterDTO.getJob();
+    this.birthdate = userRegisterDTO.getBirthdate();
+    this.subscribeDate = LocalDate.now();
+    this.pseudo = userRegisterDTO.getPseudo();
 
-  public User(String firstName, String lastName, String email, String password, Role role) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.password = password;
-    this.role = role;
-  }
-
-  public User(Integer id, String firstName, String lastName, String email, String password, Role role) {
-    this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.password = password;
-    this.role = role;
   }
 
   public User() {
@@ -126,6 +156,26 @@ public class User implements UserDetails {
     return password;
   }
 
+  public LocalDate getBirthdate() {
+    return birthdate;
+  }
+
+  public String getPhoto() {
+    return photo;
+  }
+
+  public String getJob() {
+    return job;
+  }
+
+  public LocalDate getSubscribeDate() {
+    return subscribeDate;
+  }
+
+  public String getPseudo() {
+    return pseudo;
+  }
+
   /////////// SETTER //////////////
 
   public void setFirstName(String firstName) {
@@ -150,6 +200,34 @@ public class User implements UserDetails {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public void setProjects(List<Project> projects) {
+    this.projects = projects;
+  }
+
+  public void setPhoto(String photo) {
+    this.photo = photo;
+  }
+
+  public void setOrders(List<Order> orders) {
+    this.orders = orders;
+  }
+
+  public void setsubscribeDate(LocalDate subscribeDate) {
+    this.subscribeDate = subscribeDate;
+  }
+
+  public void setBirthdate(LocalDate birthdate) {
+    this.birthdate = birthdate;
+  }
+
+  public void setJob(String job) {
+    this.job = job;
+  }
+
+  public void setPseudo(String pseudo) {
+    this.pseudo = pseudo;
   }
 
   /////////// SECURITY //////////////
@@ -182,9 +260,5 @@ public class User implements UserDetails {
   @Override
   public boolean isEnabled() {
     return true;
-  }
-
-  public void setProjects(List<Project> projects) {
-    this.projects = projects;
   }
 }
