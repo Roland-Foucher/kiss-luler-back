@@ -1,5 +1,9 @@
 package co.simplon.alt3.kisslulerback.DTO;
 
+/**
+ * DTO comprenant le token de connection et le user complet
+ * envoyé lors d ela connection de l'utilisateur
+ */
 public class UserDTOWithToken {
   private FullUserDTO user;
   private String token;
