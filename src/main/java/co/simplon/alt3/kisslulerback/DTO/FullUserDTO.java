@@ -1,8 +1,15 @@
 package co.simplon.alt3.kisslulerback.DTO;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
 import co.simplon.alt3.kisslulerback.entites.User;
 import co.simplon.alt3.kisslulerback.enums.Role;
 
+/**
+ * DTO permettant d'envoyer les informations complêtes de l'utilisateur au front
+ */
 public class FullUserDTO {
   private Integer id;
   private String firstName;
@@ -10,6 +17,11 @@ public class FullUserDTO {
   private String email;
   private String password;
   private Role role;
+  private Date birthdate;
+  private Date subscribeDate;
+  private String photo;
+  private String job;
+  private String pseudo;
 
   public FullUserDTO(User user) {
     this.id = user.getUserId();
@@ -18,6 +30,11 @@ public class FullUserDTO {
     this.email = user.getEmail();
     this.password = user.getPassword();
     this.role = user.getRole();
+    this.birthdate = Date.from(user.getBirthdate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+    this.subscribeDate = Date.from(user.getSubscribeDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+    this.photo = user.getPhoto();
+    this.job = user.getJob();
+    this.pseudo = user.getPseudo();
   }
 
   public Integer getId() {
@@ -42,5 +59,25 @@ public class FullUserDTO {
 
   public Role getRole() {
     return role;
+  }
+
+  public Date getBirthdate() {
+    return birthdate;
+  }
+
+  public Date getSubscribeDate() {
+    return subscribeDate;
+  }
+
+  public String getPhoto() {
+    return photo;
+  }
+
+  public String getJob() {
+    return job;
+  }
+
+  public String getPseudo() {
+    return pseudo;
   }
 }

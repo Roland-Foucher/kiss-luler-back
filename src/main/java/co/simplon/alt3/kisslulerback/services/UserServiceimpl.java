@@ -65,6 +65,9 @@ public class UserServiceimpl implements IUserService {
     userRepo.save(user);
   }
 
+  /**
+   * sauvegarde la photo de profil et supprime l'ancienne s'il y en avait une
+   */
   @Override
   public void saveUserPicture(final MultipartFile file, final User user)
       throws IOException, IncorrectMediaTypeFileException {

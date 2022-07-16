@@ -1,5 +1,17 @@
 INSERT INTO
-  `user`
+  `user`(
+    id,
+    email,
+    first_name,
+    last_name,
+    password,
+    role,
+    birthdate,
+    job,
+    photo,
+    pseudo,
+    subscribe_date
+  )
 VALUES
   (
     1,
@@ -51,7 +63,17 @@ VALUES
     '2022-04-02'
   );
 INSERT INTO
-  `project`
+  `project`(
+    id,
+    category,
+    date_end,
+    date_init,
+    description,
+    name,
+    photo,
+    status,
+    user_id
+  )
 VALUES
   (
     1,
@@ -85,7 +107,14 @@ VALUES
     2
   );
 INSERT INTO
-  `consideration`
+  `consideration`(
+    id,
+    consid_amount,
+    description,
+    photo,
+    title,
+    project_id
+  )
 VALUES
   (2, 20, NULL, NULL, 'une photo', 1),(3, 50, NULL, NULL, 'Une place de concert', 1),(4, 40, NULL, NULL, 'un CD dedicacé', 2),
   (
@@ -97,6 +126,6 @@ VALUES
     3
   );
 INSERT INTO
-  `user_order`
+  `user_order`(id, amount, date, project_id, user_id)
 VALUES
   (1, 20, '2022-06-20', 1, 1),(2, 30, '2022-05-05', 2, 2),(3, 50, '2022-05-05', 3, 3);

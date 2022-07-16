@@ -1,6 +1,7 @@
 package co.simplon.alt3.kisslulerback.security;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,11 +20,13 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import co.simplon.alt3.kisslulerback.DTO.LoginDTO;
 import co.simplon.alt3.kisslulerback.DTO.UserDTOWithToken;
 import co.simplon.alt3.kisslulerback.DTO.FullUserDTO;
 import co.simplon.alt3.kisslulerback.entites.User;
+import co.simplon.alt3.kisslulerback.configuration.LocalDateAdapter;
 
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -76,8 +79,14 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 
     final UserDTOWithToken uTokenDTO = new UserDTOWithToken(new FullUserDTO(user), token);
 
-    // creation du body
-    final String body = new Gson().toJson(uTokenDTO);
+    // configuration de Gson pour parser les localDate
+    final Gson gson = new GsonBuilder()
+        .setPrettyPrinting()
+        .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+        .create();
+
+    // création du body Json
+    final String body = gson.toJson(uTokenDTO);
 
     // implementation du body dans la reponse
     res.getWriter().write(body);
