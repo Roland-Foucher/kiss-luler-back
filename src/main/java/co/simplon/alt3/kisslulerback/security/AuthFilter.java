@@ -22,7 +22,6 @@ import com.google.gson.Gson;
 
 import co.simplon.alt3.kisslulerback.DTO.LoginDTO;
 import co.simplon.alt3.kisslulerback.DTO.UserDTOWithToken;
-import co.simplon.alt3.kisslulerback.DTO.FullUserDTO;
 import co.simplon.alt3.kisslulerback.entites.User;
 
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {
@@ -74,7 +73,7 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
     // creation du token à partir de l'utilisteur
     final String token = AuthFilter.createToken(user.getUsername());
 
-    final UserDTOWithToken uTokenDTO = new UserDTOWithToken(new FullUserDTO(user), token);
+    final UserDTOWithToken uTokenDTO = new UserDTOWithToken(user, token);
 
     // creation du body
     final String body = new Gson().toJson(uTokenDTO);
