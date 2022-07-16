@@ -19,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import co.simplon.alt3.kisslulerback.DTO.UserDto.ChangePasswordDto;
+import co.simplon.alt3.kisslulerback.DTO.UserDto.FullUserDTO;
 import co.simplon.alt3.kisslulerback.DTO.UserDto.UserRegisterDTO;
+import co.simplon.alt3.kisslulerback.DTO.UserDto.UserUpdateDto;
 import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectDTO;
 import co.simplon.alt3.kisslulerback.entites.User;
 import co.simplon.alt3.kisslulerback.exception.IncorrectMediaTypeFileException;
@@ -45,7 +47,10 @@ public class UserController {
   }
 
   @PostMapping
-  public User register(@Valid @RequestBody final UserRegisterDTO userDto) {
+  public FullUserDTO register(@Valid @RequestBody final UserRegisterDTO userDto) {
+
+    Assert.notNull(userDto, "userDto a enregistrer est null");
+
     try {
       return userService.register(userDto);
 
@@ -79,6 +84,20 @@ public class UserController {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erreur lors de l'enregistrement du fichier");
     } catch (IncorrectMediaTypeFileException e) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
+  }
+
+  @PatchMapping("/account/update")
+  public FullUserDTO updateUserAccount(@Valid @RequestBody final UserUpdateDto userDto,
+      @AuthenticationPrincipal final User user) {
+
+    Assert.notNull(user, "pas d'utilisateur authentifié !");
+    Assert.notNull(userDto, "userDto a enregistrer est null");
+
+    try {
+      return userService.updateUser(userDto, user);
+    } catch (UserExistsException e) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'utilisateur existe déjà");
     }
   }
 

@@ -1,5 +1,6 @@
 package co.simplon.alt3.kisslulerback.controller;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,169 +17,179 @@ public class UserControllerTest extends ControllerTestConfiguration {
   @Autowired
   MockMvc mockMvc;
 
-  @Test
-  void testRegisterUserAlreadyExist() throws Exception {
-    String jsonRegister = """
-        {
-          \"firstName\": \"admin\",
-          \"lastName\": \"admin\",
-          \"email\": \"admin@gmail.com\",
-          \"password\": \"123456\",
-          \"birthdate\": \"1988-01-07\",
-          \"job\": \"null\",
-          \"pseudo\": \"null\"
-        }
-        """;
+  @Nested
+  class testRegister {
 
-    mockMvc.perform(MockMvcRequestBuilders.post("/api/user/")
-        .content(jsonRegister)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    @Test
+    void testRegisterUserAlreadyExist() throws Exception {
+      String jsonRegister = """
+          {
+            \"firstName\": \"admin\",
+            \"lastName\": \"admin\",
+            \"email\": \"admin@gmail.com\",
+            \"password\": \"123456\",
+            \"birthdate\": \"1988-01-07\",
+            \"job\": \"null\",
+            \"pseudo\": \"null\"
+          }
+          """;
+
+      mockMvc.perform(MockMvcRequestBuilders.post("/api/user/")
+          .content(jsonRegister)
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+          .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    void testRegisterUser() throws Exception {
+      String jsonRegister = """
+          {
+            \"firstName\": \"admin\",
+            \"lastName\": \"admin\",
+            \"email\": \"nouveau@gmail.com\",
+            \"password\": \"123456\",
+            \"birthdate\": \"1988-01-07\",
+            \"job\": \"null\",
+            \"pseudo\": \"null\"
+          }
+          """;
+
+      mockMvc.perform(MockMvcRequestBuilders.post("/api/user/")
+          .content(jsonRegister)
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+          .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void testRegisterUserWithShortPassword() throws Exception {
+      String jsonRegister = """
+          {
+            \"firstName\": \"admin\",
+            \"lastName\": \"admin\",
+            \"email\": \"nouveau@gmail.com\",
+            \"password\": \"1234\",
+            \"birthdate\": \"1988-01-07\",
+            \"job\": \"null\",
+            \"pseudo\": \"null\"
+          }
+          """;
+
+      mockMvc.perform(MockMvcRequestBuilders.post("/api/user/")
+          .content(jsonRegister)
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+          .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
   }
 
-  @Test
-  void testRegisterUser() throws Exception {
-    String jsonRegister = """
-        {
-          \"firstName\": \"admin\",
-          \"lastName\": \"admin\",
-          \"email\": \"nouveau@gmail.com\",
-          \"password\": \"123456\",
-          \"birthdate\": \"1988-01-07\",
-          \"job\": \"null\",
-          \"pseudo\": \"null\"
-        }
-        """;
+  @Nested
+  class testLogin {
+    @Test
+    void testLoginOk() throws Exception {
+      String jsonRegister = """
+          {
+            \"username\": \"admin@gmail.com\",
+            \"password\": \"1234\"
+          }
+          """;
 
-    mockMvc.perform(MockMvcRequestBuilders.post("/api/user/")
-        .content(jsonRegister)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isOk());
+      mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login")
+          .content(jsonRegister)
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+          .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void testLoginBadPassword() throws Exception {
+      String jsonRegister = """
+          {
+            \"username\": \"admin@gmail.com\",
+            \"password\": \"12345\"
+          }
+          """;
+
+      mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login")
+          .content(jsonRegister)
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+          .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+    }
+
+    @Test
+    void testLoginBadEmail() throws Exception {
+      String jsonRegister = """
+          {
+            \"username\": \"@gmail.com\",
+            \"password\": \"12345\"
+          }
+          """;
+
+      mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login")
+          .content(jsonRegister)
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+          .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+    }
   }
 
-  @Test
-  void testRegisterUserWithShortPassword() throws Exception {
-    String jsonRegister = """
-        {
-          \"firstName\": \"admin\",
-          \"lastName\": \"admin\",
-          \"email\": \"nouveau@gmail.com\",
-          \"password\": \"1234\",
-          \"birthdate\": \"1988-01-07\",
-          \"job\": \"null\",
-          \"pseudo\": \"null\"
-        }
-        """;
+  @Nested
+  class testChangePassword {
+    @Test
+    @WithUserDetails("admin@gmail.com")
+    void changePassowrd() throws Exception {
 
-    mockMvc.perform(MockMvcRequestBuilders.post("/api/user/")
-        .content(jsonRegister)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isBadRequest());
-  }
+      String jsonRegister = """
+          {
+            \"oldPassword\": \"1234\",
+            \"newPassword\": \"123456\"
+          }
+          """;
 
-  @Test
-  void testLoginOk() throws Exception {
-    String jsonRegister = """
-        {
-          \"username\": \"admin@gmail.com\",
-          \"password\": \"1234\"
-        }
-        """;
+      mockMvc.perform(MockMvcRequestBuilders.patch("/api/user/account/password")
+          .content(jsonRegister)
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+          .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 
-    mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login")
-        .content(jsonRegister)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isOk());
-  }
+    @Test
+    @WithUserDetails("admin@gmail.com")
+    void changePassowrdBadOldPassword() throws Exception {
 
-  @Test
-  void testLoginBadPassword() throws Exception {
-    String jsonRegister = """
-        {
-          \"username\": \"admin@gmail.com\",
-          \"password\": \"12345\"
-        }
-        """;
+      String jsonRegister = """
+          {
+            \"oldPassword\": \"123\",
+            \"newPassword\": \"123456\"
+          }
+          """;
 
-    mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login")
-        .content(jsonRegister)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isUnauthorized());
-  }
+      mockMvc.perform(MockMvcRequestBuilders.patch("/api/user/account/password")
+          .content(jsonRegister)
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+          .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
 
-  @Test
-  void testLoginBadEmail() throws Exception {
-    String jsonRegister = """
-        {
-          \"username\": \"@gmail.com\",
-          \"password\": \"12345\"
-        }
-        """;
+    @Test
+    @WithUserDetails("admin@gmail.com")
+    void changePassowrd_NewPasswordTooShort() throws Exception {
 
-    mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login")
-        .content(jsonRegister)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isUnauthorized());
-  }
+      String jsonRegister = """
+          {
+            \"oldPassword\": \"1234\",
+            \"newPassword\": \"12345\"
+          }
+          """;
 
-  @Test
-  @WithUserDetails("admin@gmail.com")
-  void changePassowrd() throws Exception {
-
-    String jsonRegister = """
-        {
-          \"oldPassword\": \"1234\",
-          \"newPassword\": \"123456\"
-        }
-        """;
-
-    mockMvc.perform(MockMvcRequestBuilders.patch("/api/user/account/password")
-        .content(jsonRegister)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isOk());
-  }
-
-  @Test
-  @WithUserDetails("admin@gmail.com")
-  void changePassowrdBadOldPassword() throws Exception {
-
-    String jsonRegister = """
-        {
-          \"oldPassword\": \"123\",
-          \"newPassword\": \"123456\"
-        }
-        """;
-
-    mockMvc.perform(MockMvcRequestBuilders.patch("/api/user/account/password")
-        .content(jsonRegister)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isBadRequest());
-  }
-
-  @Test
-  @WithUserDetails("admin@gmail.com")
-  void changePassowrd_NewPasswordTooShort() throws Exception {
-
-    String jsonRegister = """
-        {
-          \"oldPassword\": \"1234\",
-          \"newPassword\": \"12345\"
-        }
-        """;
-
-    mockMvc.perform(MockMvcRequestBuilders.patch("/api/user/account/password")
-        .content(jsonRegister)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isBadRequest());
+      mockMvc.perform(MockMvcRequestBuilders.patch("/api/user/account/password")
+          .content(jsonRegister)
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+          .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
   }
 
   @Test
@@ -190,5 +201,53 @@ public class UserControllerTest extends ControllerTestConfiguration {
     mockMvc.perform(MockMvcRequestBuilders.multipart("/api/user/account/picture")
         .file(file))
         .andExpect(MockMvcResultMatchers.status().isOk());
+  }
+
+  @Nested
+  class testUpdateUser {
+
+    @Test
+    @WithUserDetails("admin@gmail.com")
+    void updateUserWithNewEmail() throws Exception {
+
+      String jsonUpdate = """
+          {
+            \"firstName\": \"John\",
+            \"lastName\": \"Doe\",
+            \"email\": \"nouveau@gmail.com\",
+            \"birthdate\": \"1989-01-07\",
+            \"job\": \"null\",
+            \"pseudo\": \"null\"
+          }
+          """;
+
+      mockMvc.perform(MockMvcRequestBuilders.patch("/api/user/account/update")
+          .content(jsonUpdate)
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+          .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    @WithUserDetails("admin@gmail.com")
+    void updateUser() throws Exception {
+
+      String jsonUpdate = """
+          {
+            \"firstName\": \"John\",
+            \"lastName\": \"Doe\",
+            \"email\": \"admin@gmail.com\",
+            \"birthdate\": \"1989-01-07\",
+            \"job\": \"null\",
+            \"pseudo\": \"null\"
+          }
+          """;
+
+      mockMvc.perform(MockMvcRequestBuilders.patch("/api/user/account/update")
+          .content(jsonUpdate)
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+          .andExpect(MockMvcResultMatchers.status().isOk());
+    }
   }
 }
