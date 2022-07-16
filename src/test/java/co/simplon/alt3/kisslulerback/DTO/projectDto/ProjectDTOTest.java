@@ -1,4 +1,4 @@
-package co.simplon.alt3.kisslulerback.DTO;
+package co.simplon.alt3.kisslulerback.DTO.projectDto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

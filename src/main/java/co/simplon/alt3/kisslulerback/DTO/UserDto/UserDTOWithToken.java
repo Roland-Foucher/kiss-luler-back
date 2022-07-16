@@ -1,4 +1,4 @@
-package co.simplon.alt3.kisslulerback.DTO;
+package co.simplon.alt3.kisslulerback.DTO.UserDto;
 
 /**
  * DTO comprenant le token de connection et le user complet

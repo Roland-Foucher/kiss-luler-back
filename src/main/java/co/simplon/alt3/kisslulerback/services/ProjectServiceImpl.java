@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import co.simplon.alt3.kisslulerback.DTO.ProjectDTO;
-import co.simplon.alt3.kisslulerback.DTO.ProjectDTOdetail;
+import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectDTO;
+import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectDTOdetail;
 import co.simplon.alt3.kisslulerback.entites.Project;
 import co.simplon.alt3.kisslulerback.entites.User;
 import co.simplon.alt3.kisslulerback.repo.ProjectRepo;

@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import co.simplon.alt3.kisslulerback.DTO.ChangePasswordDto;
-import co.simplon.alt3.kisslulerback.DTO.ProjectDTO;
-import co.simplon.alt3.kisslulerback.DTO.UserRegisterDTO;
+import co.simplon.alt3.kisslulerback.DTO.UserDto.ChangePasswordDto;
+import co.simplon.alt3.kisslulerback.DTO.UserDto.UserRegisterDTO;
+import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectDTO;
 import co.simplon.alt3.kisslulerback.entites.User;
 import co.simplon.alt3.kisslulerback.exception.IncorrectMediaTypeFileException;
 import co.simplon.alt3.kisslulerback.exception.UserExistsException;

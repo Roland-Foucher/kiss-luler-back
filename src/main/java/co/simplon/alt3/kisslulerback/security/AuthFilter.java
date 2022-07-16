@@ -22,10 +22,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import co.simplon.alt3.kisslulerback.DTO.LoginDTO;
-import co.simplon.alt3.kisslulerback.DTO.UserDTOWithToken;
-import co.simplon.alt3.kisslulerback.DTO.FullUserDTO;
 import co.simplon.alt3.kisslulerback.entites.User;
+import co.simplon.alt3.kisslulerback.DTO.UserDto.FullUserDTO;
+import co.simplon.alt3.kisslulerback.DTO.UserDto.LoginDTO;
+import co.simplon.alt3.kisslulerback.DTO.UserDto.UserDTOWithToken;
 import co.simplon.alt3.kisslulerback.configuration.LocalDateAdapter;
 
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {

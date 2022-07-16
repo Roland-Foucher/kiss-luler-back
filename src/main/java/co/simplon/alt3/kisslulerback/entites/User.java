@@ -22,7 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import co.simplon.alt3.kisslulerback.DTO.UserRegisterDTO;
+import co.simplon.alt3.kisslulerback.DTO.UserDto.UserRegisterDTO;
 import co.simplon.alt3.kisslulerback.enums.Role;
 
 @Entity

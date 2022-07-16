@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import co.simplon.alt3.kisslulerback.IntegrationTestConfiguration;
-import co.simplon.alt3.kisslulerback.DTO.ProjectDTO;
-import co.simplon.alt3.kisslulerback.DTO.ProjectDTOdetail;
+import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectDTO;
+import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectDTOdetail;
 import co.simplon.alt3.kisslulerback.repo.UserRepo;
 
 public class ProjectServiceIntegrationTest extends IntegrationTestConfiguration {

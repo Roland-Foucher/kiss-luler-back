@@ -1,4 +1,4 @@
-package co.simplon.alt3.kisslulerback.DTO;
+package co.simplon.alt3.kisslulerback.DTO.UserDto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

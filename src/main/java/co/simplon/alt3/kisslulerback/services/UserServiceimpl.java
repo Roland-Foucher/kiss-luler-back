@@ -9,8 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import co.simplon.alt3.kisslulerback.DTO.ChangePasswordDto;
-import co.simplon.alt3.kisslulerback.DTO.UserRegisterDTO;
+import co.simplon.alt3.kisslulerback.DTO.UserDto.ChangePasswordDto;
+import co.simplon.alt3.kisslulerback.DTO.UserDto.UserRegisterDTO;
 import co.simplon.alt3.kisslulerback.entites.User;
 import co.simplon.alt3.kisslulerback.exception.IncorrectMediaTypeFileException;
 import co.simplon.alt3.kisslulerback.exception.UserExistsException;

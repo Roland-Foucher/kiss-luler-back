@@ -1,4 +1,4 @@
-package co.simplon.alt3.kisslulerback.DTO;
+package co.simplon.alt3.kisslulerback.DTO.projectDto;
 
 import java.time.LocalDate;
 import java.time.Period;

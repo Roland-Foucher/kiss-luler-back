@@ -2,7 +2,7 @@ package co.simplon.alt3.kisslulerback.dummy;
 
 import java.time.LocalDate;
 
-import co.simplon.alt3.kisslulerback.DTO.UserRegisterDTO;
+import co.simplon.alt3.kisslulerback.DTO.UserDto.UserRegisterDTO;
 
 public class DummyUserDto extends UserRegisterDTO {
 

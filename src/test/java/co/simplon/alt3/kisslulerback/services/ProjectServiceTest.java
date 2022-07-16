@@ -12,7 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import co.simplon.alt3.kisslulerback.DTO.ProjectDTO;
+import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectDTO;
 import co.simplon.alt3.kisslulerback.dummy.DummyProject;
 import co.simplon.alt3.kisslulerback.entites.Project;
 import co.simplon.alt3.kisslulerback.repo.ProjectRepo;

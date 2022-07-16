@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import co.simplon.alt3.kisslulerback.DTO.ProjectDTO;
-import co.simplon.alt3.kisslulerback.DTO.ProjectDTOdetail;
+import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectDTO;
+import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectDTOdetail;
 import co.simplon.alt3.kisslulerback.services.IProjectService;
 
 @RestController
