@@ -1,6 +1,5 @@
 package co.simplon.alt3.kisslulerback.controller;
 
-import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

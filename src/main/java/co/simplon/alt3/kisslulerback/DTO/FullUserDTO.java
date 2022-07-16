@@ -1,8 +1,6 @@
 package co.simplon.alt3.kisslulerback.DTO;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 
 import co.simplon.alt3.kisslulerback.entites.User;
 import co.simplon.alt3.kisslulerback.enums.Role;
@@ -17,8 +15,8 @@ public class FullUserDTO {
   private String email;
   private String password;
   private Role role;
-  private Date birthdate;
-  private Date subscribeDate;
+  private LocalDate birthdate;
+  private LocalDate subscribeDate;
   private String photo;
   private String job;
   private String pseudo;
@@ -30,8 +28,8 @@ public class FullUserDTO {
     this.email = user.getEmail();
     this.password = user.getPassword();
     this.role = user.getRole();
-    this.birthdate = Date.from(user.getBirthdate().atStartOfDay(ZoneId.systemDefault()).toInstant());
-    this.subscribeDate = Date.from(user.getSubscribeDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+    this.birthdate = user.getBirthdate();
+    this.subscribeDate = user.getSubscribeDate();
     this.photo = user.getPhoto();
     this.job = user.getJob();
     this.pseudo = user.getPseudo();
@@ -61,11 +59,11 @@ public class FullUserDTO {
     return role;
   }
 
-  public Date getBirthdate() {
+  public LocalDate getBirthdate() {
     return birthdate;
   }
 
-  public Date getSubscribeDate() {
+  public LocalDate getSubscribeDate() {
     return subscribeDate;
   }
 
