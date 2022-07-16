@@ -20,9 +20,9 @@ public class UploadFileServiceImpl implements IUploadFileService {
   private final String imgPattern = "^image/.*";
 
   /**
-   * sauvegarde un fichier sur le serveur
+   * sauvegarde un fichier sur le serveur avec un nomde fichier random
    * 
-   * @retrun ave cun random ID
+   * @retrun le path à enregistrer dans la bdd
    */
   @Override
   public String saveImgageFile(MultipartFile file) throws IOException, IncorrectMediaTypeFileException {
@@ -42,7 +42,7 @@ public class UploadFileServiceImpl implements IUploadFileService {
   }
 
   /**
-   * supprime un fichier grace à son path
+   * supprime un fichier grace à son path stocké en bdd
    */
   @Override
   public boolean deleteFile(String url) {

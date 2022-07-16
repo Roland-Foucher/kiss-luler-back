@@ -1,14 +1,18 @@
 package co.simplon.alt3.kisslulerback.services;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import co.simplon.alt3.kisslulerback.DTO.ChangePasswordDto;
 import co.simplon.alt3.kisslulerback.DTO.UserRegisterDTO;
 import co.simplon.alt3.kisslulerback.entites.User;
+import co.simplon.alt3.kisslulerback.exception.IncorrectMediaTypeFileException;
 import co.simplon.alt3.kisslulerback.exception.UserExistsException;
 import co.simplon.alt3.kisslulerback.exception.WrongPasswordException;
 import co.simplon.alt3.kisslulerback.repo.UserRepo;
@@ -22,6 +26,10 @@ public class UserServiceimpl implements IUserService {
   @Autowired
   private PasswordEncoder encoder;
 
+  @Autowired
+  private IUploadFileService uploadFileService;
+
+  @Override
   public User register(final UserRegisterDTO userDto) throws UserExistsException {
     if (userRepo.existsByEmail(userDto.getEmail())) {
       throw new UserExistsException();
@@ -46,6 +54,7 @@ public class UserServiceimpl implements IUserService {
     user.setPassword(hashed);
   }
 
+  @Override
   public void changePassowrd(final ChangePasswordDto body, final User user) throws WrongPasswordException {
     if (!encoder.matches(body.getOldPassword(), user.getPassword())) {
       throw new WrongPasswordException();
@@ -53,6 +62,21 @@ public class UserServiceimpl implements IUserService {
     user.setPassword(body.getNewPassword());
 
     hashPassword(user);
+    userRepo.save(user);
+  }
+
+  @Override
+  public void saveUserPicture(final MultipartFile file, final User user)
+      throws IOException, IncorrectMediaTypeFileException {
+    String path = uploadFileService.saveImgageFile(file);
+    String oldPhoto = user.getPhoto();
+    user.setPhoto(path);
+
+    if (oldPhoto != null) {
+      uploadFileService.deleteFile(oldPhoto);
+
+    }
+
     userRepo.save(user);
   }
 }
