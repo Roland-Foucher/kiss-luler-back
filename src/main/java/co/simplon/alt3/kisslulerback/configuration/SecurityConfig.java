@@ -46,7 +46,7 @@ public class SecurityConfig {
         });
 
     // configuration de jwt
-    http.addFilter(new AuthFilter(authenticationConfiguration.getAuthenticationManager()))
+    http.addFilter(new AuthFilter(authenticationConfiguration.getAuthenticationManager(), authService))
         .addFilterBefore(new JwtFilter(authenticationConfiguration.getAuthenticationManager(), authService),
             UsernamePasswordAuthenticationFilter.class);
 

@@ -43,8 +43,9 @@ public class JwtFilter extends BasicAuthenticationFilter {
     }
 
     // on authentifie l'utilisateur en parsant le token
+    
     SecurityContextHolder.getContext().setAuthentication(getAuthentication(request));
-
+    
     // -> next opération
     filterChain.doFilter(request, response);
 
@@ -67,7 +68,6 @@ public class JwtFilter extends BasicAuthenticationFilter {
       if (userName != null) {
 
         UserDetails user = authService.loadUserByUsername(userName);
-
         return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
       }
 
