@@ -28,6 +28,10 @@ import co.simplon.alt3.kisslulerback.DTO.UserDto.LoginDTO;
 import co.simplon.alt3.kisslulerback.DTO.UserDto.UserDTOWithToken;
 import co.simplon.alt3.kisslulerback.utils.LocalDateAdapter;
 
+/**
+ * class permettant d'authentifier un utilisateur et de créer un token si
+ * username et password OK
+ */
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 
   public AuthFilter(AuthenticationManager authenticationManager) {
@@ -38,7 +42,7 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
   }
 
   /**
-   * methode vérifie l'authentification du user avec le token de la requete
+   * methode permettant de connecter l'utilisateur avec username et password
    */
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
@@ -53,7 +57,7 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
         throw new AuthenticationServiceException("username or password are null - can't auth");
       }
 
-      // on authentifie le user en verifiant le token
+      // on authentifie le user si le password est OK
       return getAuthenticationManager()
           .authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword(),
               new ArrayList<>())); // l'arraylist vide permet d'activer les roles
@@ -65,7 +69,7 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
   }
 
   /**
-   * methode renvoi un token en fonction du user
+   * methode renvoi un token si l'utilisateur st bien connecté
    */
   @Override
   protected void successfulAuthentication(HttpServletRequest req,

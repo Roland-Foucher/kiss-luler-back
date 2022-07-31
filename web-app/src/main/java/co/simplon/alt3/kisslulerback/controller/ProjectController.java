@@ -14,13 +14,22 @@ import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectDTO;
 import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectDTOdetail;
 import co.simplon.alt3.kisslulerback.services.IProjectService;
 
+/**
+ * rest controller liés à l'affichage des projets
+ */
 @RestController
 @RequestMapping("api/project")
 public class ProjectController {
 
   @Autowired
-  IProjectService projectService;
+  private IProjectService projectService;
 
+  /**
+   * récupération de tous les projets pour affichage d'une liste de cards
+   * 
+   * @return list des projets en objet DTO
+   * @throws IllegalArgumentException si aucun projet n'est présent dans la bdd
+   */
   @GetMapping
   public List<ProjectDTO> allProjects() {
     try {
@@ -36,6 +45,13 @@ public class ProjectController {
 
   }
 
+  /**
+   * récupère le détail d'un projet
+   * 
+   * @param id projet à récupérer
+   * @return le projet détailler en objet DTO
+   * @throws IllegalArgumentException si le projet n'est pas dans la bdd
+   */
   @GetMapping("/{id}")
   public ProjectDTOdetail oneProject(@PathVariable Integer id) {
     try {

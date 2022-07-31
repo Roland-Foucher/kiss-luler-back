@@ -1,8 +1,10 @@
 package co.simplon.alt3.kisslulerback.entites;
 
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +19,11 @@ import javax.persistence.OneToMany;
 import co.simplon.alt3.kisslulerback.enums.Category;
 import co.simplon.alt3.kisslulerback.enums.Status;
 
+/**
+ * projet créé par un utilisateur attendant une participation
+ */
 @Entity
-public class Project {
+public class Project implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,10 +55,10 @@ public class Project {
   private User user;
 
   @OneToMany(mappedBy = "project")
-  private List<Order> orders = new ArrayList<>();
+  private Set<Order> orders = new HashSet<>();
 
   @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
-  private List<Consideration> considerations = new ArrayList<>();
+  private Set<Consideration> considerations = new HashSet<>();
 
   public Project() {
   }
@@ -141,11 +146,11 @@ public class Project {
     this.user = user;
   }
 
-  public List<Order> getOrders() {
+  public Set<Order> getOrders() {
     return orders;
   }
 
-  public List<Consideration> getConsiderations() {
+  public Set<Consideration> getConsiderations() {
     return considerations;
   }
-};
+}

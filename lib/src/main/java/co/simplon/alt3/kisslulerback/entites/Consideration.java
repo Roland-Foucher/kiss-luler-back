@@ -1,5 +1,7 @@
 package co.simplon.alt3.kisslulerback.entites;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,8 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * considérations attendue lors de la créations du projet
+ */
 @Entity
-public class Consideration {
+public class Consideration implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -51,7 +51,7 @@ public class UserServiceimplTest {
     assertNotNull(userSaved);
     assertEquals("Jean", user.getFirstName());
     assertEquals(Role.USER, user.getRole());
-    assertNotEquals(user.getPassword(), "jeanjean-encoded");
+    assertNotEquals("jeanjean-encoded", user.getPassword());
 
     User userConnected = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -79,7 +79,7 @@ public class UserServiceimplTest {
     assertEquals("Georges", user.getFirstName());
     assertEquals("Abitbol", user.getLastName());
     assertEquals("j.dujardin.com", user.getEmail());
-    assertNotEquals(user.getPassword(), "jeanjean-encoded");
+    assertNotEquals("jeanjean-encoded", user.getPassword());
 
     User userConnected = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     assertEquals(user.getEmail(), userConnected.getEmail());
@@ -99,7 +99,7 @@ public class UserServiceimplTest {
     assertEquals("Georges", user.getFirstName());
     assertEquals("Abitbol", user.getLastName());
     assertEquals("email", user.getEmail());
-    assertNotEquals(user.getPassword(), "jeanjean-encoded");
+    assertNotEquals("jeanjean-encoded", user.getPassword());
 
     User userConnected = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     assertEquals(user.getEmail(), userConnected.getEmail());

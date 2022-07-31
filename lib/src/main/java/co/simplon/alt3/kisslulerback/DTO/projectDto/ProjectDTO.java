@@ -2,7 +2,7 @@ package co.simplon.alt3.kisslulerback.DTO.projectDto;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.util.Assert;
 
@@ -22,7 +22,7 @@ public class ProjectDTO {
   private String userName;
   private String photo;
   private Category category;
-  private Double considerations_amount;
+  private Double considerationsAmount;
   private String date; // date end - date start
 
   public ProjectDTO() {
@@ -36,7 +36,7 @@ public class ProjectDTO {
     // récupération des entités liées au projet par jointure de table et
     // verification qu'elles ne soient pas null
     final User user = project.getUser();
-    final List<Order> order = project.getOrders();
+    final Set<Order> order = project.getOrders();
     Assert.notNull(user, "impossible d'acceder à l'utilisateur attaché à ce projet");
     Assert.notNull(order, "impossible d'acceder aux orders attaché à ce projet");
 
@@ -45,7 +45,7 @@ public class ProjectDTO {
     this.userName = project.getUser().getFirstName() + " " + user.getLastName();
     this.photo = project.getPhoto();
     this.category = project.getCategory();
-    this.considerations_amount = calculateAllContribution(order);
+    this.considerationsAmount = calculateAllContribution(order);
     setDate(project.getDateEnd());
   }
 
@@ -64,7 +64,7 @@ public class ProjectDTO {
   /**
    * Calcule le totale des contributions du projet
    */
-  protected static double calculateAllContribution(List<Order> orders) {
+  protected static double calculateAllContribution(Set<Order> orders) {
 
     return orders
         .stream()
@@ -94,8 +94,8 @@ public class ProjectDTO {
     return category;
   }
 
-  public Double getConsiderations_amount() {
-    return considerations_amount;
+  public Double getConsiderationsAmount() {
+    return considerationsAmount;
   }
 
   public String getDate() {

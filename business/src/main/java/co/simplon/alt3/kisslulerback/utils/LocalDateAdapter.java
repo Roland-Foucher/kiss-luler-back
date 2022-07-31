@@ -15,6 +15,9 @@ import com.google.gson.JsonSerializer;
  */
 public class LocalDateAdapter implements JsonSerializer<LocalDate> {
 
+  /**
+   * format les date le LocalTime pour le JSON
+   */
   @Override
   public JsonElement serialize(LocalDate date, Type typeOfSrc, JsonSerializationContext context) {
 

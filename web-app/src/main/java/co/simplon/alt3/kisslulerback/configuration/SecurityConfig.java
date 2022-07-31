@@ -18,18 +18,33 @@ import co.simplon.alt3.kisslulerback.security.AuthFilter;
 import co.simplon.alt3.kisslulerback.security.AuthService;
 import co.simplon.alt3.kisslulerback.security.JwtFilter;
 
+/**
+ * class de configuration de spring boot security
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-  @Autowired
-  AuthService authService;
+  private static final String FRONT_URL = "http://localhost:3000";
 
   /**
-   * Configuration de Spring Security
+   * configuration de spring security
+   * 
+   * @param authService                 permet d'injecter le service dans la
+   *                                    class JWTfiler dans le but de récupérer le
+   *                                    user et l'envoyer au fronrt
+   * 
+   * @param http                        configuration de la sécurité spring
+   * @param authenticationConfiguration récupère les config d'authentification
+   * @return la configuration de la sécurité http buildée
+   * @throws Exception
+   * 
+   * @see HttpSecurity
+   * @see AuthenticationConfiguration
    */
   @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationConfiguration authenticationConfiguration)
+  public SecurityFilterChain filterChain(@Autowired AuthService authService, HttpSecurity http,
+      AuthenticationConfiguration authenticationConfiguration)
       throws Exception {
 
     // Ajout de la configuration cors
@@ -40,10 +55,9 @@ public class SecurityConfig {
         .mvcMatchers("/api/user/account/*").authenticated()
         .mvcMatchers("/api/admin/*").hasAuthority(Role.ADMIN.name())
         .anyRequest().permitAll()
-        .and().csrf().disable()
-        .logout().logoutSuccessHandler((req, res, auth) -> {
-          res.setStatus(204);
-        });
+        .and()
+        .csrf().disable()
+        .logout().logoutSuccessHandler((req, res, auth) -> res.setStatus(204));
 
     // configuration de jwt
     http.addFilter(new AuthFilter(authenticationConfiguration.getAuthenticationManager()))
@@ -56,18 +70,25 @@ public class SecurityConfig {
     return http.build();
   }
 
+  /**
+   * encode le mot de passe avant de le stocker en bdd
+   * 
+   * @return le mot de passe encodé avec BCrypt
+   */
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder(10);
   }
 
   /**
-   * Configuration des cors pour tous les controllers
+   * Configuration des cors pour tous les controllers avec l'adresse du front
+   * 
+   * @see CorsConfiguration
    */
   private CorsConfiguration corsConfiguration() {
     CorsConfiguration configuration = new CorsConfiguration();
 
-    configuration.addAllowedOrigin("http://localhost:3000");
+    configuration.addAllowedOrigin(FRONT_URL);
     configuration.addAllowedHeader("*");
     configuration.addAllowedMethod("*");
 

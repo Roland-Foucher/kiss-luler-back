@@ -4,4 +4,4 @@ public enum Role {
     ADMIN,
     USER,
     BLACKLISTED
-};
+}

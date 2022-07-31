@@ -123,7 +123,7 @@
         <artifactId>slf4j-api</artifactId>
         <version>1.7.36</version>
       </dependency>
-      
+
     </dependencies>
   </dependencyManagement>
 
@@ -153,6 +153,7 @@
           <configuration>
             <!-- Je veux le site en français -->
             <locales>fr</locales>
+            <port>9000</port>
           </configuration>
         </plugin>
       </plugins>
@@ -177,34 +178,33 @@
           <linkXRef>false</linkXRef>
         </configuration>
         <reportSets>
-                <!-- reportSet d'agrégation des rapports des sous-projets (modules) -->
-                <reportSet>
-                  <id>aggregate</id>
-                  <reports>
-                      <report>report</report>
-                  </reports>
-                  <!-- ne pas exécuter ce sous-rapport dans les sous-projets -->
-                  <inherited>false</inherited>
-                  <configuration>
-                      <aggregate>true</aggregate>
-                  </configuration>
-              </reportSet>
+          <!-- reportSet d'agrégation des rapports des sous-projets (modules) -->
+          <reportSet>
+            <id>aggregate</id>
+            <reports>
+              <report>report</report>
+            </reports>
+            <!-- ne pas exécuter ce sous-rapport dans les sous-projets -->
+            <inherited>false</inherited>
+            <configuration>
+              <aggregate>true</aggregate>
+            </configuration>
+          </reportSet>
 
-              <!-- reportSet non agrégé, exécuté dans tous les sous-projets (modules) -->
-              <reportSet>
-                  <id>modules</id>
-                  <!-- exécuter ce sous-rapport dans les sous-projets -->
-                  <inherited>true</inherited>
-                  <reports>
-                      <report>report</report>
-                  </reports>
-                  <configuration>
-                      <aggregate>false</aggregate>
-                  </configuration>
-              </reportSet>
+          <!-- reportSet non agrégé, exécuté dans tous les sous-projets (modules) -->
+          <reportSet>
+            <id>modules</id>
+            <!-- exécuter ce sous-rapport dans les sous-projets -->
+            <inherited>true</inherited>
+            <reports>
+              <report>report</report>
+            </reports>
+            <configuration>
+              <aggregate>false</aggregate>
+            </configuration>
+          </reportSet>
         </reportSets>
       </plugin>
-
 
 
       <!-- ===== Génération de la Javadoc ===== -->
@@ -214,6 +214,7 @@
         <version>3.4.0</version>
         <configuration>
           <quiet>true</quiet>
+          <doclint>none</doclint>
           <locale>fr</locale>
         </configuration>
         <reportSets>

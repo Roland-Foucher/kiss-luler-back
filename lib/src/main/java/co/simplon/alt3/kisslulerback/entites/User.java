@@ -1,9 +1,10 @@
 package co.simplon.alt3.kisslulerback.entites;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +26,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import co.simplon.alt3.kisslulerback.DTO.UserDto.UserRegisterDTO;
 import co.simplon.alt3.kisslulerback.enums.Role;
 
+/**
+ * utilisateur enregistré. implémente UserDetails pour une connexion via
+ * springboot
+ * 
+ * @see UserDetails
+ */
 @Entity
 @OnDelete(action = OnDeleteAction.CASCADE)
 public class User implements UserDetails {
@@ -63,11 +70,11 @@ public class User implements UserDetails {
 
   @JsonIgnore
   @OneToMany(mappedBy = "user")
-  private List<Order> orders = new ArrayList<>();
+  private Set<Order> orders = new HashSet<>();
 
   @JsonIgnore
   @OneToMany(mappedBy = "user")
-  private List<Project> projects = new ArrayList<>();
+  private Set<Project> projects = new HashSet<>();
 
   /////////// CONSTUCTEURS //////////////
 
@@ -144,11 +151,11 @@ public class User implements UserDetails {
     return id;
   }
 
-  public List<Order> getOrders() {
+  public Set<Order> getOrders() {
     return orders;
   }
 
-  public List<Project> getProjects() {
+  public Set<Project> getProjects() {
     return projects;
   }
 
@@ -202,7 +209,7 @@ public class User implements UserDetails {
     this.password = password;
   }
 
-  public void setProjects(List<Project> projects) {
+  public void setProjects(Set<Project> projects) {
     this.projects = projects;
   }
 
@@ -210,7 +217,7 @@ public class User implements UserDetails {
     this.photo = photo;
   }
 
-  public void setOrders(List<Order> orders) {
+  public void setOrders(Set<Order> orders) {
     this.orders = orders;
   }
 

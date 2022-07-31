@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import co.simplon.alt3.kisslulerback.repo.UserRepo;
 
+/**
+ * Service permettant de récupérer l'utilisateur via son email
+ */
 @Service
 public class AuthService implements UserDetailsService {
 

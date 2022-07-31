@@ -31,6 +31,13 @@ public class UserServiceimpl implements IUserService {
   @Autowired
   private IUploadFileService uploadFileService;
 
+  /**
+   * Enregistrement d'un utilisateur en bdd via le DTO récupéré du front avec un
+   * password hashé
+   * 
+   * @throws UserExistsException si l'email est déjà en base
+   * @return le DTO avec les données compètes de l'utilisateur enregistré
+   */
   @Override
   public FullUserDTO register(final UserRegisterDTO userDto) throws UserExistsException {
     if (userRepo.existsByEmail(userDto.getEmail())) {
@@ -51,11 +58,22 @@ public class UserServiceimpl implements IUserService {
     return new FullUserDTO(user);
   }
 
+  /**
+   * encode le mot de passe pour l'injécter dans le user
+   * 
+   * @param user utilisateur à enregistrer en bdd
+   */
   private void hashPassword(final User user) {
     final String hashed = encoder.encode(user.getPassword());
     user.setPassword(hashed);
   }
 
+  /**
+   * modifie le mot de passe de l'utilisateur
+   * 
+   * @throws WrongPasswordException si l'ancien password en bdd ne match pas avec
+   *                                celui du DTO
+   */
   @Override
   public void changePassowrd(final ChangePasswordDto body, final User user) throws WrongPasswordException {
     if (!encoder.matches(body.getOldPassword(), user.getPassword())) {
@@ -87,6 +105,8 @@ public class UserServiceimpl implements IUserService {
 
   /**
    * Update User avec le DTO update
+   * 
+   * @return le DTO avec les données compètes de l'utilisateur enregistré
    */
   @Override
   public FullUserDTO updateUser(UserUpdateDto userDto, User user) throws UserExistsException {

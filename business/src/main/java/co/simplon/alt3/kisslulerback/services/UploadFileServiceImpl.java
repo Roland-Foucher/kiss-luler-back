@@ -15,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import co.simplon.alt3.kisslulerback.exception.IncorrectMediaTypeFileException;
 
+/**
+ * service de gestion de l'upload des fichiers
+ */
 @Service
 public class UploadFileServiceImpl implements IUploadFileService {
 
@@ -66,7 +69,7 @@ public class UploadFileServiceImpl implements IUploadFileService {
    * verifie le type du fichier
    */
   private boolean checkFile(MultipartFile file, String pattern) {
-    
+
     Assert.notNull(file.getContentType(), "file has no content type");
     return file.getContentType().matches(pattern) && file.getSize() != 0;
   }

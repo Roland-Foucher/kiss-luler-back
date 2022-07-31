@@ -16,6 +16,9 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
+/**
+ * class permettant de verifier le token envoyer avec les requêtes
+ */
 public class JwtFilter extends BasicAuthenticationFilter {
 
   private AuthService authService;
@@ -26,7 +29,7 @@ public class JwtFilter extends BasicAuthenticationFilter {
   }
 
   /**
-   * authentification grace au token si presenet
+   * authentification grace au token si present
    */
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -50,8 +53,12 @@ public class JwtFilter extends BasicAuthenticationFilter {
 
   }
 
-  // Reads the JWT from the Authorization header, and then uses JWT to validate
-  // the token
+  /**
+   * lie le token JWT depuis le header, et utilise JWT pour valider le token
+   * 
+   * @param request la requète reçu par le serveur contenant un potentiel token
+   * @return authentification ok de l'utilisateur si le token est OK
+   */
   private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
 
     // recupération du token

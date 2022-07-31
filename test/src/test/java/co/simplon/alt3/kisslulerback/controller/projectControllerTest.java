@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import co.simplon.alt3.kisslulerback.ControllerTestConfiguration;
 
-public class projectControllerTest extends ControllerTestConfiguration {
+public class ProjectControllerTest extends ControllerTestConfiguration {
 
   @Autowired
   MockMvc mockMvc;

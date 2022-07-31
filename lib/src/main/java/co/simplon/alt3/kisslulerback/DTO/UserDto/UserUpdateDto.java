@@ -6,6 +6,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * DTO permettant de mettre à jour les données de l'utilisateur
+ */
 public class UserUpdateDto {
   @NotBlank
   private String firstName;

@@ -1,5 +1,6 @@
 package co.simplon.alt3.kisslulerback.entites;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * commandes faitent par un utilisateur sur un projet
+ */
 @Entity
 @Table(name = "user_order")
-public class Order {
+public class Order implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

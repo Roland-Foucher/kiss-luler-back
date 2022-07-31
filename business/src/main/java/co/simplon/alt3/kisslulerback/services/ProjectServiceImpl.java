@@ -1,7 +1,6 @@
 package co.simplon.alt3.kisslulerback.services;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,7 +64,8 @@ public class ProjectServiceImpl implements IProjectService {
         .map(ProjectDTO::new) // on passe tous les elements de la liste dans un constructeur de
                               // ProjectDTO <=>
                               // el -> new ProjectDTO(el)
-        .collect(Collectors.toList()); // on collect tous les éléments modifiés pour en refaire une
-                                       // list
+        .toList(); // on collect tous les éléments modifiés pour en refaire une
+                   // list
+
   }
 }
