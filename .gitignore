@@ -5,6 +5,7 @@ target/
 !**/src/test/**/target/
 kisslulerfront/
 
+sonarToken.txt
 ### STS ###
 .apt_generated
 .classpath
