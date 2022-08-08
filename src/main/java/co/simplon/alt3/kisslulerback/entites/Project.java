@@ -13,7 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
+import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectDTO;
+import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectSaveDTO;
+import co.simplon.alt3.kisslulerback.controller.ProjectController;
 import co.simplon.alt3.kisslulerback.enums.Category;
 import co.simplon.alt3.kisslulerback.enums.Status;
 
@@ -38,11 +40,13 @@ public class Project {
   @Column(nullable = false)
   private LocalDate dateEnd;
 
-  @Column(columnDefinition = "ENUM('INPROGRESS', 'CONCEPTION' , 'BLACKLISTED', 'PAUSED')", nullable = false)
+  @Column(columnDefinition = "ENUM('INPROGRESS', 'CONCEPTION' , 'BLACKLISTED', 'PAUSED')",
+      nullable = false)
   @Enumerated(EnumType.STRING)
   private Status status;
 
-  @Column(columnDefinition = "ENUM('TOURDATE','EP','CD','EVENT','INSTRUMENT','COMMUNICATION')", nullable = false)
+  @Column(columnDefinition = "ENUM('TOURDATE','EP','CD','EVENT','INSTRUMENT','COMMUNICATION')",
+      nullable = false)
   @Enumerated(EnumType.STRING)
   private Category category;
 
@@ -57,11 +61,20 @@ public class Project {
 
   private LocalDate lastUpdateDate;
 
-  public Project() {
+  public Project() {}
+
+  public Project(ProjectSaveDTO projetSaveDto) {
+    this.category = projetSaveDto.getCategory();
+    this.dateEnd = projetSaveDto.getDateEnd();
+    this.dateInit = projetSaveDto.getDateInit();
+    this.name = projetSaveDto.getName();
+    this.description = projetSaveDto.getDescription();
+
+
   }
 
-  public Project(Integer id, String name, String photo, String description, LocalDate dateInit, LocalDate dateEnd,
-      Category category) {
+  public Project(Integer id, String name, String photo, String description, LocalDate dateInit,
+      LocalDate dateEnd, Category category) {
     this.id = id;
     this.name = name;
     this.photo = photo;
