@@ -7,16 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 
-import javax.management.modelmbean.InvalidTargetObjectTypeException;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithUserDetails;
 
 import co.simplon.alt3.kisslulerback.IntegrationTestConfiguration;
 import co.simplon.alt3.kisslulerback.DTO.considerationDTO.ConsiderationSaveDto;
 import co.simplon.alt3.kisslulerback.dummy.DummyConsiderationSaveDto;
+import co.simplon.alt3.kisslulerback.dummy.DummyUser;
 import co.simplon.alt3.kisslulerback.entites.Consideration;
 import co.simplon.alt3.kisslulerback.exception.IncorrectMediaTypeFileException;
 
@@ -30,7 +30,8 @@ public class ConsiderationServiceIntegrationTest extends IntegrationTestConfigur
     MockMultipartFile image = new MockMultipartFile("file", "file.png", MediaType.IMAGE_PNG.toString(),
         "some img".getBytes());
 
-    Consideration considerationBdd = considerationService.saveConsideration(new DummyConsiderationSaveDto(), image);
+    Consideration considerationBdd = considerationService.saveConsideration(new DummyConsiderationSaveDto(), image,
+        new DummyUser());
 
     assertNotNull(considerationBdd);
     assertEquals(1, considerationBdd.getProject().getId());
@@ -39,7 +40,8 @@ public class ConsiderationServiceIntegrationTest extends IntegrationTestConfigur
 
   @Test
   void testSaveConsiderationWithoutFile() throws IOException, IncorrectMediaTypeFileException {
-    Consideration considerationBdd = considerationService.saveConsideration(new DummyConsiderationSaveDto(), null);
+    Consideration considerationBdd = considerationService.saveConsideration(new DummyConsiderationSaveDto(), null,
+        new DummyUser());
 
     assertNotNull(considerationBdd);
     assertEquals(1, considerationBdd.getProject().getId());
@@ -51,13 +53,13 @@ public class ConsiderationServiceIntegrationTest extends IntegrationTestConfigur
     ConsiderationSaveDto consideration = new DummyConsiderationSaveDto();
     consideration.setProjectId(null);
     assertThrows(IllegalArgumentException.class,
-        () -> considerationService.saveConsideration(consideration, null));
+        () -> considerationService.saveConsideration(consideration, null, new DummyUser()));
   }
 
   @Test
   void testSaveConsiderationNullThrowsException() {
     ConsiderationSaveDto consideration = null;
     assertThrows(IllegalArgumentException.class,
-        () -> considerationService.saveConsideration(consideration, null));
+        () -> considerationService.saveConsideration(consideration, null, new DummyUser()));
   }
 }

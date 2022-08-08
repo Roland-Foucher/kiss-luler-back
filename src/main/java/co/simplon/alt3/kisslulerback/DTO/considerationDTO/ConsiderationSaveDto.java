@@ -9,7 +9,6 @@ public class ConsiderationSaveDto {
   @NotNull
   private Integer projectId;
 
-  @NotBlank
   @Min(0)
   private int considAmount;
 

@@ -19,6 +19,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import co.simplon.alt3.kisslulerback.dummy.DummyConsideration;
 import co.simplon.alt3.kisslulerback.dummy.DummyConsiderationSaveDto;
 import co.simplon.alt3.kisslulerback.dummy.DummyProject;
+import co.simplon.alt3.kisslulerback.dummy.DummyUser;
 import co.simplon.alt3.kisslulerback.entites.Consideration;
 import co.simplon.alt3.kisslulerback.exception.IncorrectMediaTypeFileException;
 import co.simplon.alt3.kisslulerback.repo.ConsiderationRepo;
@@ -47,7 +48,8 @@ public class ConsiderationServiceTest {
     when(projectRepo.findById(1)).thenReturn(Optional.of(new DummyProject()));
     when(considerationRepo.save(Mockito.isA(Consideration.class))).thenReturn(new DummyConsideration());
 
-    Consideration considerationBdd = considerationService.saveConsideration(new DummyConsiderationSaveDto(), image);
+    Consideration considerationBdd = considerationService.saveConsideration(new DummyConsiderationSaveDto(), image,
+        new DummyUser());
     assertNotNull(considerationBdd);
     assertEquals(1, considerationBdd.getId());
   }
