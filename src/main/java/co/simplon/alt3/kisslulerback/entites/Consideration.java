@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import co.simplon.alt3.kisslulerback.DTO.considerationDTO.ConsiderationSaveDto;
+
 @Entity
 public class Consideration {
 
@@ -42,6 +44,12 @@ public class Consideration {
     this.description = description;
     this.photo = photo;
     this.project = project;
+  }
+
+  public Consideration(ConsiderationSaveDto considerationSaveDto) {
+    this.considAmount = considerationSaveDto.getConsidAmount();
+    this.description = considerationSaveDto.getDescription();
+    this.title = considerationSaveDto.getTitle();
   }
 
   public Integer getId() {
