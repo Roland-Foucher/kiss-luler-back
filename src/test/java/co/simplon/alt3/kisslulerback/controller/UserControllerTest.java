@@ -1,5 +1,9 @@
 package co.simplon.alt3.kisslulerback.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +15,15 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import co.simplon.alt3.kisslulerback.ControllerTestConfiguration;
+import co.simplon.alt3.kisslulerback.repo.UserRepo;
 
 public class UserControllerTest extends ControllerTestConfiguration {
 
   @Autowired
   MockMvc mockMvc;
+
+  @Autowired 
+  UserRepo userRepo;
 
   @Nested
   class testRegister {
@@ -99,7 +107,12 @@ public class UserControllerTest extends ControllerTestConfiguration {
           .content(jsonRegister)
           .contentType(MediaType.APPLICATION_JSON)
           .accept(MediaType.APPLICATION_JSON))
-          .andExpect(MockMvcResultMatchers.status().isOk());
+          .andExpect(MockMvcResultMatchers.status().isOk())
+          ;
+      
+      assertEquals(LocalDate.now(), userRepo.findByEmail("admin@gmail.com")
+                                            .orElse(null)
+                                            .getLastConnection());
     }
 
     @Test

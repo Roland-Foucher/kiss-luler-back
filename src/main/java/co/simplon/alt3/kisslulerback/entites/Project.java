@@ -55,6 +55,8 @@ public class Project {
   @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
   private List<Consideration> considerations = new ArrayList<>();
 
+  private LocalDate lastUpdateDate;
+
   public Project() {
   }
 
@@ -147,5 +149,9 @@ public class Project {
 
   public List<Consideration> getConsiderations() {
     return considerations;
+  }
+
+  public LocalDate getLastUpdateDate() {
+    return lastUpdateDate;
   }
 };

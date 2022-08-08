@@ -30,9 +30,11 @@ import co.simplon.alt3.kisslulerback.configuration.LocalDateAdapter;
 
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 
-  public AuthFilter(AuthenticationManager authenticationManager) {
-    super(authenticationManager);
+  private AuthService authService;
 
+  public AuthFilter(AuthenticationManager authenticationManager, AuthService authService) {
+    super(authenticationManager);
+    this.authService = authService;
     // definition de l'url de login
     setFilterProcessesUrl(SecurityConstants.SIGN_UP_URL);
   }
@@ -52,6 +54,7 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
       if (loginDTO.getUsername() == null || loginDTO.getPassword() == null) {
         throw new AuthenticationServiceException("username or password are null - can't auth");
       }
+      authService.setDateConnection(loginDTO);
 
       // on authentifie le user en verifiant le token
       return getAuthenticationManager()

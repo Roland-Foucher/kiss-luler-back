@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import co.simplon.alt3.kisslulerback.DTO.UserDto.LoginDTO;
+import co.simplon.alt3.kisslulerback.entites.User;
 import co.simplon.alt3.kisslulerback.repo.UserRepo;
 
 @Service
@@ -19,5 +21,12 @@ public class AuthService implements UserDetailsService {
     return userRepo
         .findByEmail(email)
         .orElseThrow(() -> new UsernameNotFoundException("user not found"));
+  }
+
+  public void setDateConnection(LoginDTO loginDto) throws UsernameNotFoundException {
+    User user = userRepo.findByEmail(loginDto.getUsername())
+      .orElseThrow(() -> new UsernameNotFoundException("user not found"));
+
+    userRepo.setDateConnectionOnConnect(user.getUserId());
   }
 }

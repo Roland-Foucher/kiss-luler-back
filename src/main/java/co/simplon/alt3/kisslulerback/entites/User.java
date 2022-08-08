@@ -62,6 +62,9 @@ public class User implements UserDetails {
   private String pseudo;
 
   @JsonIgnore
+  private LocalDate lastConnection;
+
+  @JsonIgnore
   @OneToMany(mappedBy = "user")
   private List<Order> orders = new ArrayList<>();
 
@@ -175,6 +178,10 @@ public class User implements UserDetails {
   public String getPseudo() {
     return pseudo;
   }
+  
+  public LocalDate getLastConnection() {
+    return lastConnection;
+  }
 
   /////////// SETTER //////////////
 
@@ -228,6 +235,10 @@ public class User implements UserDetails {
 
   public void setPseudo(String pseudo) {
     this.pseudo = pseudo;
+  }
+
+  public void setLastConnection(LocalDate lastConnection) {
+    this.lastConnection = lastConnection;
   }
 
   /////////// SECURITY //////////////
