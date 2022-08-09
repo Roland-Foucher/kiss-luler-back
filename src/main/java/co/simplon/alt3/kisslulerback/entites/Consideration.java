@@ -2,13 +2,17 @@ package co.simplon.alt3.kisslulerback.entites;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import co.simplon.alt3.kisslulerback.DTO.considerationDTO.ConsiderationSaveDto;
+import co.simplon.alt3.kisslulerback.enums.ConsiderationStatus;
 
 @Entity
 public class Consideration {
@@ -27,6 +31,10 @@ public class Consideration {
   private String description;
 
   private String photo;
+
+  @Column(columnDefinition = "ENUM('INPROGRESS', 'READY', 'CLOSED')", nullable = false)
+  @Enumerated(EnumType.STRING)
+  private ConsiderationStatus status;
 
   @JsonIgnore
   @ManyToOne
@@ -47,9 +55,8 @@ public class Consideration {
   }
 
   public Consideration(ConsiderationSaveDto considerationSaveDto) {
-    this.considAmount = considerationSaveDto.getConsidAmount();
-    this.description = considerationSaveDto.getDescription();
-    this.title = considerationSaveDto.getTitle();
+    updateConsideration(considerationSaveDto);
+    this.status = ConsiderationStatus.INPROGRESS;
   }
 
   public Integer getId() {
@@ -98,6 +105,20 @@ public class Consideration {
 
   public void setProject(Project project) {
     this.project = project;
+  }
+
+  public void updateConsideration(ConsiderationSaveDto considerationSaveDto) {
+    this.considAmount = considerationSaveDto.getConsidAmount();
+    this.description = considerationSaveDto.getDescription();
+    this.title = considerationSaveDto.getTitle();
+  }
+
+  public ConsiderationStatus getStatus() {
+    return status;
+  }
+
+  public void setStatus(ConsiderationStatus status) {
+    this.status = status;
   }
 
 }

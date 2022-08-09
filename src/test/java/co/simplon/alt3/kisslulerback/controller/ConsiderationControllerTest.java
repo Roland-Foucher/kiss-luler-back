@@ -68,7 +68,7 @@ public class ConsiderationControllerTest extends ControllerTestConfiguration {
           \"considAmount\": 100,
           \"description\": \"une super récompense\",
           \"title\": \"album\",
-          \"projectId\": null
+          \"projectId\": null,
         }
         """;
 
@@ -76,6 +76,6 @@ public class ConsiderationControllerTest extends ControllerTestConfiguration {
         .content(jsonConsiderationDto)
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isOk());
+        .andExpect(MockMvcResultMatchers.status().isBadRequest());
   }
 }

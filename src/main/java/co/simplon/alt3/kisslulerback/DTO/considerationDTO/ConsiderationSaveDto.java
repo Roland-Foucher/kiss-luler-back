@@ -16,14 +16,6 @@ public class ConsiderationSaveDto {
   private String title;
   private String description;
 
-  public Integer getProjectId() {
-    return projectId;
-  }
-
-  public void setProjectId(Integer projectId) {
-    this.projectId = projectId;
-  }
-
   public int getConsidAmount() {
     return considAmount;
   }
@@ -46,5 +38,13 @@ public class ConsiderationSaveDto {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public Integer getProjectId() {
+    return projectId;
+  }
+
+  public void setProjectId(Integer projectId) {
+    this.projectId = projectId;
   }
 }
