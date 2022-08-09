@@ -113,17 +113,35 @@ INSERT INTO
     description,
     photo,
     title,
-    project_id
+    project_id,
+    status
   )
 VALUES
-  (2, 20, NULL, NULL, 'une photo', 1),(3, 50, NULL, NULL, 'Une place de concert', 1),(4, 40, NULL, NULL, 'un CD dedicacé', 2),
+  (
+    2,
+    20,
+    NULL,
+    'myFile',
+    'une photo',
+    1,
+    'INPROGRESS'
+  ),(
+    3,
+    50,
+    NULL,
+    NULL,
+    'Une place de concert',
+    1,
+    'READY'
+  ),(4, 40, NULL, NULL, 'un CD dedicacé', 2, 'READY'),
   (
     5,
     30,
     NULL,
     NULL,
     'Ma reconnaissance éternelle',
-    3
+    3,
+    'READY'
   );
 INSERT INTO
   `user_order`(id, amount, date, project_id, user_id)
