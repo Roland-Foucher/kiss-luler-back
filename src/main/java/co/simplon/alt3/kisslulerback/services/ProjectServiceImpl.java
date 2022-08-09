@@ -1,5 +1,6 @@
 package co.simplon.alt3.kisslulerback.services;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,11 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-
+import org.springframework.web.multipart.MultipartFile;
 import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectDTO;
 import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectDTOdetail;
+import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectSaveDTO;
 import co.simplon.alt3.kisslulerback.entites.Project;
 import co.simplon.alt3.kisslulerback.entites.User;
+import co.simplon.alt3.kisslulerback.exception.IncorrectMediaTypeFileException;
 import co.simplon.alt3.kisslulerback.repo.ProjectRepo;
 
 @Service
@@ -21,6 +24,10 @@ public class ProjectServiceImpl implements IProjectService {
 
   @Autowired
   ProjectRepo projectRepo;
+
+  @Autowired
+  IUploadFileService uploadFile;
+
 
   /**
    * @return une list de projet converti en DTO
@@ -69,4 +76,18 @@ public class ProjectServiceImpl implements IProjectService {
         .collect(Collectors.toList()); // on collect tous les éléments modifiés pour en refaire une
                                        // list
   }
+
+  public Project addAproject(ProjectSaveDTO projectSaveDto, User user, MultipartFile file) throws IOException, IncorrectMediaTypeFileException {
+    Project project = new Project(projectSaveDto);
+    project.setUser(user);
+    if (file != null) {
+      String path = uploadFile.saveImgageFile(file);
+      project.setPhoto(path);
+    }
+
+    return projectRepo.save(project);
+  }
+
+
+
 }

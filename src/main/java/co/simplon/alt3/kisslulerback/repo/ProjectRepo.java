@@ -9,4 +9,5 @@ import co.simplon.alt3.kisslulerback.entites.User;
 
 public interface ProjectRepo extends JpaRepository<Project, Integer> {
   List<Project> findByUser(User user);
+ 
 }
