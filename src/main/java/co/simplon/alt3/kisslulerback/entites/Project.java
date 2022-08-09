@@ -13,9 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectDTO;
+
 import co.simplon.alt3.kisslulerback.DTO.projectDto.ProjectSaveDTO;
-import co.simplon.alt3.kisslulerback.controller.ProjectController;
+
 import co.simplon.alt3.kisslulerback.enums.Category;
 import co.simplon.alt3.kisslulerback.enums.Status;
 
