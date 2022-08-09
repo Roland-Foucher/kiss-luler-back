@@ -1,6 +1,5 @@
 package co.simplon.alt3.kisslulerback.dummy;
 
-import co.simplon.alt3.kisslulerback.DTO.considerationDTO.ConsiderationSaveDto;
 import co.simplon.alt3.kisslulerback.DTO.considerationDTO.ConsiderationUpdateDto;
 
 public class DummyConsiderationUpdateDto extends ConsiderationUpdateDto {
@@ -12,5 +11,4 @@ public class DummyConsiderationUpdateDto extends ConsiderationUpdateDto {
     this.setProjectId(1);
     this.setConsiderationId(2);
   }
-
 }

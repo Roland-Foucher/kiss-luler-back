@@ -63,7 +63,7 @@ public class ConsiderationServiceImpl implements IConsiderationService {
 
     // s'il y a une photo on l'enregistre en base
     if (image != null) {
-      String filePath = uploadFileService.saveImgageFile(image);
+      final String filePath = uploadFileService.saveImgageFile(image);
       consideration.setPhoto(filePath);
     }
 
@@ -76,15 +76,17 @@ public class ConsiderationServiceImpl implements IConsiderationService {
    * @return l'entité enregistrée
    */
   @Override
-  public Consideration updateConsideration(ConsiderationUpdateDto considerationUpdateDto, MultipartFile image,
-      User user)
+  public Consideration updateConsideration(final ConsiderationUpdateDto considerationUpdateDto,
+      final MultipartFile image,
+      final User user)
       throws IOException, IncorrectMediaTypeFileException {
 
     Assert.notNull(considerationUpdateDto, NULL_CONSIDERATION);
     Assert.notNull(considerationUpdateDto.getProjectId(), NULL_PROJECTID);
     Assert.notNull(considerationUpdateDto.getConsiderationId(), NULL_CONSIDERATIONID);
 
-    Consideration consideration = considerationRepo.findById(considerationUpdateDto.getConsiderationId()).orElse(null);
+    final Consideration consideration = considerationRepo.findById(considerationUpdateDto.getConsiderationId())
+        .orElse(null);
     Assert.notNull(consideration, NULL_CONSIDERATION);
 
     assertProjectBelongConnectedUser(consideration.getProject(), user);
@@ -96,7 +98,7 @@ public class ConsiderationServiceImpl implements IConsiderationService {
 
     // s'il y a une photo on l'enregistre en base
     if (image != null) {
-      String filePath = uploadFileService.saveImgageFile(image);
+      final String filePath = uploadFileService.saveImgageFile(image);
       consideration.setPhoto(filePath);
     }
 
@@ -107,9 +109,9 @@ public class ConsiderationServiceImpl implements IConsiderationService {
    * Supprime la consideration si status inprogress
    */
   @Override
-  public void deleteConsideration(Integer considerationId, User user) {
+  public void deleteConsideration(final Integer considerationId, final User user) {
 
-    Consideration consideration = getConsiderationById(considerationId);
+    final Consideration consideration = getConsiderationById(considerationId);
 
     // la considération ne peut plus être supprimée une fois validé par le user
     Assert.isTrue(consideration.getStatus().equals(ConsiderationStatus.INPROGRESS), CONSIDERATION_NOT_INPROGESS);
@@ -123,9 +125,9 @@ public class ConsiderationServiceImpl implements IConsiderationService {
    * passe une consideration au status ready
    */
   @Override
-  public Consideration setReadyStatus(Integer considerationId, User user) {
+  public Consideration setReadyStatus(final Integer considerationId, final User user) {
 
-    Consideration consideration = getConsiderationById(considerationId);
+    final Consideration consideration = getConsiderationById(considerationId);
 
     assertProjectBelongConnectedUser(consideration.getProject(), user);
 
@@ -142,9 +144,9 @@ public class ConsiderationServiceImpl implements IConsiderationService {
    * passe une consideration au status clôs
    */
   @Override
-  public Consideration setClosedStatus(Integer considerationId, User user) {
+  public Consideration setClosedStatus(final Integer considerationId, final User user) {
 
-    Consideration consideration = getConsiderationById(considerationId);
+    final Consideration consideration = getConsiderationById(considerationId);
 
     assertProjectBelongConnectedUser(consideration.getProject(), user);
 
@@ -163,7 +165,7 @@ public class ConsiderationServiceImpl implements IConsiderationService {
    * @param userId    id de l'utilisateur connécté
    * @return le projet si pas d'erreur d'assertion
    */
-  private Project assertProjectBelongConnectedUser(Project project, User user) {
+  private Project assertProjectBelongConnectedUser(final Project project, final User user) {
 
     Assert.notNull(user, NULL_USER);
     Assert.notNull(project, NULL_PROJECT);
@@ -177,10 +179,10 @@ public class ConsiderationServiceImpl implements IConsiderationService {
    * @param considerationId l'id de la considération
    * @return
    */
-  private Consideration getConsiderationById(Integer considerationId) {
+  private Consideration getConsiderationById(final Integer considerationId) {
     Assert.notNull(considerationId, NULL_CONSIDERATIONID);
 
-    Consideration consideration = considerationRepo.findById(considerationId).orElse(null);
+    final Consideration consideration = considerationRepo.findById(considerationId).orElse(null);
 
     Assert.notNull(consideration, NULL_CONSIDERATION);
 
