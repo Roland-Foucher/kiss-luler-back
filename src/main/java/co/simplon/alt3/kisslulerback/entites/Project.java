@@ -69,6 +69,7 @@ public class Project {
     this.dateInit = projetSaveDto.getDateInit();
     this.name = projetSaveDto.getName();
     this.description = projetSaveDto.getDescription();
+    this.status = Status.INPROGRESS;
 
 
   }
