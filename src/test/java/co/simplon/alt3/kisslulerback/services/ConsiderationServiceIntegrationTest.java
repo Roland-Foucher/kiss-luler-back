@@ -13,12 +13,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.security.test.context.support.WithUserDetails;
 
 import co.simplon.alt3.kisslulerback.IntegrationTestConfiguration;
 import co.simplon.alt3.kisslulerback.DTO.considerationDTO.ConsiderationSaveDto;
 import co.simplon.alt3.kisslulerback.DTO.considerationDTO.ConsiderationUpdateDto;
-import co.simplon.alt3.kisslulerback.dummy.DummyConsideration;
 import co.simplon.alt3.kisslulerback.dummy.DummyConsiderationSaveDto;
 import co.simplon.alt3.kisslulerback.dummy.DummyConsiderationUpdateDto;
 import co.simplon.alt3.kisslulerback.dummy.DummyUser;
