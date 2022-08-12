@@ -46,6 +46,10 @@ public class Project {
   @Enumerated(EnumType.STRING)
   private Status status;
 
+
+  @Column(nullable=false)
+  private int amountInit;
+
   @Column(columnDefinition = "ENUM('TOURDATE','EP','CD','EVENT','INSTRUMENT','COMMUNICATION')", nullable = false)
   @Enumerated(EnumType.STRING)
   private Category category;
@@ -71,18 +75,22 @@ public class Project {
     this.name = projetSaveDto.getName();
     this.description = projetSaveDto.getDescription();
     this.status = Status.INPROGRESS;
+    this.amountInit = projetSaveDto.getAmountInit();
+    
 
   }
 
-  public Project(Integer id, String name, String photo, String description, LocalDate dateInit,
+  public Project(Integer id, String name, String photo, int amountInit, String description, LocalDate dateInit,
       LocalDate dateEnd, Category category) {
     this.id = id;
     this.name = name;
     this.photo = photo;
+    this.amountInit = amountInit;
     this.description = description;
     this.dateInit = dateInit;
     this.dateEnd = dateEnd;
     this.category = category;
+    
   }
 
   public Integer getId() {
@@ -109,9 +117,19 @@ public class Project {
     this.photo = photo;
   }
 
+  public int getAmountInit(){
+    return amountInit;
+  }
+
+  public void setAmountInit(int amountInit){
+    this.amountInit = amountInit;
+  }
+
   public String getDescription() {
     return description;
   }
+  
+  
 
   public void setDescription(String description) {
     this.description = description;

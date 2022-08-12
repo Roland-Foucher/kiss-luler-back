@@ -22,6 +22,9 @@ public class ProjectSaveDTO {
   @NotBlank
   private String name;
 
+  @NotBlank
+  private int amountInit;
+
   public String getDescription() {
     return description;
   }
@@ -60,6 +63,14 @@ public class ProjectSaveDTO {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public int getAmountInit(){
+    return amountInit;
+  }
+
+  public void setAmountInit(int amountInit){
+    this.amountInit = amountInit;
   }
 
 }
