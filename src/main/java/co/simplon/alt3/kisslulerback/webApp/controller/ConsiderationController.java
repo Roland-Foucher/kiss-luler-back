@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -101,11 +102,12 @@ public class ConsiderationController {
   }
 
   @DeleteMapping("/delete/{id}")
-  @ResponseStatus(code = HttpStatus.OK, reason = "OK")
+  @ResponseStatus(value = HttpStatus.OK, reason = "OK")
   public void deleteConsideration(@PathVariable("id") final Integer considerationId,
       @AuthenticationPrincipal final User user) {
     try {
       considerationService.deleteConsideration(considerationId, user);
+
     } catch (Exception e) {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }

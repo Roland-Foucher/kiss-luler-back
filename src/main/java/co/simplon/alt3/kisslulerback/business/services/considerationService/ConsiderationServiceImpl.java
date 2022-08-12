@@ -130,8 +130,10 @@ public class ConsiderationServiceImpl implements IConsiderationService {
 
     assertProjectBelongConnectedUser(consideration.getProject(), user);
 
-    // la considération doit être au status in progress
-    Assert.isTrue(consideration.getStatus().equals(ConsiderationStatus.INPROGRESS), CONSIDERATION_NOT_INPROGESS);
+    // la considération doit être au status in progress ou closed
+    Assert.isTrue(consideration.getStatus().equals(ConsiderationStatus.INPROGRESS) ||
+        consideration.getStatus().equals(ConsiderationStatus.CLOSED),
+        CONSIDERATION_NOT_INPROGESS);
 
     consideration.setStatus(ConsiderationStatus.READY);
 
