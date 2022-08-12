@@ -52,6 +52,7 @@ public class SecurityConfig {
     // configuration des routes et Droits
     http.authorizeRequests()
         .mvcMatchers("/api/user/account/*").authenticated()
+        .mvcMatchers("/api/user/consideration/*").authenticated()
         .mvcMatchers("/api/admin/*").hasAuthority(Role.ADMIN.name())
         .anyRequest().permitAll()
         .and().csrf().disable()

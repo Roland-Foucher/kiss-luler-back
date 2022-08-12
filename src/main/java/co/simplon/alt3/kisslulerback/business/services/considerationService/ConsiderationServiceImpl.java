@@ -3,6 +3,7 @@ package co.simplon.alt3.kisslulerback.business.services.considerationService;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
@@ -81,9 +82,9 @@ public class ConsiderationServiceImpl implements IConsiderationService {
 
     Assert.notNull(considerationUpdateDto, NULL_CONSIDERATION);
     Assert.notNull(considerationUpdateDto.getProjectId(), NULL_PROJECTID);
-    Assert.notNull(considerationUpdateDto.getConsiderationId(), NULL_CONSIDERATIONID);
+    Assert.notNull(considerationUpdateDto.getId(), NULL_CONSIDERATIONID);
 
-    final Consideration consideration = considerationRepo.findById(considerationUpdateDto.getConsiderationId())
+    final Consideration consideration = considerationRepo.findById(considerationUpdateDto.getId())
         .orElse(null);
     Assert.notNull(consideration, NULL_CONSIDERATION);
 

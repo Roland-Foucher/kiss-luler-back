@@ -168,4 +168,16 @@ public class Project {
   public LocalDate getLastUpdateDate() {
     return lastUpdateDate;
   }
+
+  public void setOrders(List<Order> orders) {
+    this.orders = orders;
+  }
+
+  public void setConsiderations(List<Consideration> considerations) {
+    this.considerations = considerations;
+  }
+
+  public void setLastUpdateDate(LocalDate lastUpdateDate) {
+    this.lastUpdateDate = lastUpdateDate;
+  }
 };

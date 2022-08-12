@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Properties;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.simplon.alt3.kisslulerback.library.exception.IncorrectMediaTypeFileException;
+import co.simplon.alt3.kisslulerback.webApp.configuration.PropertiesLoader;
 
 /**
  * service de gestion de l'upload des fichiers
@@ -19,8 +21,8 @@ import co.simplon.alt3.kisslulerback.library.exception.IncorrectMediaTypeFileExc
 @Service
 public class UploadFileServiceImpl implements IUploadFileService {
 
-  private String staticPath = "src/main/resources/static";
-  private final String imgPattern = "^image/.*";
+  private static final String staticPath = "src/main/resources/static";
+  private static final String imgPattern = "^image/.*";
 
   /**
    * sauvegarde un fichier sur le serveur avec un nomde fichier random
@@ -41,16 +43,20 @@ public class UploadFileServiceImpl implements IUploadFileService {
 
     Path path = Paths.get(staticPath + fileName);
     Files.copy(file.getInputStream(), path);
-    return fileName;
+
+    String serverAdress = getServerAdress();
+    return serverAdress + fileName;
   }
 
   /**
    * supprime un fichier grace à son path stocké en bdd
    */
   @Override
-  public boolean deleteFile(String url) {
+  public boolean deleteFile(String url) throws IOException {
+    String serverAdress = getServerAdress();
+    String path = staticPath + url.replace(serverAdress, "");
 
-    Path fileToDeletePath = Paths.get(this.staticPath + url);
+    Path fileToDeletePath = Paths.get(path);
     try {
       Files.delete(fileToDeletePath);
       return true;
@@ -66,6 +72,11 @@ public class UploadFileServiceImpl implements IUploadFileService {
    */
   private boolean checkFile(MultipartFile file, String pattern) {
     return file.getContentType().matches(pattern) && file.getSize() != 0;
+  }
+
+  private String getServerAdress() throws IOException {
+    Properties properties = PropertiesLoader.loadProperties("/application.properties");
+    return "//" + properties.getProperty("server.address") + ":" + properties.getProperty("server.port");
   }
 
 }

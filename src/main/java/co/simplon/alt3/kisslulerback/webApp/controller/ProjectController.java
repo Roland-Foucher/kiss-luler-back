@@ -61,7 +61,7 @@ public class ProjectController {
    * @throws IllegalArgumentException si le projet n'est pas dans la bdd
    */
   @GetMapping("/{id}")
-  public ProjectDTOdetail oneProject(@PathVariable Integer id) {
+  public ProjectDTOdetail oneProject(final @PathVariable Integer id, @AuthenticationPrincipal User user) {
     try {
       return projectService.FetchOneProject(id);
 

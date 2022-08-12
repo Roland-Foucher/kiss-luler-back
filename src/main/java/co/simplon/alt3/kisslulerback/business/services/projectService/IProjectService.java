@@ -21,4 +21,6 @@ public interface IProjectService {
   Project addAproject(final ProjectSaveDTO projectSaveDTO, final User user, final MultipartFile file)
       throws IOException, IncorrectMediaTypeFileException;
 
+  ProjectDTOdetail FetchOneProject(Integer id, User user);
+
 }
