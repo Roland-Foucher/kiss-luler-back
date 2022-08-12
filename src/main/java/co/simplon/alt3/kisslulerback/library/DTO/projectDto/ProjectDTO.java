@@ -23,7 +23,8 @@ public class ProjectDTO {
   private String photo;
   private Category category;
   private Double considerationsAmount;
-  private String date; // date end - date start
+  private String date;
+  private int amountInit; // date end - date start
 
   public ProjectDTO() {
   }
@@ -46,6 +47,7 @@ public class ProjectDTO {
     this.photo = project.getPhoto();
     this.category = project.getCategory();
     this.considerationsAmount = calculateAllContribution(order);
+    this.amountInit = project.getAmountInit();
     setDate(project.getDateEnd());
   }
 
@@ -80,6 +82,10 @@ public class ProjectDTO {
 
   public String getTitle() {
     return title;
+  }
+
+  public int getAmountInit(){
+    return amountInit;
   }
 
   public String getUserName() {

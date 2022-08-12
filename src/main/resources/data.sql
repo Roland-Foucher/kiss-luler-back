@@ -1,3 +1,4 @@
+-- Active: 1622622429103@@127.0.0.1@3306@kiss-luler-back
 INSERT INTO
   `user`(
     id,
@@ -72,7 +73,8 @@ INSERT INTO
     name,
     photo,
     status,
-    user_id
+    user_id,
+    amount_init
   )
 VALUES
   (
@@ -84,7 +86,8 @@ VALUES
     'tourdate',
     NULL,
     'INPROGRESS',
-    1
+    1,
+    500
   ),(
     2,
     'CD',
@@ -94,7 +97,8 @@ VALUES
     'CD',
     NULL,
     'INPROGRESS',
-    1
+    1,
+    300
   ),(
     3,
     'EP',
@@ -104,7 +108,8 @@ VALUES
     'EP',
     NULL,
     'CONCEPTION',
-    2
+    2,
+    24
   );
 INSERT INTO
   `consideration`(
