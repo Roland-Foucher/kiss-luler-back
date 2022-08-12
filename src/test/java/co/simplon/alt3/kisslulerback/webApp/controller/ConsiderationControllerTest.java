@@ -1,5 +1,7 @@
 package co.simplon.alt3.kisslulerback.webApp.controller;
 
+import javax.print.event.PrintEvent;
+
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +9,11 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.result.PrintingResultHandler;
 
 import co.simplon.alt3.kisslulerback.ControllerTestConfiguration;
 
@@ -31,14 +36,15 @@ public class ConsiderationControllerTest extends ControllerTestConfiguration {
             \"projectId\": 1
           }
           """;
+
       MockMultipartFile file = new MockMultipartFile("file", "file.png", MediaType.IMAGE_PNG.toString(),
           "some img".getBytes());
+      MockMultipartFile considerationDto = new MockMultipartFile("considerationDto", "", "application/json",
+          jsonConsiderationDto.getBytes());
 
       mockMvc.perform(MockMvcRequestBuilders.multipart("/api/user/consideration/add")
           .file(file)
-          .content(jsonConsiderationDto)
-          .contentType(MediaType.APPLICATION_JSON)
-          .accept(MediaType.APPLICATION_JSON))
+          .file(considerationDto))
           .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
@@ -55,10 +61,13 @@ public class ConsiderationControllerTest extends ControllerTestConfiguration {
           }
           """;
 
+      MockMultipartFile file = null;
+      MockMultipartFile considerationDto = new MockMultipartFile("considerationDto", "", "application/json",
+          jsonConsiderationDto.getBytes());
+
       mockMvc.perform(MockMvcRequestBuilders.multipart("/api/user/consideration/add")
-          .content(jsonConsiderationDto)
-          .contentType(MediaType.APPLICATION_JSON)
-          .accept(MediaType.APPLICATION_JSON))
+          .file(file)
+          .file(considerationDto))
           .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
@@ -74,11 +83,14 @@ public class ConsiderationControllerTest extends ControllerTestConfiguration {
             \"projectId\": null
           }
           """;
+      MockMultipartFile considerationDto = new MockMultipartFile("considerationDto", "", "application/json",
+          jsonConsiderationDto.getBytes());
+      MockMultipartFile file = null;
 
       mockMvc.perform(MockMvcRequestBuilders.multipart("/api/user/consideration/add")
-          .content(jsonConsiderationDto)
-          .contentType(MediaType.APPLICATION_JSON)
-          .accept(MediaType.APPLICATION_JSON))
+          .file(file)
+          .file(considerationDto))
+
           .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
@@ -97,14 +109,16 @@ public class ConsiderationControllerTest extends ControllerTestConfiguration {
             \"description\": \"une super récompense\",
             \"title\": \"album\",
             \"projectId\": 1,
-            \"considerationId\": 2
+            \"id\": 2
           }
           """;
+      MockMultipartFile considerationDto = new MockMultipartFile("considerationDto", "", "application/json",
+          jsonConsiderationDto.getBytes());
+      MockMultipartFile file = null;
 
       mockMvc.perform(MockMvcRequestBuilders.multipart("/api/user/consideration/edit")
-          .content(jsonConsiderationDto)
-          .contentType(MediaType.APPLICATION_JSON)
-          .accept(MediaType.APPLICATION_JSON))
+          .file(file)
+          .file(considerationDto))
           .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
@@ -118,19 +132,21 @@ public class ConsiderationControllerTest extends ControllerTestConfiguration {
             \"description\": \"une super récompense\",
             \"title\": \"album\",
             \"projectId\": 1,
-            \"considerationId\": 2
+            \"id\": 2
           }
           """;
+
+      MockMultipartFile considerationDto = new MockMultipartFile("considerationDto", "", "application/json",
+          jsonConsiderationDto.getBytes());
 
       MockMultipartFile file = new MockMultipartFile("file", "file.png", MediaType.IMAGE_PNG.toString(),
           "some img".getBytes());
 
       mockMvc.perform(MockMvcRequestBuilders.multipart("/api/user/consideration/edit")
           .file(file)
-          .content(jsonConsiderationDto)
-          .contentType(MediaType.APPLICATION_JSON)
-          .accept(MediaType.APPLICATION_JSON))
-          .andExpect(MockMvcResultMatchers.status().isOk());
+          .file(considerationDto))
+          .andExpect(MockMvcResultMatchers.status().isOk())
+          .andDo(MockMvcResultHandlers.print());
     }
   }
 

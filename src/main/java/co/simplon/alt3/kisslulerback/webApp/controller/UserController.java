@@ -6,11 +6,13 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,7 @@ import co.simplon.alt3.kisslulerback.library.DTO.userDto.FullUserDTO;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserRegisterDTO;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserUpdateDto;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectDTO;
+import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectDTOdetail;
 import co.simplon.alt3.kisslulerback.business.services.projectService.IProjectService;
 import co.simplon.alt3.kisslulerback.business.services.userService.IUserService;
 import co.simplon.alt3.kisslulerback.library.entites.User;
@@ -145,6 +148,21 @@ public class UserController {
       return userService.updateUser(userDto, user);
     } catch (UserExistsException e) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'utilisateur existe déjà");
+    }
+  }
+
+  @GetMapping("/account/project/{id}")
+  public ProjectDTOdetail oneUserProject(@PathVariable("id") Integer id, @AuthenticationPrincipal User user) {
+    try {
+      Assert.notNull(user, NO_USER_AUTH);
+      return projectService.FetchOneProject(id, user);
+
+    } catch (IllegalArgumentException e) {
+      throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
+
+    } catch (Exception e) {
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+          "Une erreur est parvenue, nous sommes désolés");
     }
   }
 

@@ -3,10 +3,12 @@ package co.simplon.alt3.kisslulerback.library.DTO.considerationDTO;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 public class ConsiderationSaveDto {
 
   @NotNull
+  @Positive
   private Integer projectId;
 
   @Min(0)

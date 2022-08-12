@@ -46,7 +46,8 @@ public class ProjectServiceIntegrationTest extends IntegrationTestConfiguration 
   void testFetchOneProject() {
     ProjectDTOdetail projectDTOdetail = projectService.FetchOneProject(1);
     assertNotNull(projectDTOdetail);
-    assertEquals(2, projectDTOdetail.getConsideration().size());
+    // ne récupère que les considérations READY ou CLOSED
+    assertEquals(1, projectDTOdetail.getConsideration().size());
   }
 
   @Test

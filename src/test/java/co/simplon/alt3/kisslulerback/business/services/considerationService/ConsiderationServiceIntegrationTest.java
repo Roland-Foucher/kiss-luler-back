@@ -105,7 +105,7 @@ public class ConsiderationServiceIntegrationTest extends IntegrationTestConfigur
     @Test
     void updateConsiderationNotInProgress() throws IOException, IncorrectMediaTypeFileException {
       ConsiderationUpdateDto consideration = new DummyConsiderationUpdateDto();
-      consideration.setConsiderationId(3);
+      consideration.setId(3);
       assertThrows(IllegalArgumentException.class,
           () -> considerationService.updateConsideration(consideration, null, new DummyUser()));
     }

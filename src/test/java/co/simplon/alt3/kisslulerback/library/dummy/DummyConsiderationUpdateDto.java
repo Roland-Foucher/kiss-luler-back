@@ -9,6 +9,6 @@ public class DummyConsiderationUpdateDto extends ConsiderationUpdateDto {
     this.setDescription("ma super consideration");
     this.setTitle("Consideration 2");
     this.setProjectId(1);
-    this.setConsiderationId(2);
+    this.setId(2);
   }
 }

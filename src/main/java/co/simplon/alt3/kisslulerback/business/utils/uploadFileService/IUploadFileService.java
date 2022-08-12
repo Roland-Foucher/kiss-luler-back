@@ -10,5 +10,5 @@ public interface IUploadFileService {
 
   String saveImgageFile(MultipartFile file) throws IOException, IncorrectMediaTypeFileException;
 
-  boolean deleteFile(String url);
+  boolean deleteFile(String url) throws IOException;
 }

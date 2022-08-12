@@ -2,6 +2,7 @@ package co.simplon.alt3.kisslulerback.business.services.projectService;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,9 +15,12 @@ import co.simplon.alt3.kisslulerback.business.utils.uploadFileService.IUploadFil
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectDTO;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectDTOdetail;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectSaveDTO;
+import co.simplon.alt3.kisslulerback.library.entites.Consideration;
 import co.simplon.alt3.kisslulerback.library.entites.Project;
 import co.simplon.alt3.kisslulerback.library.entites.User;
+import co.simplon.alt3.kisslulerback.library.enums.ConsiderationStatus;
 import co.simplon.alt3.kisslulerback.library.exception.IncorrectMediaTypeFileException;
+import co.simplon.alt3.kisslulerback.library.repositories.ConsiderationRepo;
 import co.simplon.alt3.kisslulerback.library.repositories.ProjectRepo;
 
 @Service
@@ -29,9 +33,13 @@ public class ProjectServiceImpl implements IProjectService {
   @Autowired
   IUploadFileService uploadFile;
 
+  @Autowired
+  ConsiderationRepo considerationRepo;
+
   /**
    * @return une list de projet converti en DTO
    */
+  @Override
   public List<ProjectDTO> FetchAllProject() {
 
     final List<Project> projects = projectRepo.findAll();
@@ -42,21 +50,45 @@ public class ProjectServiceImpl implements IProjectService {
   }
 
   /**
+   * Le visiteur ne peut voir que les considération qui ne sont pas en cours de
+   * traitement
    * 
    * @param id the project
-   * @return one project
+   * @return le projet DTO avec filtre sur ses considérations
    */
+  @Override
   public ProjectDTOdetail FetchOneProject(Integer id) {
 
+    return FetchOneProject(id, null);
+  }
+
+  @Override
+  @Transactional
+  public ProjectDTOdetail FetchOneProject(Integer id, User user) {
     Project project = projectRepo.findById(id).orElse(null);
     Assert.notNull(project, "Pas de projet trouvé");
+    Assert.notNull(project.getConsiderations(), "impossible d'accèder aux consideration avec JPA");
     ProjectDTOdetail oneProject = new ProjectDTOdetail(project);
+
+    // si le projet appartient à l'utilisateur on affiche toutes les contributions
+    if (user != null && project.getUser().getUserId().equals(user.getUserId())) {
+      return oneProject;
+    }
+
+    // sinon on filtre pour ne pas avoir les contribution INPROGRESS
+    List<Consideration> filtredConsideration = project.getConsiderations()
+        .stream()
+        .filter(el -> !el.getStatus().equals(ConsiderationStatus.INPROGRESS))
+        .collect(Collectors.toList());
+
+    oneProject.setConsideration(filtredConsideration);
     return oneProject;
   }
 
   /**
    * recupère la liste de projets d'un utilisateur
    */
+  @Override
   public List<ProjectDTO> getProjectByUser(final User user) {
     List<Project> projects = projectRepo.findByUser(user);
     Assert.notNull(projects, "impossible de récupérer la liste des projets de l'utilisateur");
