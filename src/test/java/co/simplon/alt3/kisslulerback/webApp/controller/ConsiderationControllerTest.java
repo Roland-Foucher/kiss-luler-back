@@ -61,12 +61,10 @@ public class ConsiderationControllerTest extends ControllerTestConfiguration {
           }
           """;
 
-      MockMultipartFile file = null;
       MockMultipartFile considerationDto = new MockMultipartFile("considerationDto", "", "application/json",
           jsonConsiderationDto.getBytes());
 
-      mockMvc.perform(MockMvcRequestBuilders.multipart("/api/user/consideration/add")
-          .file(file)
+      mockMvc.perform(MockMvcRequestBuilders.multipart("/api/user/consideration/add-no-file")
           .file(considerationDto))
           .andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -85,10 +83,8 @@ public class ConsiderationControllerTest extends ControllerTestConfiguration {
           """;
       MockMultipartFile considerationDto = new MockMultipartFile("considerationDto", "", "application/json",
           jsonConsiderationDto.getBytes());
-      MockMultipartFile file = null;
 
-      mockMvc.perform(MockMvcRequestBuilders.multipart("/api/user/consideration/add")
-          .file(file)
+      mockMvc.perform(MockMvcRequestBuilders.multipart("/api/user/consideration/add-no-file")
           .file(considerationDto))
 
           .andExpect(MockMvcResultMatchers.status().isBadRequest());
@@ -114,10 +110,8 @@ public class ConsiderationControllerTest extends ControllerTestConfiguration {
           """;
       MockMultipartFile considerationDto = new MockMultipartFile("considerationDto", "", "application/json",
           jsonConsiderationDto.getBytes());
-      MockMultipartFile file = null;
 
-      mockMvc.perform(MockMvcRequestBuilders.multipart("/api/user/consideration/edit")
-          .file(file)
+      mockMvc.perform(MockMvcRequestBuilders.multipart("/api/user/consideration/edit-no-file")
           .file(considerationDto))
           .andExpect(MockMvcResultMatchers.status().isOk());
     }

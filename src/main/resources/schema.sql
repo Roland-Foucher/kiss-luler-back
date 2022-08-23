@@ -36,6 +36,7 @@ CREATE TABLE `project` (
   `status` enum('INPROGRESS', 'CONCEPTION', 'BLACKLISTED', 'PAUSED') NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `last_update_date` date DEFAULT NULL,
+  `amount_init` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FKo06v2e9kuapcugnyhttqa1vpt` (`user_id`),
   CONSTRAINT `FKo06v2e9kuapcugnyhttqa1vpt` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
