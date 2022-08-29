@@ -7,10 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -83,14 +85,18 @@ public class ProjectController {
    * @return le projet sauvegardé
    */
   @PostMapping("/account/project")
-  public Project addAproject(@Valid @RequestBody final ProjectSaveDTO projectSaveDto,
-      @AuthenticationPrincipal final User user, final MultipartFile file) {
+  public Project addAproject(@ModelAttribute @Valid  final ProjectSaveDTO projectSaveDto,
+      @AuthenticationPrincipal final User user, @ModelAttribute final MultipartFile file) {
+
 
     Assert.notNull(user, "Pas d'utilisateur authentifié");
     Assert.notNull(projectSaveDto, "Pas de projet dto enregistré");
+  
     try {
+      System.out.println(projectSaveDto);
       return projectService.addAproject(projectSaveDto, user, file);
     } catch (Exception e) {
+      System.out.println(projectSaveDto.getName());
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
           "Une erreur est parvenue, nous sommes désolés");
     }

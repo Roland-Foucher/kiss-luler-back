@@ -1,28 +1,26 @@
 package co.simplon.alt3.kisslulerback.library.DTO.projectDto;
 
 import java.time.LocalDate;
-import javax.validation.constraints.NotBlank;
-import org.springframework.lang.NonNull;
-
+import org.springframework.format.annotation.DateTimeFormat;
 import co.simplon.alt3.kisslulerback.library.enums.Category;
 
 public class ProjectSaveDTO {
 
   private String description;
 
-  @NonNull
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate dateInit;
 
-  @NonNull
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate dateEnd;
 
-  @NonNull
+  
   private Category category;
 
-  @NotBlank
+  
   private String name;
 
-  @NotBlank
+  
   private int amountInit;
 
   public String getDescription() {

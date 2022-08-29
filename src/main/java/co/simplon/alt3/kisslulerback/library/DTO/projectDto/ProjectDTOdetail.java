@@ -1,9 +1,7 @@
 package co.simplon.alt3.kisslulerback.library.DTO.projectDto;
 
 import java.util.List;
-import java.util.function.Predicate;
 
-import org.springframework.data.jpa.domain.Specification;
 
 import co.simplon.alt3.kisslulerback.library.entites.Consideration;
 import co.simplon.alt3.kisslulerback.library.entites.Project;

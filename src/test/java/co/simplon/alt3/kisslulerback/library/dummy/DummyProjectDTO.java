@@ -9,7 +9,7 @@ public class DummyProjectDTO extends ProjectSaveDTO {
   public DummyProjectDTO() {
 
     this.setName("Jean");
-
+    this.setAmountInit(3);
     this.setDescription("description");
     this.setDateInit(LocalDate.now());
     this.setDateEnd(LocalDate.now().plusDays(6));
