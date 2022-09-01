@@ -23,4 +23,6 @@ public interface IProjectService {
 
   ProjectDTOdetail FetchOneProject(Integer id, User user);
 
+  void deleteProject(Integer id, User user);
+
 }
