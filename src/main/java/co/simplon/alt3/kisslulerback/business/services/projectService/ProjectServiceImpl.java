@@ -2,6 +2,7 @@ package co.simplon.alt3.kisslulerback.business.services.projectService;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -50,8 +51,7 @@ public class ProjectServiceImpl implements IProjectService {
   }
 
   /**
-   * Le visiteur ne peut voir que les considération qui ne sont pas en cours de
-   * traitement
+   * Le visiteur ne peut voir que les considération qui ne sont pas en cours de traitement
    * 
    * @param id the project
    * @return le projet DTO avec filtre sur ses considérations
@@ -76,8 +76,7 @@ public class ProjectServiceImpl implements IProjectService {
     }
 
     // sinon on filtre pour ne pas avoir les contribution INPROGRESS
-    List<Consideration> filtredConsideration = project.getConsiderations()
-        .stream()
+    List<Consideration> filtredConsideration = project.getConsiderations().stream()
         .filter(el -> !el.getStatus().equals(ConsiderationStatus.INPROGRESS))
         .collect(Collectors.toList());
 
@@ -120,5 +119,20 @@ public class ProjectServiceImpl implements IProjectService {
 
     return projectRepo.save(project);
   }
+
+  private Project getOneProject(Integer projectId) {
+
+    Project project = projectRepo.findById(projectId).orElse(null);
+    return project;
+  }
+
+  public void deleteProject(Integer projectId, User user) {
+
+    final Project project = getOneProject(projectId);
+
+    projectRepo.delete(project);
+  }
+
+
 
 }
