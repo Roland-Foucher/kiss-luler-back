@@ -1,6 +1,7 @@
 package co.simplon.alt3.kisslulerback.business.services.considerationService;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,12 +12,15 @@ import org.springframework.web.multipart.MultipartFile;
 import co.simplon.alt3.kisslulerback.business.utils.uploadFileService.IUploadFileService;
 import co.simplon.alt3.kisslulerback.library.DTO.considerationDTO.ConsiderationSaveDto;
 import co.simplon.alt3.kisslulerback.library.DTO.considerationDTO.ConsiderationUpdateDto;
+import co.simplon.alt3.kisslulerback.library.DTO.considerationDTO.UserConsiderationDto;
 import co.simplon.alt3.kisslulerback.library.enums.ConsiderationStatus;
 import co.simplon.alt3.kisslulerback.library.exception.IncorrectMediaTypeFileException;
 import co.simplon.alt3.kisslulerback.library.entites.Consideration;
+import co.simplon.alt3.kisslulerback.library.entites.Order;
 import co.simplon.alt3.kisslulerback.library.entites.Project;
 import co.simplon.alt3.kisslulerback.library.entites.User;
 import co.simplon.alt3.kisslulerback.library.repositories.ConsiderationRepo;
+import co.simplon.alt3.kisslulerback.library.repositories.OrderRepo;
 import co.simplon.alt3.kisslulerback.library.repositories.ProjectRepo;
 
 @Service
@@ -30,6 +34,9 @@ public class ConsiderationServiceImpl implements IConsiderationService {
 
   @Autowired
   IUploadFileService uploadFileService;
+
+  @Autowired
+  OrderRepo orderRepo;
 
   private static final String USER_INVALID = "Le projet n'appartient pas à l'utilisateur connecté !";
   private static final String NULL_CONSIDERATION = "la consideration est null !";
@@ -157,6 +164,15 @@ public class ConsiderationServiceImpl implements IConsiderationService {
     consideration.setStatus(ConsiderationStatus.CLOSED);
 
     return considerationRepo.save(consideration);
+  }
+
+  @Override
+  public List<UserConsiderationDto> fetchUserListDto(final User user) {
+
+    return orderRepo.findByUser(user)
+        .stream()
+        .map(UserConsiderationDto::new)
+        .toList();
   }
 
   /**

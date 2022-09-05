@@ -35,6 +35,8 @@ import co.simplon.alt3.kisslulerback.library.entites.User;
 @RequestMapping("api/project")
 public class ProjectController {
 
+  private static final String NO_USER_AUTH = "pas d'utilisateur authentifié !";
+
   @Autowired
   IProjectService projectService;
 
@@ -67,7 +69,7 @@ public class ProjectController {
    * @throws IllegalArgumentException si le projet n'est pas dans la bdd
    */
   @GetMapping("/{id}")
-  public ProjectDTOdetail oneProject(final @PathVariable Integer id, @AuthenticationPrincipal User user) {
+  public ProjectDTOdetail oneProject(final @PathVariable Integer id) {
     try {
       return projectService.FetchOneProject(id);
 
@@ -92,7 +94,7 @@ public class ProjectController {
   public Project addAproject(@ModelAttribute @Valid final ProjectSaveDTO projectSaveDto,
       @AuthenticationPrincipal final User user, @ModelAttribute final MultipartFile file) {
 
-    Assert.notNull(user, "Pas d'utilisateur authentifié");
+    Assert.notNull(user, NO_USER_AUTH);
     Assert.notNull(projectSaveDto, "Pas de projet dto enregistré");
 
     try {
@@ -110,6 +112,7 @@ public class ProjectController {
       @AuthenticationPrincipal final User user,
       @PathVariable final Integer considerationId) {
     try {
+      Assert.notNull(user, NO_USER_AUTH);
       projectService.saveOrder(user, considerationId);
     } catch (Exception e) {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,

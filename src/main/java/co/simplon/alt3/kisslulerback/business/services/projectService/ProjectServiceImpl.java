@@ -141,11 +141,12 @@ public class ProjectServiceImpl implements IProjectService {
   }
 
   public Order saveOrder(User user, Integer idContribution) {
-    Assert.notNull(user, "utilisateur non connecté");
     Assert.notNull(idContribution, "pas d'id contribution à enregistrer");
 
     Consideration consideration = considerationRepo.findById(idContribution).orElse(null);
     Assert.notNull(consideration, "la consideration n'st pas en bdd");
+    Assert.isTrue(consideration.getStatus().equals(ConsiderationStatus.READY),
+        "la considération n'est pas au statut ready !");
 
     Project project = consideration.getProject();
     Assert.notNull(project, "impossible de récupérer le projet lié à la considération");
