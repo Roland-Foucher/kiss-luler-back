@@ -15,9 +15,13 @@ import co.simplon.alt3.kisslulerback.IntegrationTestConfiguration;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectDTO;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectDTOdetail;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectSaveDTO;
+import co.simplon.alt3.kisslulerback.library.dummy.DummyConsideration;
 import co.simplon.alt3.kisslulerback.library.dummy.DummyProjectDTO;
 import co.simplon.alt3.kisslulerback.library.dummy.DummyUser;
+import co.simplon.alt3.kisslulerback.library.entites.Consideration;
+import co.simplon.alt3.kisslulerback.library.entites.Order;
 import co.simplon.alt3.kisslulerback.library.entites.Project;
+import co.simplon.alt3.kisslulerback.library.entites.User;
 import co.simplon.alt3.kisslulerback.library.exception.IncorrectMediaTypeFileException;
 import co.simplon.alt3.kisslulerback.library.repositories.UserRepo;
 
@@ -59,5 +63,14 @@ public class ProjectServiceIntegrationTest extends IntegrationTestConfiguration 
     assertNotNull(project);
     assertEquals(1, project.getUser().getUserId());
     assertNotNull(project.getPhoto());
+  }
+
+  @Test
+  void testSaveConsideration() {
+    User user = new DummyUser();
+    Order saveOrder = projectService.saveOrder(user, 1);
+
+    assertNotNull(saveOrder);
+    assertNotNull(saveOrder.getId());
   }
 }

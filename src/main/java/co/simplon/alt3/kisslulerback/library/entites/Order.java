@@ -18,7 +18,7 @@ public class Order {
   private Integer id;
 
   @Column(columnDefinition = "DOUBLE unsigned", nullable = false)
-  private Double amount;
+  private int amount;
 
   @Column(nullable = false)
   private LocalDate date;
@@ -29,10 +29,21 @@ public class Order {
   @ManyToOne
   private Project project;
 
+  @ManyToOne
+  private Consideration consideration;
+
+  public Order(int amount, LocalDate date, User user, Project project, Consideration consideration) {
+    this.amount = amount;
+    this.date = date;
+    this.user = user;
+    this.project = project;
+    this.consideration = consideration;
+  }
+
   public Order() {
   }
 
-  public Order(Integer id, Double amount, LocalDate date, User user) {
+  public Order(Integer id, int amount, LocalDate date, User user) {
     this.id = id;
     this.amount = amount;
     this.date = date;
@@ -47,11 +58,11 @@ public class Order {
     this.id = id;
   }
 
-  public Double getAmount() {
+  public int getAmount() {
     return amount;
   }
 
-  public void setAmount(Double amount) {
+  public void setAmount(int amount) {
     this.amount = amount;
   }
 
@@ -69,6 +80,22 @@ public class Order {
 
   public void setUser(User user) {
     this.user = user;
+  }
+
+  public Project getProject() {
+    return project;
+  }
+
+  public void setProject(Project project) {
+    this.project = project;
+  }
+
+  public Consideration getConsideration() {
+    return consideration;
+  }
+
+  public void setConsideration(Consideration consideration) {
+    this.consideration = consideration;
   }
 
 }

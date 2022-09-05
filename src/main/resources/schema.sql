@@ -33,7 +33,12 @@ CREATE TABLE `project` (
   `description` tinytext DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `photo` varchar(255) DEFAULT NULL,
-  `status` enum('INPROGRESS', 'CONCEPTION', 'BLACKLISTED', 'PAUSED') NOT NULL,
+  `status` enum(
+    'INPROGRESS',
+    'CONCEPTION',
+    'BLACKLISTED',
+    'PAUSED'
+  ) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `last_update_date` date DEFAULT NULL,
   `amount_init` int(11) NOT NULL,
@@ -53,17 +58,20 @@ CREATE TABLE consideration (
   KEY FKimeom8mttfiynorty0y8xt5lx (project_id),
   CONSTRAINT FKimeom8mttfiynorty0y8xt5lx FOREIGN KEY (project_id) REFERENCES project (id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
-CREATE TABLE user_order (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  amount double unsigned NOT NULL,
-  date date NOT NULL,
-  project_id int(11) DEFAULT NULL,
-  user_id int(11) DEFAULT NULL,
-  PRIMARY KEY (id),
-  KEY FK1wqvsjpqw0y60tqxfkwva4p32 (project_id),
-  KEY FKj86u1x7csa8yd68ql2y1ibrou (user_id),
-  CONSTRAINT FK1wqvsjpqw0y60tqxfkwva4p32 FOREIGN KEY (project_id) REFERENCES project (id),
-  CONSTRAINT FKj86u1x7csa8yd68ql2y1ibrou FOREIGN KEY (user_id) REFERENCES user (id)
+CREATE TABLE `user_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `amount` double unsigned NOT NULL,
+  `date` date NOT NULL,
+  `consideration_id` int(11) DEFAULT NULL,
+  `project_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKnym2bqk1gpsvy206cd03alr47` (`consideration_id`),
+  KEY `FK1wqvsjpqw0y60tqxfkwva4p32` (`project_id`),
+  KEY `FKj86u1x7csa8yd68ql2y1ibrou` (`user_id`),
+  CONSTRAINT `FK1wqvsjpqw0y60tqxfkwva4p32` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`),
+  CONSTRAINT `FKj86u1x7csa8yd68ql2y1ibrou` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FKnym2bqk1gpsvy206cd03alr47` FOREIGN KEY (`consideration_id`) REFERENCES `consideration` (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 CREATE
 OR REPLACE TRIGGER TRIGGER_PROJECT_SET_UPDATE_DATE_ BEFORE
