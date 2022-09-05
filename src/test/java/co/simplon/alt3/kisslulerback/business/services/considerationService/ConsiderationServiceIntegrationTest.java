@@ -161,7 +161,7 @@ public class ConsiderationServiceIntegrationTest extends IntegrationTestConfigur
 
       assertEquals(1, userConsiderationDtos.size());
       assertEquals(1, userConsiderationDtos.get(0).getProjectId());
-      assertEquals("tourdate", userConsiderationDtos.get(0).getProjectName());
+      assertEquals("Concert rock", userConsiderationDtos.get(0).getProjectName());
       assertEquals(50, userConsiderationDtos.get(0).getConsidAmount());
 
     }
