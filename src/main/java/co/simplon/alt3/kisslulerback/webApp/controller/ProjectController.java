@@ -23,6 +23,8 @@ import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectDTO;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectDTOdetail;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectSaveDTO;
 import co.simplon.alt3.kisslulerback.business.services.projectService.IProjectService;
+import co.simplon.alt3.kisslulerback.library.entites.Consideration;
+import co.simplon.alt3.kisslulerback.library.entites.Order;
 import co.simplon.alt3.kisslulerback.library.entites.Project;
 import co.simplon.alt3.kisslulerback.library.entites.User;
 
@@ -32,6 +34,8 @@ import co.simplon.alt3.kisslulerback.library.entites.User;
 @RestController
 @RequestMapping("api/project")
 public class ProjectController {
+
+  private static final String NO_USER_AUTH = "pas d'utilisateur authentifié !";
 
   @Autowired
   IProjectService projectService;
@@ -65,7 +69,7 @@ public class ProjectController {
    * @throws IllegalArgumentException si le projet n'est pas dans la bdd
    */
   @GetMapping("/{id}")
-  public ProjectDTOdetail oneProject(final @PathVariable Integer id, @AuthenticationPrincipal User user) {
+  public ProjectDTOdetail oneProject(final @PathVariable Integer id) {
     try {
       return projectService.FetchOneProject(id);
 
@@ -87,13 +91,12 @@ public class ProjectController {
    * @return le projet sauvegardé
    */
   @PostMapping("/account/project")
-  public Project addAproject(@ModelAttribute @Valid  final ProjectSaveDTO projectSaveDto,
+  public Project addAproject(@ModelAttribute @Valid final ProjectSaveDTO projectSaveDto,
       @AuthenticationPrincipal final User user, @ModelAttribute final MultipartFile file) {
 
-
-    Assert.notNull(user, "Pas d'utilisateur authentifié");
+    Assert.notNull(user, NO_USER_AUTH);
     Assert.notNull(projectSaveDto, "Pas de projet dto enregistré");
-  
+
     try {
       System.out.println(projectSaveDto);
       return projectService.addAproject(projectSaveDto, user, file);
@@ -102,16 +105,27 @@ public class ProjectController {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
           "Une erreur est parvenue, nous sommes désolés");
     }
-
   }
 
+  @PostMapping("/buy-consideration/{considerationId}")
+  public void buyConsideration(
+      @AuthenticationPrincipal final User user,
+      @PathVariable final Integer considerationId) {
+    try {
+      Assert.notNull(user, NO_USER_AUTH);
+      projectService.saveOrder(user, considerationId);
+    } catch (Exception e) {
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+          "Une erreur est parvenue, nous sommes désolés");
+    }
+  }
 
   @DeleteMapping("/delete/{id}")
   @ResponseStatus(value = HttpStatus.OK, reason = "OK")
   public void deleteProject(@PathVariable("id") final Integer projectId,
       @AuthenticationPrincipal final User user) {
     try {
-     projectService.deleteProject(projectId, user);
+      projectService.deleteProject(projectId, user);
 
     } catch (Exception e) {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());

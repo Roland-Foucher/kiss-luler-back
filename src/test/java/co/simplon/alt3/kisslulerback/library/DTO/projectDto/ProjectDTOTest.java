@@ -49,10 +49,10 @@ public class ProjectDTOTest {
 
     Project project = new Project();
     project.getOrders()
-        .addAll(List.of(new Order(1, 3000.0, LocalDate.now(), null),
-            new Order(1, 3000.0, LocalDate.now(), null)));
+        .addAll(List.of(new Order(1, 3000, LocalDate.now(), null),
+            new Order(1, 3000, LocalDate.now(), null)));
 
-    assertEquals(6000.0, ProjectDTO.calculateAllContribution(project.getOrders()));
+    assertEquals(6000, ProjectDTO.calculateAllContribution(project.getOrders()));
   }
 
   @Test

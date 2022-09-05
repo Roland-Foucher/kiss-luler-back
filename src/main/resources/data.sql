@@ -123,6 +123,15 @@ INSERT INTO
   )
 VALUES
   (
+    1,
+    100,
+    NULL,
+    'myFile',
+    'une photo',
+    2,
+    'READY'
+  ),
+  (
     2,
     20,
     'Une magnifique photo de concert vous sera envoyé, elle représentera toutes les Paul Godess de l avenir',
@@ -149,6 +158,13 @@ VALUES
     'READY'
   );
 INSERT INTO
-  `user_order`(id, amount, date, project_id, user_id)
+  `user_order`(
+    id,
+    amount,
+    date,
+    project_id,
+    user_id,
+    consideration_id
+  )
 VALUES
-  (1, 20, '2022-06-20', 1, 1),(2, 30, '2022-05-05', 2, 2),(3, 50, '2022-05-05', 3, 3);
+  (1, 20, '2022-06-20', 1, 1, 3),(2, 30, '2022-05-05', 2, 2, 1),(3, 50, '2022-05-05', 3, 3, 5);

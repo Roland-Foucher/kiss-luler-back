@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -17,12 +18,14 @@ import org.springframework.mock.web.MockMultipartFile;
 import co.simplon.alt3.kisslulerback.IntegrationTestConfiguration;
 import co.simplon.alt3.kisslulerback.library.DTO.considerationDTO.ConsiderationSaveDto;
 import co.simplon.alt3.kisslulerback.library.DTO.considerationDTO.ConsiderationUpdateDto;
+import co.simplon.alt3.kisslulerback.library.DTO.considerationDTO.UserConsiderationDto;
 import co.simplon.alt3.kisslulerback.library.dummy.DummyConsiderationSaveDto;
 import co.simplon.alt3.kisslulerback.library.dummy.DummyConsiderationUpdateDto;
 import co.simplon.alt3.kisslulerback.library.dummy.DummyUser;
 import co.simplon.alt3.kisslulerback.library.enums.ConsiderationStatus;
 import co.simplon.alt3.kisslulerback.library.exception.IncorrectMediaTypeFileException;
 import co.simplon.alt3.kisslulerback.library.entites.Consideration;
+import co.simplon.alt3.kisslulerback.library.entites.User;
 import co.simplon.alt3.kisslulerback.library.repositories.ConsiderationRepo;
 
 public class ConsiderationServiceIntegrationTest extends IntegrationTestConfiguration {
@@ -149,6 +152,18 @@ public class ConsiderationServiceIntegrationTest extends IntegrationTestConfigur
     @Test
     void changeStatusInProgressToClosedThrowException() {
       assertThrows(IllegalArgumentException.class, () -> considerationService.setClosedStatus(2, new DummyUser()));
+    }
+
+    @Test
+    void fetchUserConideration() {
+      User user = new DummyUser();
+      List<UserConsiderationDto> userConsiderationDtos = considerationService.fetchUserListDto(user);
+
+      assertEquals(1, userConsiderationDtos.size());
+      assertEquals(1, userConsiderationDtos.get(0).getProjectId());
+      assertEquals("Concert rock", userConsiderationDtos.get(0).getProjectName());
+      assertEquals(50, userConsiderationDtos.get(0).getConsidAmount());
+
     }
   }
 }

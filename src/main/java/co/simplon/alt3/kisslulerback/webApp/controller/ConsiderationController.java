@@ -1,6 +1,7 @@
 package co.simplon.alt3.kisslulerback.webApp.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -9,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,6 +26,7 @@ import org.springframework.web.server.ResponseStatusException;
 import co.simplon.alt3.kisslulerback.business.services.considerationService.IConsiderationService;
 import co.simplon.alt3.kisslulerback.library.DTO.considerationDTO.ConsiderationSaveDto;
 import co.simplon.alt3.kisslulerback.library.DTO.considerationDTO.ConsiderationUpdateDto;
+import co.simplon.alt3.kisslulerback.library.DTO.considerationDTO.UserConsiderationDto;
 import co.simplon.alt3.kisslulerback.library.entites.User;
 import co.simplon.alt3.kisslulerback.library.exception.IncorrectMediaTypeFileException;
 
@@ -33,12 +37,15 @@ public class ConsiderationController {
   @Autowired
   IConsiderationService considerationService;
 
+  private static final String NO_USER_AUTH = "pas d'utilisateur authentifié !";
+
   @PostMapping("/add")
   public void addConsideration(
       @Valid @RequestPart("considerationDto") final ConsiderationSaveDto considerationSaveDto,
       @RequestPart("file") final MultipartFile imageFile,
       @AuthenticationPrincipal final User user) {
     try {
+      Assert.notNull(user, NO_USER_AUTH);
       considerationService.saveConsideration(considerationSaveDto, imageFile, user);
 
     } catch (IOException e) {
@@ -55,6 +62,7 @@ public class ConsiderationController {
       @Valid @RequestPart("considerationDto") final ConsiderationSaveDto considerationSaveDto,
       @AuthenticationPrincipal final User user) {
     try {
+      Assert.notNull(user, NO_USER_AUTH);
       considerationService.saveConsideration(considerationSaveDto, null, user);
 
     } catch (IOException e) {
@@ -72,7 +80,7 @@ public class ConsiderationController {
       @RequestPart("file") final MultipartFile imageFile,
       @AuthenticationPrincipal final User user) {
     try {
-
+      Assert.notNull(user, NO_USER_AUTH);
       considerationService.updateConsideration(considerationUpdateDto, imageFile, user);
 
     } catch (IOException e) {
@@ -89,7 +97,7 @@ public class ConsiderationController {
       @Valid @RequestPart("considerationDto") final ConsiderationUpdateDto considerationUpdateDto,
       @AuthenticationPrincipal final User user) {
     try {
-
+      Assert.notNull(user, NO_USER_AUTH);
       considerationService.updateConsideration(considerationUpdateDto, null, user);
 
     } catch (IOException e) {
@@ -106,6 +114,7 @@ public class ConsiderationController {
   public void deleteConsideration(@PathVariable("id") final Integer considerationId,
       @AuthenticationPrincipal final User user) {
     try {
+      Assert.notNull(user, NO_USER_AUTH);
       considerationService.deleteConsideration(considerationId, user);
 
     } catch (Exception e) {
@@ -117,6 +126,7 @@ public class ConsiderationController {
   public void setStatusReady(@PathVariable("id") final Integer considerationId,
       @AuthenticationPrincipal final User user) {
     try {
+      Assert.notNull(user, NO_USER_AUTH);
       considerationService.setReadyStatus(considerationId, user);
     } catch (Exception e) {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
@@ -127,10 +137,22 @@ public class ConsiderationController {
   public void setStatusClosed(@PathVariable("id") final Integer considerationId,
       @AuthenticationPrincipal final User user) {
     try {
+      Assert.notNull(user, NO_USER_AUTH);
       considerationService.setClosedStatus(considerationId, user);
     } catch (Exception e) {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
+  }
+
+  @GetMapping
+  public List<UserConsiderationDto> getUserConsideration(@AuthenticationPrincipal User user) {
+    try {
+      Assert.notNull(user, NO_USER_AUTH);
+      return considerationService.fetchUserListDto(user);
+    } catch (Exception e) {
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+    }
+
   }
 
 }
