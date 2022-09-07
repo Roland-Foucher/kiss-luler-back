@@ -22,6 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.ChangePasswordDto;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.FullUserDTO;
+import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserDTOWithToken;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserRegisterDTO;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserUpdateDto;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectDTO;
@@ -138,7 +139,7 @@ public class UserController {
    *                             présent dans la bdd
    */
   @PatchMapping("/account/update")
-  public FullUserDTO updateUserAccount(@Valid @RequestBody final UserUpdateDto userDto,
+  public UserDTOWithToken updateUserAccount(@Valid @RequestBody final UserUpdateDto userDto,
       @AuthenticationPrincipal final User user) {
 
     Assert.notNull(user, NO_USER_AUTH);
@@ -148,6 +149,8 @@ public class UserController {
       return userService.updateUser(userDto, user);
     } catch (UserExistsException e) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'utilisateur existe déjà");
+    } catch (IOException e) {
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erreur lors de la génération du token");
     }
   }
 

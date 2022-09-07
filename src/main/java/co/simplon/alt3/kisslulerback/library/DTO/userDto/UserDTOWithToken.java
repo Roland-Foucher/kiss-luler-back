@@ -13,7 +13,7 @@ public class UserDTOWithToken {
     this.token = token;
   }
 
-  public FullUserDTO getFullUserDTO() {
+  public FullUserDTO getUser() {
     return user;
   }
 

@@ -9,9 +9,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import co.simplon.alt3.kisslulerback.business.security.AuthFilter;
 import co.simplon.alt3.kisslulerback.business.utils.uploadFileService.IUploadFileService;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.ChangePasswordDto;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.FullUserDTO;
+import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserDTOWithToken;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserRegisterDTO;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserUpdateDto;
 import co.simplon.alt3.kisslulerback.library.entites.User;
@@ -108,9 +110,10 @@ public class UserServiceimpl implements IUserService {
    * Update User avec le DTO update
    * 
    * @return le DTO avec les données compètes de l'utilisateur enregistré
+   * @throws IOException
    */
   @Override
-  public FullUserDTO updateUser(UserUpdateDto userDto, User user) throws UserExistsException {
+  public UserDTOWithToken updateUser(UserUpdateDto userDto, User user) throws UserExistsException, IOException {
     // Update user
     user.setBirthdate(userDto.getBirthdate());
     user.setJob(userDto.getJob());
@@ -128,12 +131,13 @@ public class UserServiceimpl implements IUserService {
 
     userRepo.save(user);
 
+    final String token = AuthFilter.createToken(user.getEmail());
     // reconnection du user au cas ou l'email est changé
     SecurityContextHolder.getContext()
-        .setAuthentication(new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities()));
+        .setAuthentication(new UsernamePasswordAuthenticationToken(user, token, user.getAuthorities()));
 
     // save and return new userDTO
-    return new FullUserDTO(user);
+    return new UserDTOWithToken(new FullUserDTO(user), token);
 
   }
 

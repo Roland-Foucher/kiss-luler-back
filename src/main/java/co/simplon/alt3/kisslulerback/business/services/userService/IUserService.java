@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.ChangePasswordDto;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.FullUserDTO;
+import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserDTOWithToken;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserRegisterDTO;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserUpdateDto;
 import co.simplon.alt3.kisslulerback.library.entites.User;
@@ -21,6 +22,6 @@ public interface IUserService {
 
   void saveUserPicture(final MultipartFile file, final User user) throws IOException, IncorrectMediaTypeFileException;
 
-  FullUserDTO updateUser(final UserUpdateDto userDto, final User user) throws UserExistsException;
+  UserDTOWithToken updateUser(final UserUpdateDto userDto, final User user) throws UserExistsException, IOException;
 
 }

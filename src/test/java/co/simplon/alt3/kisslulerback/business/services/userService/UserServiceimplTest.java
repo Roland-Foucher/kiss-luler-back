@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.FullUserDTO;
+import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserDTOWithToken;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserRegisterDTO;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserUpdateDto;
 import co.simplon.alt3.kisslulerback.library.dummy.DummyUser;
@@ -66,14 +69,14 @@ public class UserServiceimplTest {
   }
 
   @Test
-  void updateUserNewEmail() throws UserExistsException {
+  void updateUserNewEmail() throws UserExistsException, IOException {
     UserUpdateDto userUpdateDto = new DummyUserUpdateDTO();
     userUpdateDto.setEmail("j.dujardin.com");
     User user = new DummyUser();
 
     when(userRepo.save(Mockito.isA(User.class))).thenReturn(user);
 
-    FullUserDTO userSaved = userService.updateUser(userUpdateDto, user);
+    UserDTOWithToken userSaved = userService.updateUser(userUpdateDto, user);
 
     assertNotNull(userSaved);
     assertEquals("Georges", user.getFirstName());
@@ -87,13 +90,13 @@ public class UserServiceimplTest {
   }
 
   @Test
-  void updateUser() throws UserExistsException {
+  void updateUser() throws UserExistsException, IOException {
     UserUpdateDto userUpdateDto = new DummyUserUpdateDTO();
     User user = new DummyUser();
 
     when(userRepo.save(Mockito.isA(User.class))).thenReturn(user);
 
-    FullUserDTO userSaved = userService.updateUser(userUpdateDto, user);
+    UserDTOWithToken userSaved = userService.updateUser(userUpdateDto, user);
 
     assertNotNull(userSaved);
     assertEquals("Georges", user.getFirstName());
