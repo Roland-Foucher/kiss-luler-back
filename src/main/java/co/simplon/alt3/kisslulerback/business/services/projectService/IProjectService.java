@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectDTO;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectDTOdetail;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectSaveDTO;
+import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectUpdateDTO;
 import co.simplon.alt3.kisslulerback.library.entites.Order;
 import co.simplon.alt3.kisslulerback.library.entites.Project;
 import co.simplon.alt3.kisslulerback.library.entites.User;
@@ -27,5 +28,8 @@ public interface IProjectService {
   Order saveOrder(User user, Integer idContribution);
 
   void deleteProject(Integer id, User user);
+
+  Project updateProject(ProjectUpdateDTO projectUpdateDTO, MultipartFile image, User user)
+  throws IOException, IncorrectMediaTypeFileException;
 
 }

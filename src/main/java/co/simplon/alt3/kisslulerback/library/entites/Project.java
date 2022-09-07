@@ -93,6 +93,17 @@ public class Project {
     
   }
 
+  public void updateAProject(ProjectSaveDTO projectSaveDTO) {
+    
+    this.name = projectSaveDTO.getName();
+    this.amountInit = projectSaveDTO.getAmountInit();
+    this.description = projectSaveDTO.getDescription();
+    this.dateInit = projectSaveDTO.getDateInit();
+    this.dateEnd = projectSaveDTO.getDateEnd();
+    this.category = projectSaveDTO.getCategory();
+    this.status = Status.INPROGRESS;
+  }
+
   public Integer getId() {
     return id;
   }

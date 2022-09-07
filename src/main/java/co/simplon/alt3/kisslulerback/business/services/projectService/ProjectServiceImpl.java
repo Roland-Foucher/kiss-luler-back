@@ -3,7 +3,7 @@ package co.simplon.alt3.kisslulerback.business.services.projectService;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+
 import java.util.stream.Collectors;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +14,11 @@ import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.simplon.alt3.kisslulerback.business.utils.uploadFileService.IUploadFileService;
+
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectDTO;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectDTOdetail;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectSaveDTO;
+import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectUpdateDTO;
 import co.simplon.alt3.kisslulerback.library.entites.Consideration;
 import co.simplon.alt3.kisslulerback.library.entites.Order;
 import co.simplon.alt3.kisslulerback.library.entites.Project;
@@ -57,8 +59,7 @@ public class ProjectServiceImpl implements IProjectService {
   }
 
   /**
-   * Le visiteur ne peut voir que les considération qui ne sont pas en cours de
-   * traitement
+   * Le visiteur ne peut voir que les considération qui ne sont pas en cours de traitement
    * 
    * @param id the project
    * @return le projet DTO avec filtre sur ses considérations
@@ -151,7 +152,28 @@ public class ProjectServiceImpl implements IProjectService {
     Project project = consideration.getProject();
     Assert.notNull(project, "impossible de récupérer le projet lié à la considération");
 
-    return orderRepo.save(new Order(consideration.getConsidAmount(), LocalDate.now(), user, project, consideration));
+    return orderRepo.save(
+        new Order(consideration.getConsidAmount(), LocalDate.now(), user, project, consideration));
+
+  }
+
+
+
+  public Project updateProject(final ProjectUpdateDTO projectUpdateDTO, final MultipartFile image,
+      final User user) throws IOException, IncorrectMediaTypeFileException {
+
+    Project project = projectRepo.findById(projectUpdateDTO.getId()).orElse(null);
+
+    project.updateAProject(projectUpdateDTO);
+
+    if (image != null) {
+      final String filePath = uploadFile.saveImgageFile(image);
+      project.setPhoto(filePath);
+
+      return projectRepo.save(project);
+    }
+    return project;
+
 
   }
 
