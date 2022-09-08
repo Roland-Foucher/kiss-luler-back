@@ -125,4 +125,9 @@ Les objéctifs ont été tenues malgrès tout. Reste à merger la totalité des 
 
 ## Retex semaine 4
 
+Nous avons eu besoin de remettre l'outil de travail au propre, car nous avions tous beaucoup avancé chacun sur nos branches.
 
+Nous avons pu nous rendre compte que nous aurions dû plus assigner les tâches de manière plus précise, car nous avons rencontré des difficultés lors des merges request.
+Le projet, dans sa globalité, est quasiment terminé.
+
+Les objectifs de la semaine sont atteints, il nous reste à cleaner le code, et mettre en place des tests (Sélénium/Cucumber/Artillery si possible...etc...)
