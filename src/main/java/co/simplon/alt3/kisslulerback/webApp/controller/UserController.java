@@ -116,12 +116,12 @@ public class UserController {
    * @throws IncorrectMediaTypeFileException si le fichier n'est pas une image
    */
   @PostMapping("/account/picture")
-  public void addOrUpdateUserPicture(final MultipartFile file, @AuthenticationPrincipal final User user) {
+  public FullUserDTO addOrUpdateUserPicture(final MultipartFile file, @AuthenticationPrincipal final User user) {
     Assert.notNull(user, NO_USER_AUTH);
     Assert.notNull(file, "pas de fichier à enregistrer");
 
     try {
-      userService.saveUserPicture(file, user);
+      return userService.saveUserPicture(file, user);
     } catch (IOException e) {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erreur lors de l'enregistrement du fichier");
     } catch (IncorrectMediaTypeFileException e) {

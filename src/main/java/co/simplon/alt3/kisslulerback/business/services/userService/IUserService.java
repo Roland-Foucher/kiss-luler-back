@@ -20,7 +20,8 @@ public interface IUserService {
 
   FullUserDTO register(final UserRegisterDTO userDto) throws UserExistsException;
 
-  void saveUserPicture(final MultipartFile file, final User user) throws IOException, IncorrectMediaTypeFileException;
+  FullUserDTO saveUserPicture(final MultipartFile file, final User user)
+      throws IOException, IncorrectMediaTypeFileException;
 
   UserDTOWithToken updateUser(final UserUpdateDto userDto, final User user) throws UserExistsException, IOException;
 

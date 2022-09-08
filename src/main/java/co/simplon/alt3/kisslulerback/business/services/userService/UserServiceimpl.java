@@ -92,7 +92,7 @@ public class UserServiceimpl implements IUserService {
    * sauvegarde la photo de profil et supprime l'ancienne s'il y en avait une
    */
   @Override
-  public void saveUserPicture(final MultipartFile file, final User user)
+  public FullUserDTO saveUserPicture(final MultipartFile file, final User user)
       throws IOException, IncorrectMediaTypeFileException {
     String path = uploadFileService.saveImgageFile(file);
     String oldPhoto = user.getPhoto();
@@ -104,6 +104,7 @@ public class UserServiceimpl implements IUserService {
     }
 
     userRepo.save(user);
+    return new FullUserDTO(user);
   }
 
   /**
