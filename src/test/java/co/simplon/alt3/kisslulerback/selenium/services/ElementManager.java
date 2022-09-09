@@ -88,6 +88,7 @@ public class ElementManager {
   public static void addTextInFormInput(String Xpath, WebDriver driver, String label) {
     try {
       WebElement findElement = assertElementNotNull(Xpath, driver);
+      findElement.clear();
       findElement.sendKeys(label);
     } catch (Exception e) {
       e.printStackTrace();
@@ -125,7 +126,12 @@ public class ElementManager {
       case "Account":
         expected += "account";
         break;
+      case "Profil":
+        expected += "account/profil";
+        break;
+
     }
     assertEquals(expected, URL);
   }
+
 }

@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import co.simplon.alt3.kisslulerback.library.entites.User;
@@ -15,6 +16,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.netty.util.internal.StringUtil;
 
 public class Step {
 
@@ -29,7 +31,6 @@ public class Step {
   @BeforeAll
   public static void init() {
     WebDriverManager.chromedriver().setup();
-    driver = new ChromeDriver();
   }
 
   /**
@@ -37,8 +38,9 @@ public class Step {
    */
   @AfterAll
   public static void end() {
-    // driver.close();
-
+    driver.manage().deleteAllCookies();
+    WebDriverManager.chromedriver().reset();
+    driver.close();
   }
 
   /**
@@ -46,6 +48,7 @@ public class Step {
    */
   @Given("je lance l'explorer et je vais sur l'url de l'application")
   public void jeLanceLExplorerEtJeVaisSurLUrlDeLApplication() {
+    driver = new ChromeDriver();
     driver.get("http://localhost:3000/");
   }
 
@@ -62,7 +65,7 @@ public class Step {
    */
   @When("je clique sur le bouton {string}")
   public void je_clique_sur_le_bouton(String s) {
-    ElementManager.cliqueOnElement(String.format("//button[normalize-space() = '%s']", s), driver);
+    ElementManager.cliqueOnElement(String.format("//button[contains(normalize-space(), '%s')]", s), driver);
   }
 
   @Then("je vois la modal {string}")
@@ -73,19 +76,20 @@ public class Step {
   }
 
   @Given("je suis sur la page {string}")
-  public void je_suis_sur_la_page(String page) {
+  public void je_suis_sur_la_page(String page) throws InterruptedException {
+    TimeUnit.SECONDS.sleep(1L);
     ElementManager.checkPage(page, driver);
   }
 
   @Then("la modal se ferme")
   public void la_modal_se_ferme() throws InterruptedException {
-    TimeUnit.SECONDS.sleep(2L);
+    TimeUnit.SECONDS.sleep(1L);
     ElementManager.assertElementNull("//div[@data-name='modal']", driver);
   }
 
   @Then("je vois le text {string} dans la navbar")
   public void je_vois_le_text_dans_la_navbar(String label) throws InterruptedException {
-    TimeUnit.SECONDS.sleep(2L);
+    TimeUnit.SECONDS.sleep(1L);
     ElementManager.assertElementNotNull(String.format("//nav//span[normalize-space() = '%s']", label), driver);
   }
 
@@ -95,6 +99,16 @@ public class Step {
     if (user != null) {
       userRepo.delete(user);
     }
+  }
+
+  @When("je clique sur le lien {string}")
+  public void je_clique_sur_le_lien(String label) {
+    ElementManager.cliqueOnElement(String.format("//a[normalize-space() = '%s']", label), driver);
+  }
+
+  @Then("je vois le text {string} dans la card user")
+  public void je_vois_le_text_dans_la_card_user(String label) {
+    ElementManager.assertElementNotNull(String.format("//article//dt[normalize-space() = '%s']", label), driver);
   }
 
 }
