@@ -19,7 +19,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <project-name>KissLuler</project-name>
     <selenium.version>4.3.0</selenium.version>
-    <cucumber.version>7.5.0</cucumber.version>
+    <cucumber.version>7.7.0</cucumber.version>
 
   </properties>
 
@@ -134,10 +134,16 @@
       <scope>test</scope>
     </dependency>
 
-
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-junit</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-spring</artifactId>
       <version>${cucumber.version}</version>
       <scope>test</scope>
     </dependency>

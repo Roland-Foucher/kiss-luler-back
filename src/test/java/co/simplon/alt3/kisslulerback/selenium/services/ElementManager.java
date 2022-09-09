@@ -1,4 +1,4 @@
-package selenium.services;
+package co.simplon.alt3.kisslulerback.selenium.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,7 +11,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ElementManager {
 
   /**
@@ -50,6 +52,17 @@ public class ElementManager {
       // fait échouer le test
       fail(e.getMessage());
       return null;
+    }
+  }
+
+  public static void assertElementNull(String Xpath, WebDriver driver) {
+    try {
+
+      WebElement findElement = driver.findElement(By.xpath(Xpath));
+      fail(String.format("l'élément %s existe sur la page", findElement));
+
+    } catch (Exception e) {
+      e.getMessage();
     }
   }
 

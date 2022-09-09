@@ -1,7 +1,5 @@
 package co.simplon.alt3.kisslulerback.library.DTO.considerationDTO;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NegativeOrZero;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
