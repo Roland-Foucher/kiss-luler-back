@@ -50,6 +50,24 @@
 * usage déstiner au grand public, sensible à la musique.
   * usage destiné aux professionnels administrateurs du site.
 
+
+## installation 
+
+* Au lancement de l'application backend, les bdd kiss-luler-back et kiss-luler-back-test sont crées
+* Réimporter les fichier schema.sql (pour obtenir les trigger et procédures) et le fichier data.sql dans src/main/resources
+* Possibilité de se connecter avec le compte `j.jean@gmail.com`  // mdp : `1234`
+
+## Compétences visées détail
+
+* Ajout d'un *trigger* en bdd sur la table `update` : modification du champs `last_update_date` avec la date du jour si le projet est modifié en bdd
+* Ajout d'une *procédure stockée* en bdd sur la table `user` : fonction qui passe le champ `last_connection` avec la date du jour sur la ligne de l'id communiquée (implémenté via le repository JPA)
+* Ajout de tests unitaires, tests d'intégration, test fonctionnels MockMvc et test fonctionnels avec selenium.
+* Application backend organisée de la façon suivante :
+  * couche *library* : contient les entités JPA, les repository, les enum, les DTO, les exceptions personnalisés.
+  * couche *buisness* : contient les services métiers, les services techniques et les règles de sécuritée de l'application (JWT, authentification)
+  * couche *webApp* : contient la configuration de l'application et les controlleurs
+
+
 ## Objectif scrum 1 (semaine 13/06 - 17/06)
 
 * Définir les besoins
@@ -68,7 +86,7 @@ Le retour positif est notre capacité à communiquer et notre organisation sur g
 
 Cela nous a permis de réaliser que les objectifs que nous nous étions fixé pour cette semaine étaient trop élévé, nous avons réorganiser le travail afin de répartir les tâches en incluant la semaine suivante.
 
-## Objectif scrum 2 (semaine du 11/07 - 15-07)
+## Objectif scrum 2 (semaine du 11/07 - 15/07)
 
 * Pouvoir afficher une liste de Projet sur la page principale
 * Pouvoir connecter et ajouter un utilisateur
@@ -78,6 +96,38 @@ Cela nous a permis de réaliser que les objectifs que nous nous étions fixé po
 * Uploader
 
 ## Retex semaine 2
+L'application à bien avancée, les objectifs ont été tenues pour cette semaine.
+
+L'application backend à besoin d'être restructurée pour être plus lisible et plus maintenable
+
+## Objectif scrum 3 (semaine du 08/08 - 12/08)
+
+* Ajouter modifier supprimer un projet
+* Ajouter modifier supprimer une contribution
+* Ajouts de données pour l'utilisateur
+* Ajout d'un trigger et d'une procédure en bdd
+* Refaire le style de l'application
+* Restructuration de l'application back
+
+## Retex semaine 3
+
+L'équipe n'était pas au complet en présentiel, la communication a donc été moins importante.
+
+Les objéctifs ont été tenues malgrès tout. Reste à merger la totalité des branch développées
 
 
+## Objectif scrum 4 (semaine du 05/09 - 09/08)
 
+* Acheter une contribution
+* Finalisation du projet
+* Finalisation du diagramme de classe
+* Création d'un site maven pour la déscription du projet (javadoc, readme, conception, ...)
+
+## Retex semaine 4
+
+Nous avons eu besoin de remettre l'outil de travail au propre, car nous avions tous beaucoup avancé chacun sur nos branches.
+
+Nous avons pu nous rendre compte que nous aurions dû plus assigner les tâches de manière plus précise, car nous avons rencontré des difficultés lors des merges request.
+Le projet, dans sa globalité, est quasiment terminé.
+
+Les objectifs de la semaine sont atteints, il nous reste à cleaner le code, et mettre en place des tests (Sélénium/Cucumber/Artillery si possible...etc...)

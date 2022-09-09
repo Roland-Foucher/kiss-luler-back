@@ -1,5 +1,9 @@
 # KissLulerBack
 
+## site maven
+
+https://roland-foucher.github.io/kiss-luler-maven-site/
+
 ## Analyse des besoins
 
 **QUOI ?**
@@ -131,3 +135,4 @@ Nous avons pu nous rendre compte que nous aurions dû plus assigner les tâches 
 Le projet, dans sa globalité, est quasiment terminé.
 
 Les objectifs de la semaine sont atteints, il nous reste à cleaner le code, et mettre en place des tests (Sélénium/Cucumber/Artillery si possible...etc...)
+
