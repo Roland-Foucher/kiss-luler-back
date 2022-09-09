@@ -6,7 +6,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.util.Assert;
@@ -72,7 +71,8 @@ public class UserController {
    *                             présent dans la bdd
    */
   @PostMapping
-  public FullUserDTO register(@Valid @RequestBody final UserRegisterDTO userDto) {
+
+  public FullUserDTO register(@Valid @RequestBody final UserRegisterDTO userDto, Error error) {
 
     Assert.notNull(userDto, "userDto a enregistrer est null");
 
@@ -81,6 +81,9 @@ public class UserController {
 
     } catch (UserExistsException e) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'utilisateur existe déjà");
+    } catch (Exception e) {
+
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
     }
   }
 
