@@ -9,10 +9,10 @@
   </parent>
 
   <groupId>co.simplon.alt3</groupId>
-  <artifactId>persistence</artifactId>
+  <artifactId>library</artifactId>
   <packaging>jar</packaging>
 
-  <name>persistence</name>
+  <name>library</name>
   <url>http://maven.apache.org</url>
 
   <!-- ======================================================= -->
@@ -20,6 +20,11 @@
   <!-- ======================================================= -->
 
   <dependencies>
+
+    <dependency>
+      <groupId>co.simplon.alt3</groupId>
+      <artifactId>library</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -41,10 +46,6 @@
       <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
 
     <!-- bibliothèques tièrces -->
 

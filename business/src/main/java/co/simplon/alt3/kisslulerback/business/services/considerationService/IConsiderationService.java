@@ -9,8 +9,8 @@ import co.simplon.alt3.kisslulerback.library.DTO.considerationDTO.ConsiderationS
 import co.simplon.alt3.kisslulerback.library.DTO.considerationDTO.ConsiderationUpdateDto;
 import co.simplon.alt3.kisslulerback.library.DTO.considerationDTO.UserConsiderationDto;
 import co.simplon.alt3.kisslulerback.library.exception.IncorrectMediaTypeFileException;
-import co.simplon.alt3.kisslulerback.persistence.entites.Consideration;
-import co.simplon.alt3.kisslulerback.persistence.entites.User;
+import co.simplon.alt3.kisslulerback.library.entites.Consideration;
+import co.simplon.alt3.kisslulerback.library.entites.User;
 
 public interface IConsiderationService {
   Consideration saveConsideration(ConsiderationSaveDto considerationSaveDto, MultipartFile image, User user)

@@ -2,8 +2,8 @@ package co.simplon.alt3.kisslulerback.library.DTO.projectDto;
 
 import java.util.List;
 
-import co.simplon.alt3.kisslulerback.persistence.entites.Consideration;
-import co.simplon.alt3.kisslulerback.persistence.entites.Project;
+import co.simplon.alt3.kisslulerback.library.entites.Consideration;
+import co.simplon.alt3.kisslulerback.library.entites.Project;
 
 public class ProjectDTOdetail extends ProjectDTO {
 

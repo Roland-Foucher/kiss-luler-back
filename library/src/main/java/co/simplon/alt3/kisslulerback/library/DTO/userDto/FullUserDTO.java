@@ -3,7 +3,7 @@ package co.simplon.alt3.kisslulerback.library.DTO.userDto;
 import java.time.LocalDate;
 
 import co.simplon.alt3.kisslulerback.library.enums.Role;
-import co.simplon.alt3.kisslulerback.persistence.entites.User;
+import co.simplon.alt3.kisslulerback.library.entites.User;
 
 /**
  * DTO permettant d'envoyer les informations complêtes de l'utilisateur au front

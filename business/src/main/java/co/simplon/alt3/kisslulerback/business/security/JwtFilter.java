@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
-import co.simplon.alt3.kisslulerback.webApp.configuration.PropertiesLoader;
+// import co.simplon.alt3.kisslulerback.webApp.configuration.PropertiesLoader;
 
 /**
  * class permettant de verifier le token envoyer avec les requêtes
@@ -69,9 +69,7 @@ public class JwtFilter extends BasicAuthenticationFilter {
     final String token = request.getHeader(SecurityConstants.HEADER_STRING);
     // récupération de la clé
     String secure;
-    secure = PropertiesLoader
-        .loadProperties("/application.properties")
-        .getProperty("secret.key");
+    secure = "secret.key";
 
     if (token != null) {
 

@@ -7,9 +7,9 @@ import java.util.List;
 import org.springframework.util.Assert;
 
 import co.simplon.alt3.kisslulerback.library.enums.Category;
-import co.simplon.alt3.kisslulerback.persistence.entites.Order;
-import co.simplon.alt3.kisslulerback.persistence.entites.Project;
-import co.simplon.alt3.kisslulerback.persistence.entites.User;
+import co.simplon.alt3.kisslulerback.library.entites.Order;
+import co.simplon.alt3.kisslulerback.library.entites.Project;
+import co.simplon.alt3.kisslulerback.library.entites.User;
 
 /**
  * DTO permettant d'afficher un projet dan sla liste des projets

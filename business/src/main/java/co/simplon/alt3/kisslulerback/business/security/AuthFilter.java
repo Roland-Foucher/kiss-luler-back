@@ -25,9 +25,9 @@ import com.google.gson.GsonBuilder;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.FullUserDTO;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.LoginDTO;
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserDTOWithToken;
-import co.simplon.alt3.kisslulerback.persistence.entites.User;
+import co.simplon.alt3.kisslulerback.library.entites.User;
 import co.simplon.alt3.kisslulerback.business.utils.LocalDateAdapter;
-import co.simplon.alt3.kisslulerback.webApp.configuration.PropertiesLoader;
+// import co.simplon.alt3.kisslulerback.webApp.configuration.PropertiesLoader;
 
 /**
  * class permettant d'authentifier un utilisateur et de créer un token si
@@ -109,9 +109,7 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
    */
   public static String createToken(String username) throws IOException {
     // récupération de la clé
-    String secure = PropertiesLoader
-        .loadProperties("/application.properties")
-        .getProperty("secret.key");
+    String secure = "secret.key";
 
     return JWT.create()
         .withSubject(username)

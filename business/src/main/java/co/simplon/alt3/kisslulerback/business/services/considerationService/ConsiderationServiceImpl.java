@@ -14,12 +14,12 @@ import co.simplon.alt3.kisslulerback.library.DTO.considerationDTO.ConsiderationU
 import co.simplon.alt3.kisslulerback.library.DTO.considerationDTO.UserConsiderationDto;
 import co.simplon.alt3.kisslulerback.library.enums.ConsiderationStatus;
 import co.simplon.alt3.kisslulerback.library.exception.IncorrectMediaTypeFileException;
-import co.simplon.alt3.kisslulerback.persistence.entites.Consideration;
-import co.simplon.alt3.kisslulerback.persistence.entites.Project;
-import co.simplon.alt3.kisslulerback.persistence.entites.User;
-import co.simplon.alt3.kisslulerback.persistence.repositories.ConsiderationRepo;
-import co.simplon.alt3.kisslulerback.persistence.repositories.OrderRepo;
-import co.simplon.alt3.kisslulerback.persistence.repositories.ProjectRepo;
+import co.simplon.alt3.kisslulerback.library.entites.Consideration;
+import co.simplon.alt3.kisslulerback.library.entites.Project;
+import co.simplon.alt3.kisslulerback.library.entites.User;
+import co.simplon.alt3.kisslulerback.library.repositories.ConsiderationRepo;
+import co.simplon.alt3.kisslulerback.library.repositories.OrderRepo;
+import co.simplon.alt3.kisslulerback.library.repositories.ProjectRepo;
 
 @Service
 public class ConsiderationServiceImpl implements IConsiderationService {

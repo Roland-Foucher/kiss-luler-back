@@ -8,9 +8,9 @@ import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectDTOdetail;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectSaveDTO;
 import co.simplon.alt3.kisslulerback.library.DTO.projectDto.ProjectUpdateDTO;
 import co.simplon.alt3.kisslulerback.library.exception.IncorrectMediaTypeFileException;
-import co.simplon.alt3.kisslulerback.persistence.entites.Order;
-import co.simplon.alt3.kisslulerback.persistence.entites.Project;
-import co.simplon.alt3.kisslulerback.persistence.entites.User;
+import co.simplon.alt3.kisslulerback.library.entites.Order;
+import co.simplon.alt3.kisslulerback.library.entites.Project;
+import co.simplon.alt3.kisslulerback.library.entites.User;
 
 public interface IProjectService {
 

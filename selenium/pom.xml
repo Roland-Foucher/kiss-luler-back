@@ -22,6 +22,18 @@
 
   <dependencies>
 
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
     <!-- ###########################@ -->
     <!-- CUCUMBER -->
     <!-- ###########################@ -->
@@ -78,6 +90,11 @@
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>co.simplon.alt3</groupId>
+      <artifactId>library</artifactId>
     </dependency>
 
 

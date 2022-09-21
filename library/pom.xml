@@ -9,10 +9,10 @@
   </parent>
 
   <groupId>co.simplon.alt3</groupId>
-  <artifactId>lib</artifactId>
+  <artifactId>library</artifactId>
   <packaging>jar</packaging>
 
-  <name>lib</name>
+  <name>library</name>
   <url>http://maven.apache.org</url>
 
   <!-- ======================================================= -->
@@ -41,10 +41,6 @@
       <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
 
     <!-- bibliothèques tièrces -->
 

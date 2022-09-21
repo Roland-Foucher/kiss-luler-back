@@ -19,8 +19,8 @@ import co.simplon.alt3.kisslulerback.library.DTO.userDto.UserUpdateDto;
 import co.simplon.alt3.kisslulerback.library.exception.IncorrectMediaTypeFileException;
 import co.simplon.alt3.kisslulerback.library.exception.UserExistsException;
 import co.simplon.alt3.kisslulerback.library.exception.WrongPasswordException;
-import co.simplon.alt3.kisslulerback.persistence.entites.User;
-import co.simplon.alt3.kisslulerback.persistence.repositories.UserRepo;
+import co.simplon.alt3.kisslulerback.library.entites.User;
+import co.simplon.alt3.kisslulerback.library.repositories.UserRepo;
 
 @Service
 public class UserServiceimpl implements IUserService {

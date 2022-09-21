@@ -13,7 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.simplon.alt3.kisslulerback.library.exception.IncorrectMediaTypeFileException;
-import co.simplon.alt3.kisslulerback.webApp.configuration.PropertiesLoader;
+// import co.simplon.alt3.kisslulerback.webApp.configuration.PropertiesLoader;
 
 /**
  * service de gestion de l'upload des fichiers
@@ -75,8 +75,11 @@ public class UploadFileServiceImpl implements IUploadFileService {
   }
 
   private String getServerAdress() throws IOException {
-    Properties properties = PropertiesLoader.loadProperties("/application.properties");
-    return "//" + properties.getProperty("server.address") + ":" + properties.getProperty("server.port");
+    // Properties properties =
+    // PropertiesLoader.loadProperties("/application.properties");
+    // return "//" + properties.getProperty("server.address") + ":" +
+    // properties.getProperty("server.port");
+    return "127.0.0.1:8080";
   }
 
 }

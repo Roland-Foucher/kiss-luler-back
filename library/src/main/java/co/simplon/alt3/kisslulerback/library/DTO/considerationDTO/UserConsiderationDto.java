@@ -1,6 +1,6 @@
 package co.simplon.alt3.kisslulerback.library.DTO.considerationDTO;
 
-import co.simplon.alt3.kisslulerback.persistence.entites.Order;
+import co.simplon.alt3.kisslulerback.library.entites.Order;
 
 public class UserConsiderationDto {
 

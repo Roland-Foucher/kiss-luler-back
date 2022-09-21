@@ -22,15 +22,8 @@
   <dependencies>
     <dependency>
       <groupId>co.simplon.alt3</groupId>
-      <artifactId>lib</artifactId>
+      <artifactId>library</artifactId>
     </dependency>
-
-
-    <dependency>
-      <groupId>co.simplon.alt3</groupId>
-      <artifactId>persistence</artifactId>
-    </dependency>
-
 
     <!-- bibliothèques tièrces -->
 

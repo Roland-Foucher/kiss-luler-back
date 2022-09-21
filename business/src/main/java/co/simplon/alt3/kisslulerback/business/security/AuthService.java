@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import co.simplon.alt3.kisslulerback.library.DTO.userDto.LoginDTO;
-import co.simplon.alt3.kisslulerback.persistence.entites.User;
-import co.simplon.alt3.kisslulerback.persistence.repositories.UserRepo;
+import co.simplon.alt3.kisslulerback.library.entites.User;
+import co.simplon.alt3.kisslulerback.library.repositories.UserRepo;
 
 /**
  * Service permettant de récupérer l'utilisateur via son email
