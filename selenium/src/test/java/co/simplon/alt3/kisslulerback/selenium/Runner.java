@@ -15,8 +15,7 @@ import io.cucumber.spring.CucumberContextConfiguration;
  * tags = permet de lancer les scénario/features qui ont le ou les tags indiqués
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources", publish = true, tags = "@Tests", monochrome = false, glue = {
-    "co.simplon.alt3.kisslulerback.selenium.step" })
+@CucumberOptions(features = "src/test/resources", publish = true, tags = "@Tests", monochrome = false)
 @SpringBootTest
 @CucumberContextConfiguration
 public class Runner {

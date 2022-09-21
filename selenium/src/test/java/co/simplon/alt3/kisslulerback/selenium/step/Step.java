@@ -20,7 +20,7 @@ import io.netty.util.internal.StringUtil;
 
 public class Step {
 
-  private static WebDriver driver = null;
+  private static WebDriver driver = new ChromeDriver();
 
   @Autowired
   private UserRepo userRepo;
