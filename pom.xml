@@ -225,33 +225,36 @@
       </resource>
     </resources>
 
-    <pluginManagement>
-      <!-- plugins -->
-      <plugins>
+    <!-- plugins -->
+    <plugins>
 
-        <!-- Maven site -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>4.0.0-M3</version>
-          <configuration>
-            <!-- Je veux le site en français -->
-            <locales>fr</locales>
-            <port>9001</port>
-          </configuration>
-        </plugin>
+      <!-- Maven site -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>4.0.0-M3</version>
+        <configuration>
+          <!-- Je veux le site en français -->
+          <locales>fr</locales>
+          <port>9001</port>
+        </configuration>
+      </plugin>
 
-        <!-- Maven compiler -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <configuration>
-            <showDeprecation>true</showDeprecation>
-            <showWarnings>true</showWarnings>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+      <!-- Maven compiler -->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
+          <archive>
+            <manifest>
+              <mainClass>co.simplon.alt3.kisslulerback.KissLulerBackApplication</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 
   <!-- =============================================================== -->
