@@ -4,6 +4,12 @@
 
 https://roland-foucher.github.io/kiss-luler-maven-site/
 
+## site heroku back
+
+https://kiss-luler-back.herokuapp.com
+
+Pas de gestion des fichiers car pas de serveur de stockage des fichiers gratuit
+
 ## Analyse des besoins
 
 **QUOI ?**
@@ -60,6 +66,7 @@ https://roland-foucher.github.io/kiss-luler-maven-site/
 * Au lancement de l'application backend, les bdd kiss-luler-back et kiss-luler-back-test sont crées
 * Réimporter les fichier schema.sql (pour obtenir les trigger et procédures) et le fichier data.sql dans src/main/resources
 * Possibilité de se connecter avec le compte `j.jean@gmail.com`  // mdp : `1234`
+
 
 ## Compétences visées détail
 
