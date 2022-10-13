@@ -24,7 +24,7 @@ public class SecurityConfig {
 
   @Autowired
   private AuthService authService;
-  private static final String FRONT_URL = "http://localhost:3000";
+  private static final String FRONT_URL = "https://kiss-luler-front.herokuapp.com";
 
   /**
    * Configuration de Spring Security
